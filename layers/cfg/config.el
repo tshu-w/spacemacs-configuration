@@ -1,4 +1,4 @@
-;;; packages.el --- Org Layer packages File for Spacemacs
+;;; config.el --- Org Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2017 Voleking
 ;;

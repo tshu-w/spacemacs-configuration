@@ -1,4 +1,4 @@
-;;; packages.el --- Org Layer packages File for Spacemacs
+;;; keybindings.el --- Org Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2017 Voleking
 ;;
@@ -14,6 +14,6 @@
 (spacemacs/set-leader-keys "o" (lookup-key global-map (kbd "C-c")))
 (spacemacs/set-leader-keys "o g" 'org-mac-grab-link)
 (global-set-key (kbd "H-b") 'compile)
-(global-set-key (kbd "H-r") 'run)
+(global-set-key (kbd "H-r") 'run-current-file)
 (global-set-key (kbd "H-/") (lookup-key global-map (kbd "M-;")))
 (global-set-key (kbd "<H-backspace>") 'clean-aindent--bsunindent)

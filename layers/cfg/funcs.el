@@ -1,4 +1,4 @@
-;;; packages.el --- Org Layer packages File for Spacemacs
+;;; funcs.el --- Org Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2017 Voleking
 ;;
@@ -17,15 +17,3 @@
                 "-title" title
                 "-message" message
                 "-activate" "org.gnu.Emacs"))
-
-(defun run()
-  (interactive)
-  (shell-command
-   (concat "make -k "
-           (if buffer-file-name
-               (shell-quote-argument
-                (file-name-sans-extension buffer-file-name)))
-           " && open "
-           (if buffer-file-name
-               (shell-quote-argument
-                (file-name-sans-extension buffer-file-name))))))
