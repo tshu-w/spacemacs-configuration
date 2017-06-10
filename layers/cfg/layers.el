@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(my-org))
+(configuration-layer/declare-layers '(my-org lang))

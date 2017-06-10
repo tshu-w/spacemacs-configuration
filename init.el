@@ -396,49 +396,7 @@ before packages are loaded."
   (setq org-bullets-bullet-list '("◉" "○" "✸" "✿" "▲" "▶" "■" "◆"))
   (global-git-commit-mode t)
 
-  ;; C++
-  ;;
-  (setq c-default-style "k&r")
-  (setq c-basic-offset 4)
-  (setq-default flycheck-gcc-language-standard "c++11")
-  (setq-default flycheck-clang-language-standard "c++11")
-  (setq company-c-headers-path-system '("/usr/include/c++/4.2.1" "/usr/include" "/usr/local/include"))
 
-  (require 'compile)
-  (add-hook 'c++-mode-hook
-            (lambda ()
-              (unless (or (file-exists-p "makefile")
-                          (file-exists-p "Makefile"))
-                (set (make-local-variable 'compile-command)
-                     (concat "make -k "
-                             (if buffer-file-name
-                                 (shell-quote-argument
-                                  (file-name-sans-extension buffer-file-name))))))))
-  (add-hook 'c-mode-hook
-            (lambda ()
-              (unless (or (file-exists-p "makefile")
-                          (file-exists-p "Makefile"))
-                (set (make-local-variable 'compile-command)
-                     (concat "make -k "
-                             (if buffer-file-name
-                                 (shell-quote-argument
-                                  (file-name-sans-extension buffer-file-name))))))))
-  (defun run()
-    (interactive)
-    (shell-command
-     (concat "make -k "
-             (if buffer-file-name
-                 (shell-quote-argument
-                  (file-name-sans-extension buffer-file-name)))
-             " && open "
-             (if buffer-file-name
-                 (shell-quote-argument
-                  (file-name-sans-extension buffer-file-name))))))
-
-  ;; Python
-  ;;
-  (setq-default python-shell--interpreter '"python")
-  (setq-default python-indent-offset 4)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
