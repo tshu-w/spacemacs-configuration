@@ -10,6 +10,16 @@
 ;;; License: GPLv3
 
 (with-eval-after-load 'org
+  (require 'org-gcal)
+  (setq org-gcal-client-id "oauth 2.0 client ID"
+        org-gcal-client-secret "client secret"
+        org-gcal-file-alist '(("volekingsg@gmail.com" . "~/Documents/Org/gcal.org")))
+
+  (setq org-agenda-custom-commands
+        '(("c" "Simple agenda view"
+           ((agenda "")
+            (alltodo "")))))
+
   (setq evil-org-key-theme '(textobjects navigation additional insert todo))
   ;; (setq org-startup-indented t)
   (setq org-agenda-span 'day)
@@ -17,6 +27,7 @@
         '((nil :maxlevel . 1)
           (org-agenda-files :maxlevel . 2)))
   (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-directory))
+  (setq org-agenda-file-gcal (expand-file-name "gcal.org" org-directory))
   (setq org-agenda-file-note (expand-file-name "notes.org" org-directory))
   (setq org-agenda-file-journal (expand-file-name "journal.org" org-directory))
   (setq org-default-notes-file (expand-file-name "gtd.org" org-directory))
@@ -28,20 +39,22 @@
     (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files))))
 
   (setq org-capture-templates
-        '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Tasks")
+       '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Tasks")
             "* TODO %?\n  %i\n")
+          ("a" "Appointment" entry (file org-agenda-file-gcal)
+           "* %?\n  :PROPERTIES:\n\n  :END:\n\n  %^T\n\n")
+          ("A" "Assignments" entry (file+headline org-agenda-file-gtd "Assignments")
+           "* TODO [#A] %?\n  %i\n")
+          ("i" "Inbox" entry (file+headline org-agenda-file-gtd "Inbox")
+           "* %?\n  %i\n")
+          ("l" "Link" entry (file+headline org-agenda-file-gtd "Inbox")
+           "* [[%l][%:description]]\n %i\n")
           ("n" "Notes" entry (file+headline org-agenda-file-note "Quick notes")
             "* %?\n  %i\n %T\n"
             :empty-lines 1)
-          ("a" "Assignments" entry (file+headline org-agenda-file-gtd "Assignments")
-            "* TODO [#A] %?\n  %i\n")
-          ("i" "Inbox" entry (file+headline org-agenda-file-gtd "Inbox")
-            "* %?\n  %i\n")
           ("j" "Journal" entry (file+datetree org-agenda-file-journal)
             "* %?\n"
             :empty-lines 1)
-          ("l" "Link" entry (file+headline org-agenda-file-gtd "Inbox")
-            "* [[%l][%:description]]\n %i\n")
           ))
 
   (org-babel-do-load-languages
