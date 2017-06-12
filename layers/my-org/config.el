@@ -31,7 +31,7 @@
        '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Tasks")
             "* TODO %?\n  %i\n")
           ("a" "Appointment" entry (file org-agenda-file-gcal)
-           "* %?\n  :PROPERTIES:\n\n  :END:\n\n  %^T\n\n")
+           "* %?\n  %^T\n\n")
           ("A" "Assignments" entry (file+headline org-agenda-file-gtd "Assignments")
            "* TODO [#A] %?\n  %i\n")
           ("i" "Inbox" entry (file+headline org-agenda-file-gtd "Inbox")
@@ -48,7 +48,7 @@
 
   (with-eval-after-load 'org-agenda
     (require 'org-projectile)
-    (push (org-projectile:todo-files) org-agenda-files))
+    (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files))))
 
   (org-babel-do-load-languages
    'org-babel-load-languages
