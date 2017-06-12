@@ -54,7 +54,8 @@ This function should only modify configuration layer settings."
                markdown-live-preview-engine 'pandoc)
      (org :variables
           org-agenda-files '("~/Documents/Org")
-          org-directory '"~/Documents/Org")
+          org-directory '"~/Documents/Org"
+          org-projectile-file "TODOs.org")
      (python :variables
              python-enable-yapf-format-on-save t)
      (auto-completion :variables
@@ -399,7 +400,9 @@ before packages are loaded."
   (fset 'evil-visual-update-x-selection 'ignore)
 
   ;; Private Setting
+  ;;
   (load (expand-file-name "secrets.el.gpg" dotspacemacs-directory))
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

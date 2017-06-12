@@ -10,33 +10,22 @@
 ;;; License: GPLv3
 
 (with-eval-after-load 'org
-  (require 'org-gcal)
-  (setq org-gcal-client-id "oauth 2.0 client ID"
-        org-gcal-client-secret "client secret"
-        org-gcal-file-alist '(("volekingsg@gmail.com" . "~/Documents/Org/gcal.org")))
-
+  (setq evil-org-key-theme '(textobjects navigation additional insert todo))
+  ;; (setq org-startup-indented t)
+  (setq org-agenda-span 'day)
   (setq org-agenda-custom-commands
         '(("c" "Simple agenda view"
            ((agenda "")
             (alltodo "")))))
-
-  (setq evil-org-key-theme '(textobjects navigation additional insert todo))
-  ;; (setq org-startup-indented t)
-  (setq org-agenda-span 'day)
   (setq org-refile-targets
         '((nil :maxlevel . 1)
           (org-agenda-files :maxlevel . 2)))
+
   (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-directory))
   (setq org-agenda-file-gcal (expand-file-name "gcal.org" org-directory))
   (setq org-agenda-file-note (expand-file-name "notes.org" org-directory))
   (setq org-agenda-file-journal (expand-file-name "journal.org" org-directory))
   (setq org-default-notes-file (expand-file-name "gtd.org" org-directory))
-
-  (setq-default dotspacemacs-configuration-layers
-                '((org :variables org-projectile-file "TODOs.org")))
-  (with-eval-after-load 'org-agenda
-    (require 'org-projectile)
-    (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files))))
 
   (setq org-capture-templates
        '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Tasks")
@@ -56,6 +45,10 @@
             "* %?\n"
             :empty-lines 1)
           ))
+
+  (with-eval-after-load 'org-agenda
+    (require 'org-projectile)
+    (push (org-projectile:todo-files) org-agenda-files))
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -85,7 +78,6 @@
     appt-display-format 'window)     ;; pass warnings to the designated window function
     (appt-activate 1)                ;; activate appointment notification
     (display-time)                   ;; activate time display
-  )
   (with-eval-after-load 'org-agenda
     (org-agenda-to-appt))            ;; generate the appt list from org agenda files on emacs launch
   (run-at-time "24:01" 3600 'org-agenda-to-appt)           ;; update appt list hourly
@@ -94,6 +86,11 @@
     (notify-osx
     (format "Appointment in %s minutes" min-to-app)    ;; passed to -title in terminal-notifier call
     (format "%s" msg)))                                ;; passed to -message in terminal-notifier call
-  (setq appt-disp-window-function (function my-appt-display)
+  (setq appt-disp-window-function (function my-appt-display))
+
+  ;; (require 'org-gcal)
+  ;; (setq org-gcal-client-id "oauth 2.0 client ID"
+  ;;       org-gcal-client-secret "client secret"
+  ;;       org-gcal-file-alist '(("volekingsg@gmail.com" . "~/Documents/Org/gcal.org")))
 
   )
