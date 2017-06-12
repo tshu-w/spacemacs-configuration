@@ -399,7 +399,7 @@ before packages are loaded."
   (fset 'evil-visual-update-x-selection 'ignore)
 
   ;; Private Setting
-  (load (expand-file-name ".secrets.el.gpg" dotspacemacs-directory))
+  (load (expand-file-name "secrets.el.gpg" dotspacemacs-directory))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
