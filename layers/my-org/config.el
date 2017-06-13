@@ -29,7 +29,7 @@
 
   (setq org-capture-templates
        '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Tasks")
-            "* TODO %?\n  %i\n")
+          "* TODO %?\n     SCHEDULED: %t\n")
           ("a" "Appointment" entry (file org-agenda-file-gcal)
            "* %?\n  %^T\n\n")
           ("A" "Assignments" entry (file+headline org-agenda-file-gtd "Assignments")
