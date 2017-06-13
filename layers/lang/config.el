@@ -9,6 +9,10 @@
 ;;
 ;;; License: GPLv3
 
+;; All
+;;
+(add-hook 'prog-mode-hook 'spacemacs/toggle-hungry-delete-on)
+
 ;; C++
 ;;
 (setq c-default-style "k&r")
