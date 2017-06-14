@@ -15,30 +15,17 @@
 
 ;; C++
 ;;
-(setq c-default-style "k&r")
+(with-eval-after-load 'cc-vars
+  (push '(other . "k&r") c-default-style))
 (setq c-basic-offset 4)
 (setq-default flycheck-gcc-language-standard "c++11")
 (setq-default flycheck-clang-language-standard "c++11")
-(set 'company-clang-arguments (list "-I/usr/include/c++/4.2.1"))
-(require 'compile)
-(add-hook 'c++-mode-hook
-          (lambda ()
-            (unless (or (file-exists-p "makefile")
-                        (file-exists-p "Makefile"))
-              (set (make-local-variable 'compile-command)
-                    (concat "make -k "
-                            (if buffer-file-name
-                                (shell-quote-argument
-                                (file-name-sans-extension buffer-file-name))))))))
-(add-hook 'c-mode-hook
-          (lambda ()
-            (unless (or (file-exists-p "makefile")
-                        (file-exists-p "Makefile"))
-              (set (make-local-variable 'compile-command)
-                    (concat "make -k "
-                            (if buffer-file-name
-                                (shell-quote-argument
-                                (file-name-sans-extension buffer-file-name))))))))
+(setq company-c-headers-path-system '("/usr/include/c++/4.2.1" "/usr/include" "/usr/local/include"))
+(set 'company-clang-arguments (list "-I/usr/include/c++/4.2.1"
+                                    "-Wall"
+                                    "-std=c++11"))
+(with-eval-after-load 'projectile
+  (push '("C" "h") projectile-other-file-alist))
 
 ;; Python
 ;;
