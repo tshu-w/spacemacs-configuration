@@ -39,7 +39,7 @@
           ("l" "Link" entry (file+headline org-agenda-file-gtd "Inbox")
            "* [[%l][%:description]]\n %i\n")
           ("n" "Notes" entry (file+headline org-agenda-file-note "Quick notes")
-            "* %?\n  %i\n %T\n"
+            "* %?\n\t%U\n"
             :empty-lines 1)
           ("j" "Journal" entry (file+datetree org-agenda-file-journal)
             "* %?\n"
