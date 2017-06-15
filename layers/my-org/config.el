@@ -31,7 +31,7 @@
        '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Tasks")
           "* TODO %?\n     SCHEDULED: %t\n")
           ("a" "Appointment" entry (file org-agenda-file-gcal)
-           "* %?\n  %^T\n\n")
+           "* %?\n\n  %^T\n\n")
           ("A" "Assignments" entry (file+headline org-agenda-file-gtd "Assignments")
            "* TODO [#A] %?\n  %i\n")
           ("i" "Inbox" entry (file+headline org-agenda-file-gtd "Inbox")
