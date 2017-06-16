@@ -402,6 +402,8 @@ before packages are loaded."
   ;;
   (load (expand-file-name "secrets.el.gpg" dotspacemacs-directory))
 
+  ;; fix hungry-delete & smartparents conflict
+  (defadvice hungry-delete-backward (before sp-delete-pair-advice activate) (save-match-data (sp-delete-pair (ad-get-arg 0))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
