@@ -254,7 +254,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-loading-progress-bar t
    ;; If non-nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup t
+   dotspacemacs-fullscreen-at-startup nil
    ;; If non-nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -395,6 +395,10 @@ before packages are loaded."
   (golden-ratio-mode t)
   (setq org-bullets-bullet-list '("◉" "○" "✸" "✿" "▲" "▶" "■" "◆"))
   (global-git-commit-mode t)
+  (add-to-list 'default-frame-alist '(width  . 77))
+  (add-to-list 'default-frame-alist '(left  . 300))
+  (add-to-list 'default-frame-alist '(height . 40))
+  (add-to-list 'default-frame-alist '(top . 60))
 
   (fset 'evil-visual-update-x-selection 'ignore)
 
