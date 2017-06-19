@@ -11,8 +11,13 @@
 
 ;; Edit Style & Keybinding
 ;;
+(evil-leader/set-key
+  "q q" 'spacemacs/frame-killer)
+(evil-ex-define-cmd "q[uit]" 'evil-delete-buffer)
+
 (spacemacs/set-leader-keys "o" (lookup-key global-map (kbd "C-c")))
 (spacemacs/set-leader-keys "o g" 'org-mac-grab-link)
+(spacemacs/set-leader-keys "a o g" 'org-mac-grab-link)
 (global-set-key (kbd "H-b") 'compile)
 (global-set-key (kbd "H-r") 'run-current-file)
 (global-set-key (kbd "H-/") (lookup-key global-map (kbd "M-;")))
