@@ -17,3 +17,28 @@
                 "-title" title
                 "-message" message
                 "-activate" "org.gnu.Emacs"))
+
+;; Iterm2 Intergration
+(defun iterm-focus ()
+  (interactive)
+  (do-applescript
+   " do shell script \"open -a iTerm\"\n"))
+
+(defun iterm-cammand (cmd)
+  "Go to present working dir and focus iterm"
+  (interactive)
+  (do-applescript
+   (concat
+    " do shell script \"open -a iTerm\"\n"
+    " tell application \"iTerm2\"\n"
+    "   tell the current session of current window\n"
+    (format "     write text \"%s\" \n" cmd)
+    "   end tell\n"
+    " end tell\n")))
+
+(defun iterm-goto-filedir-or-home ()
+  "Go to present working dir and focus iterm"
+  (interactive)
+  (iterm-cammand (concat (replace-regexp-in-string "\\\\" "\\\\\\\\"
+                                                   (shell-quote-argument (or default-directory "~")))
+                         "; clear")))

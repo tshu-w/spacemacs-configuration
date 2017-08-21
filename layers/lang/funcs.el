@@ -20,6 +20,23 @@
            (if buffer-file-name
                (shell-quote-argument
                 (file-name-sans-extension buffer-file-name))))))
+(defun run-c-cpp-file ()
+  (interactive)
+  (shell-command
+   (concat "make -k " (file-name-sans-extension buffer-file-name)))
+  (iterm-goto-filedir-or-home)
+  (iterm-cammand (concat "clear; ./"
+                             (file-name-nondirectory (file-name-sans-extension buffer-file-name)))))
+  ;; (shell-command
+  ;;  (concat "make -k "
+  ;;          (if buffer-file-name
+  ;;              (shell-quote-argument
+  ;;               (file-name-sans-extension buffer-file-name)))
+  ;;          " && open "
+  ;;          (if buffer-file-name
+  ;;              (shell-quote-argument
+  ;;               (file-name-sans-extension buffer-file-name))))))
+
 
 (defun run-current-file (arg)
   "Execute the current file.
