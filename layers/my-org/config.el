@@ -10,16 +10,44 @@
 ;;; License: GPLv3
 
 (with-eval-after-load 'org
+  (require 'org-protocol-capture-html)
+
   (setq evil-org-key-theme '(textobjects navigation additional insert todo))
-  ;; (setq org-startup-indented t)
+  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+  (setq org-startup-indented t)
   (setq org-agenda-span 'day)
+
   (setq org-agenda-custom-commands
-        '(("c" "Simple agenda view"
-           ((agenda "")
-            (alltodo "")))))
+        '(("c" "Daily agenda and all TODOs"
+           ((tags "PRIORITY=\"A\""
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '(done "CANCELED")))
+                   (org-agenda-overriding-header "High-priority unfinished tasks:")))
+            (agenda "" ((org-agenda-overriding-header "Today tasks:")))
+            (todo "TODO|STARTED" ((org-agenda-skip-function '(or (org-agenda-skip-entry-if 'regexp "\\[#A\\]")
+                                                                 (org-agenda-skip-subtree-if 'regexp ":LAST_REPEAT:")
+                                                                 (org-agenda-skip-entry-if 'timestamp)))
+                      (org-agenda-overriding-header "All TODO Items except High-priority:")))
+            (todo "WAITING" )
+            (todo "SOMEDAY" )
+            )
+           ((org-agenda-compact-blocks t)
+            (org-agenda-priority-up t)
+            (org-agenda-repeating-timestamp-show-all nil)))
+         ))
+
   (setq org-refile-targets
         '((nil :maxlevel . 1)
           (org-agenda-files :maxlevel . 2)))
+
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@/!)" "|" "DONE(d)")
+          (sequence "WAITING(w@/!)" "SOMEDAY(f)" "|" "CANCELED(c!)"))
+        )
+
+  (setq org-todo-keyword-faces
+        '(("WAITING" . (:foreground "IndianRed1" :weight bold))
+          ("STARTED" . (:foreground "plum" :weight bold))
+          ("SOMEDAY" . (:foreground "thistle" :weight bold))))
 
   (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-directory))
   (setq org-agenda-file-gcal (expand-file-name "gcal.org" org-directory))
@@ -29,7 +57,7 @@
 
   (setq org-capture-templates
        '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Tasks")
-          "* TODO %?\n     SCHEDULED: %t\n")
+          "* TODO %?\nSCHEDULED: %t\n")
           ("a" "Appointment" entry (file org-agenda-file-gcal)
            "* %?\n\n  %^T\n\n")
           ("A" "Assignments" entry (file+headline org-agenda-file-gtd "Assignments")
@@ -44,6 +72,9 @@
           ("j" "Journal" entry (file+datetree org-agenda-file-journal)
             "* %?\n"
             :empty-lines 1)
+          ("w" "Web site" entry
+           (file org-file-archive)
+           "* %a :website:\n\n%U %?\n\n%:initial")
           ))
 
   (with-eval-after-load 'org-agenda
@@ -56,6 +87,7 @@
      (emacs-lisp . t)
      (C . t)
      (latex . t)
+     (org . t)
      ))
 
   ;; default options for all output formats
