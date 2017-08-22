@@ -24,7 +24,7 @@
   (do-applescript
    " do shell script \"open -a iTerm\"\n"))
 
-(defun iterm-cammand (cmd)
+(defun iterm-command (cmd)
   "Go to present working dir and focus iterm"
   (interactive)
   (do-applescript
@@ -39,6 +39,6 @@
 (defun iterm-goto-filedir-or-home ()
   "Go to present working dir and focus iterm"
   (interactive)
-  (iterm-cammand (concat (replace-regexp-in-string "\\\\" "\\\\\\\\"
+  (iterm-command (concat (replace-regexp-in-string "\\\\" "\\\\\\\\"
                                                    (shell-quote-argument (or default-directory "~")))
                          "; clear")))
