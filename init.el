@@ -37,6 +37,7 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      helm
      osx
+     nlinum
      (chinese :variables
               chinese-enable-fcitx t)
      dash
@@ -74,7 +75,6 @@ This function should only modify configuration layer settings."
                wakatime-cli-path "/usr/local/bin/wakatime")
 
      cfg
-     xkcd
      ;; spell-checking
      )
    ;; List of additional packages that will be installed without being
@@ -299,14 +299,7 @@ It should only modify the values of Spacemacs settings."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers '(:relative nil
-                                         :disabled-for-modes dired-mode
-                                         doc-view-mode
-                                         markdown-mode
-                                         org-mode
-                                         pdf-view-mode
-                                         text-mode
-                                         :size-limit-kb 1000)
+   dotspacemacs-line-numbers nil
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -390,10 +383,6 @@ before packages are loaded."
   (when (string= system-type "darwin")
     (setq dired-use-ls-dired nil))
   (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
-  (setq url-proxy-services
-        '(("http"     . "http://127.0.0.1:6152")
-          ("https"      . "http://127.0.0.1:6152")
-          ("no_proxy" . "^\\(localhost\\)")))
 
   ;; Appearance
   ;;
@@ -434,10 +423,10 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("/Users/Voleking/Documents/Org/cf.org" "/Users/Voleking/Documents/Org/emacs.org" "/Users/Voleking/Documents/Org/gcal.org" "/Users/Voleking/Documents/Org/gtd.org" "/Users/Voleking/Documents/Org/journal.org" "/Users/Voleking/Documents/Org/notes.org" "/Users/Voleking/Documents/Org/someday.org" "/Users/Voleking/Documents/Org/tickler.org" "/Users/Voleking/Documents/Org/vim.org")))
+    ("/Users/Voleking/Documents/Org/archive.org" "/Users/Voleking/Documents/Org/cf.org" "/Users/Voleking/Documents/Org/emacs.org" "/Users/Voleking/Documents/Org/gcal.org" "/Users/Voleking/Documents/Org/gtd.org" "/Users/Voleking/Documents/Org/journal.org" "/Users/Voleking/Documents/Org/notes.org" "/Users/Voleking/Documents/Org/someday.org" "/Users/Voleking/Documents/Org/tc.org" "/Users/Voleking/Documents/Org/tickler.org" "/Users/Voleking/Documents/Org/vim.org" "~/Documents/Blog/TODOs.org" "~/Documents/Learning/CS/ICPC/TODOs.org" "~/Documents/blog/TODOs.org")))
  '(package-selected-packages
    (quote
-    (all-the-icons memoize font-lock+ wisi doom-themes impatient-mode org-protocol-capture-html web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode xkcd zeal-at-point flycheck-irony company-irony-c-headers company-irony irony org-gcal request-deferred deferred org-mac-link org-alert noflet helm-github-stars yapfify xterm-color web-mode wakatime-mode tagedit smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder realgud test-simple loc-changes load-relative pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements pbcopy pangu-spacing pandoc-mode ox-pandoc osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro alert log4e gntp org-download multi-term mmm-mode meghanada markdown-toc markdown-mode magithub ghub+ apiwrap ghub magit-gitflow magit-gh-pulls live-py-mode less-css-mode launchctl hy-mode htmlize helm-pydoc helm-gitignore helm-dash helm-css-scss helm-company helm-c-yasnippet haml-mode groovy-mode groovy-imports gradle-mode gnuplot gitignore-mode github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md fuzzy flycheck-pos-tip flycheck find-by-pinyin-dired fcitx evil-org evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode disaster diff-hl dash-at-point cython-mode company-web web-completion-data company-statistics company-quickhelp company-emacs-eclim eclim company-c-headers company-anaconda company cmake-mode clang-format chinese-pyim chinese-pyim-basedict pos-tip browse-at-remote auto-yasnippet yasnippet anaconda-mode pythonic ace-pinyin pinyinlib ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org symon string-inflection spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-purpose window-purpose imenu-list helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-lion evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav editorconfig dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+    (nlinum-relative nlinum writeroom-mode visual-fill-column pyim pyim-basedict cmake-ide levenshtein org-category-capture org-brain counsel swiper ivy all-the-icons memoize font-lock+ wisi doom-themes impatient-mode org-protocol-capture-html web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode xkcd zeal-at-point flycheck-irony company-irony-c-headers company-irony irony org-gcal request-deferred deferred org-mac-link org-alert noflet helm-github-stars yapfify xterm-color web-mode wakatime-mode tagedit smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder realgud test-simple loc-changes load-relative pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements pbcopy pangu-spacing pandoc-mode ox-pandoc osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro alert log4e gntp org-download multi-term mmm-mode meghanada markdown-toc markdown-mode magithub ghub+ apiwrap ghub magit-gitflow magit-gh-pulls live-py-mode less-css-mode launchctl hy-mode htmlize helm-pydoc helm-gitignore helm-dash helm-css-scss helm-company helm-c-yasnippet haml-mode groovy-mode groovy-imports gradle-mode gnuplot gitignore-mode github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md fuzzy flycheck-pos-tip flycheck find-by-pinyin-dired fcitx evil-org evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode disaster diff-hl dash-at-point cython-mode company-web web-completion-data company-statistics company-quickhelp company-emacs-eclim eclim company-c-headers company-anaconda company cmake-mode clang-format chinese-pyim chinese-pyim-basedict pos-tip browse-at-remote auto-yasnippet yasnippet anaconda-mode pythonic ace-pinyin pinyinlib ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org symon string-inflection spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-purpose window-purpose imenu-list helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-lion evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav editorconfig dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
