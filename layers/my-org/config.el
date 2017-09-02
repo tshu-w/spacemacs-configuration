@@ -40,7 +40,7 @@
           (org-agenda-files :maxlevel . 2)))
 
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@/!)" "|" "DONE(d)")
+        '((sequence "TODO(t)" "STARTED(s!)" "|" "DONE(d)")
           (sequence "WAITING(w@/!)" "SOMEDAY(f)" "|" "CANCELED(c!)"))
         )
 
