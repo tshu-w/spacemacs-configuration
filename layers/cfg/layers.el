@@ -9,4 +9,4 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(my-org lang writeroom))
+(configuration-layer/declare-layers '(my-org lang writeroom openwith))
