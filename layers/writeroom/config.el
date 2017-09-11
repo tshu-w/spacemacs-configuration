@@ -17,5 +17,3 @@
 (setq writeroom-mode-line-toggle-position 'mode-line-format)
 
 (setq writeroom-major-modes '(text-mode prog-mode))
-
-;; (add-hook 'find-file-hook #'writeroom-mode)
