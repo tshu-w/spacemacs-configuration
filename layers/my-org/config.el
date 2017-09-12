@@ -53,6 +53,7 @@
   (setq org-agenda-file-gcal (expand-file-name "gcal.org" org-directory))
   (setq org-agenda-file-note (expand-file-name "notes.org" org-directory))
   (setq org-agenda-file-journal (expand-file-name "journal.org" org-directory))
+  (setq org-file-archive (expand-file-name "archive.org" org-directory))
   (setq org-default-notes-file (expand-file-name "gtd.org" org-directory))
 
   (setq org-capture-templates
@@ -72,14 +73,14 @@
           ("j" "Journal" entry (file+datetree org-agenda-file-journal)
             "* %?\n"
             :empty-lines 1)
-          ("w" "Web site" entry
-           (file org-file-archive)
+          ("w" "Web site" entry (file org-file-archive)
            "* %a :website:\n\n%U %?\n\n%:initial")
           ))
 
   (with-eval-after-load 'org-agenda
     (require 'org-projectile)
-    (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files))))
+    (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files)))
+    )
 
   (org-babel-do-load-languages
    'org-babel-load-languages
