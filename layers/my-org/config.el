@@ -79,7 +79,11 @@
 
   (with-eval-after-load 'org-agenda
     (require 'org-projectile)
-    (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files)))
+    ;; (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files)))
+    (mapcar '(lambda (file)
+               (when (file-exists-p file)
+                 (push file org-agenda-files)))
+            (org-projectile-todo-files))
     )
 
   (org-babel-do-load-languages
