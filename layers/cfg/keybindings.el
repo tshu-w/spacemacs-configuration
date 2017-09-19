@@ -23,3 +23,4 @@
 (global-set-key (kbd "H-r") 'run-current-file)
 (global-set-key (kbd "H-/") 'comment-dwim)
 (global-set-key (kbd "<H-backspace>") 'clean-aindent--bsunindent)
+(evil-define-key 'insert org-mode-map (kbd "<tab>") #'org-cycle)
