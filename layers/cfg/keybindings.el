@@ -23,4 +23,9 @@
 (global-set-key (kbd "H-r") 'run-current-file)
 (global-set-key (kbd "H-/") 'comment-dwim)
 (global-set-key (kbd "<H-backspace>") 'clean-aindent--bsunindent)
+
+(with-eval-after-load 'evil-maps
+  (define-key evil-normal-state-map (kbd "DEL") 'evil-repeat-find-char-reverse)
+  (define-key evil-insert-state-map (kbd "C-c u") 'backward-kill-line)
+  (define-key evil-insert-state-map (kbd "C-c w") 'backward-kill-word))
 (evil-define-key 'insert org-mode-map (kbd "<tab>") #'org-cycle)

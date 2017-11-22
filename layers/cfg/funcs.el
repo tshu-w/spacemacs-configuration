@@ -18,6 +18,11 @@
                 "-message" message
                 "-activate" "org.gnu.Emacs"))
 
+(defun backward-kill-line (arg)
+  "Kill ARG lines backward."
+  (interactive "p")
+  (kill-line (- 1 arg)))
+
 ;; Iterm2 Intergration
 (defun iterm-focus ()
   (interactive)
@@ -51,23 +56,3 @@
     (set-file-modes buffer-file-name
                     (logior (file-modes buffer-file-name) #o100))
     (message (concat "Made " buffer-file-name " executable"))))
-
-;; Merge comment-line and comment-dwim
-(defun comment-dwim ()
-  "Like `comment-dwim', but toggle comment if cursor is not at end of line.
-URL `http://ergoemacs.org/emacs/emacs_toggle_comment_by_line.html'
-Version 2016-10-25"
-  (interactive)
-  (if (region-active-p)
-      (comment-dwim nil)
-    (let (($lbp (line-beginning-position))
-          ($lep (line-end-position)))
-      (if (eq $lbp $lep)
-          (progn
-            (comment-dwim nil))
-        (if (eq (point) $lep)
-            (progn
-              (comment-dwim nil))
-          (progn
-            (comment-or-uncomment-region $lbp $lep)
-            (forward-line )))))))
