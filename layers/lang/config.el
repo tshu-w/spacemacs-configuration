@@ -23,9 +23,9 @@
 (setq-default flycheck-clang-language-standard "c++11")
 (setq flycheck-clang-include-path (list (expand-file-name "/usr/local/include")))
 (setq company-c-headers-path-system '("/usr/include/c++/4.2.1" "/usr/include" "/usr/local/include"))
-(set 'company-clang-arguments (list "-I/usr/include/c++/4.2.1"
-                                    "-Wall"
-                                    "-std=c++11"))
+;; (set 'company-clang-arguments (list "-I/usr/include/c++/4.2.1"
+;;                                     "-Wall"
+;;                                     "-std=c++11"))
 (with-eval-after-load 'projectile
   (push '("C" "h") projectile-other-file-alist))
 
