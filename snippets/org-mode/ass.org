@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: ass
+# key: ass
+# --
+#+TITLE: $1
+#+AUTHOR: 计算机科学 1505 王天舒 15281132
+
+$2
