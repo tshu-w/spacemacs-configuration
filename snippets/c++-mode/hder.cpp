@@ -4,13 +4,16 @@
 # --
 // written `(format-time-string "at %H:%M on %d %b %Y" (current-time))`
 #include <bits/stdc++.h>
+using namespace std;
 
+#define rep(i, a, n) for (int i = a; i < n; i++)
+#define per(i, a, n) for (int i = n - 1; i >= a; i--)
+#define SZ(x) ((int)x.size())
+#define all(x) (x).begin(), (x).end()
 #define IOS std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr);
 #define filename ""
 #define setfile() freopen(filename".in", "r", stdin); freopen(filename".ans", "w", stdout);
 #define resetfile() freopen("/dev/tty", "r", stdin); freopen("/dev/tty", "w", stdout); system("more " filename".ans");
-
-using namespace std;
 
 template <typename T>
 inline T sqr(T a) { return a * a;};
