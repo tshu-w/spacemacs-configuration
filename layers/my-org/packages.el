@@ -9,11 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq my-org-packages '(org-mac-link org-alert org-gcal))
-
-(defun my-org/init-org-mac-link ()
-  (use-package org-mac-link
-    :defer t))
+(setq my-org-packages '(org-alert org-gcal))
 
 (defun my-org/init-org-alert ()
   (use-package org-alert

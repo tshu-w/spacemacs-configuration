@@ -49,6 +49,8 @@
           ("STARTED" . (:foreground "plum" :weight bold))
           ("SOMEDAY" . (:foreground "thistle" :weight bold))))
 
+  ;; https://github.com/syl20bnr/spacemacs/issues/9763
+  (setq-default org-directory '"~/Documents/Org")
   (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-directory))
   (setq org-agenda-file-gcal (expand-file-name "gcal.org" org-directory))
   (setq org-agenda-file-note (expand-file-name "notes.org" org-directory))
