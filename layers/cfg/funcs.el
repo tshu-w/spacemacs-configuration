@@ -12,7 +12,7 @@
 (defun notify-osx (title message)
   (call-process "terminal-notifier"
                 nil 0 nil
-                ;;"-sender" "org.gnu.Emacs"
+                "-sender" "org.gnu.Emacs"
                 "-group" "Emacs"
                 "-title" title
                 "-message" message
