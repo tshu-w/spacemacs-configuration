@@ -35,6 +35,12 @@
             (org-agenda-repeating-timestamp-show-all nil)))
          ))
 
+  (require 'org-projectile)
+  (mapcar '(lambda (file)
+             (when (file-exists-p file)
+               (push file org-agenda-files)))
+          (org-projectile-todo-files))
+
   (setq org-refile-targets
         '((nil :maxlevel . 1)
           (org-agenda-files :maxlevel . 2)))
@@ -54,7 +60,6 @@
   (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-directory))
   (setq org-agenda-file-gcal (expand-file-name "gcal.org" org-directory))
   (setq org-agenda-file-note (expand-file-name "notes.org" org-directory))
-  (setq org-agenda-file-journal (expand-file-name "journal.org" org-directory))
   (setq org-file-archive (expand-file-name "archive.org" org-directory))
   (setq org-default-notes-file (expand-file-name "gtd.org" org-directory))
 
@@ -72,21 +77,15 @@
           ("n" "Notes" entry (file+headline org-agenda-file-note "Quick notes")
             "* %?\n\t%U\n"
             :empty-lines 1)
-          ("j" "Journal" entry (file+datetree org-agenda-file-journal)
-            "* %?\n"
-            :empty-lines 1)
           ("w" "Web site" entry (file org-file-archive)
            "* %a :website:\n\n%U %?\n\n%:initial")
           ))
 
-  (with-eval-after-load 'org-agenda
-    (require 'org-projectile)
-    ;; (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files)))
-    (mapcar '(lambda (file)
-               (when (file-exists-p file)
-                 (push file org-agenda-files)))
-            (org-projectile-todo-files))
-    )
+  (setq org-journal-file-format "%Y-%m-%d")
+  (setq org-journal-date-prefix "#+TITLE: ")
+  (setq org-journal-date-format "%A, %B %d %Y")
+  (setq org-journal-time-prefix "* ")
+  (setq org-journal-time-format "")
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -96,26 +95,6 @@
      (latex . t)
      (org . t)
      ))
-
-  (use-package pyim
-    :config
-    (defun eh-company-dabbrev--prefix (orig-fun)
-      "取消中文补全"
-      (let ((string (pyim-char-before-to-string 0)))
-        (if (pyim-string-match-p "\\cc" string)
-            nil
-          (funcall orig-fun))))
-    (advice-add 'company-dabbrev--prefix
-                :around #'eh-company-dabbrev--prefix))
-
-  ;; default options for all output formats
-  (setq org-pandoc-options '((standalone . t)))
-  ;; cancel above settings only for 'docx' format
-  (setq org-pandoc-options-for-docx '((standalone . nil)))
-  ;; special settings for beamer-pdf and latex-pdf exporters
-  (setq org-pandoc-options-for-beamer-pdf '((latex-engine . "xelatex")))
-  (setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")
-                                           (template . "eisvogel.latex")))
 
   ;; Org Agent alert
   ;; https://emacs-china.org/t/org-agenda/232

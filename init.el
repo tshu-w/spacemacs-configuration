@@ -55,7 +55,11 @@ This function should only modify configuration layer settings."
           org-agenda-files '("~/Documents/Org")
           org-directory '"~/Documents/Org"
           org-projectile-file "TODOs.org"
-          org-want-todo-bindings t)
+          org-want-todo-bindings t
+          org-enable-reveal-js-support t
+          org-enable-org-journal-support t
+          org-journal-dir "~/Documents/Org/journal/"
+          org-enable-hugo-support t)
      (python :variables
              python-enable-yapf-format-on-save t)
      yaml
@@ -90,9 +94,9 @@ This function should only modify configuration layer settings."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(helm-dash exec-path-from-shell neotree magithub
+   dotspacemacs-excluded-packages '(helm-dash neotree magithub google-c-style
                                               window-purpose spacemacs-purpose-popwin
-                                              pangu-spacing)
+                                              pangu-spacing org-brain)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and deletes any unused
@@ -120,6 +124,13 @@ It should only modify the values of Spacemacs settings."
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; (default 5)
    dotspacemacs-elpa-timeout 5
+   ;; If non-nil then Spacelpa repository is the primary source to install
+   ;; a locked version of packages. If nil then Spacemacs will install the lastest
+   ;; version of packages from MELPA. (default nil)
+   dotspacemacs-use-spacelpa nil
+   ;; If non-nil then verify the signature for downloaded Spacelpa archives.
+   ;; (default nil)
+   dotspacemacs-verify-spacelpa-archives nil
    ;; If non-nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
@@ -151,18 +162,25 @@ It should only modify the values of Spacemacs settings."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 7)
-                                (projects . 10))
+   dotspacemacs-startup-lists '((recents . 5)
+                                (projects . 7))
    ;; True if the home buffer should respond to resize events.
-   dotspacemacs-startup-buffer-responsive t
+   dotspacemacs-startup-buffer-responsive nil
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light
-                         )
+                         spacemacs-light)
+   ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
+   ;; `all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
+   ;; are spaceline themes. `vanilla' is default Emacs mode-line. `custom' is a
+   ;; user defined themes, refer to the DOCUMENTATION.org for more info on how
+   ;; to create your own spaceline theme. Value can be a symbol or list with\
+   ;; additional properties.
+   ;; (default '(spacemacs :separator wave :separator-scale 1.5))
+   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.2)
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -170,8 +188,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-default-font '("Source Code Pro"
                                :size 13
                                :weight normal
-                               :width normal
-                               :powerline-scale 1.1)
+                               :width normal)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands `M-x' (after pressing on the leader key).
@@ -320,7 +337,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-highlight-delimiters 'all
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server nil
+   dotspacemacs-persistent-server t
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
    ;; (default '("rg" "ag" "pt" "ack" "grep"))
@@ -425,9 +442,25 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   (quote
+    ("~/Documents/Learning/CS/ICPC/TODOs.org" "~/Documents/dotfiles/backup/.spacemacs.d/TODOs.org" "/Users/Voleking/Documents/Org/about.org" "/Users/Voleking/Documents/Org/emacs.org" "/Users/Voleking/Documents/Org/gcal.org" "/Users/Voleking/Documents/Org/gtd.org" "/Users/Voleking/Documents/Org/notes.org" "/Users/Voleking/Documents/Org/orgzly.org" "/Users/Voleking/Documents/Org/someday.org" "/Users/Voleking/Documents/Org/tickler.org" "/Users/Voleking/Documents/Org/trello.org" "/Users/Voleking/Documents/Org/vim.org" "~/Documents/dotfiles/backup/.spacemacs.d/TODOs.org" "~/Documents/Learning/CS/ICPC/TODOs.org")))
  '(package-selected-packages
    (quote
-    (yaml-mode json-mode yapfify xterm-color ws-butler writeroom-mode visual-fill-column winum wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package toc-org symon string-inflection spaceline powerline smeargle shell-pop reveal-in-osx-finder restart-emacs rainbow-delimiters pyvenv pytest pyim pyim-basedict pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el pbcopy password-generator paradox spinner pandoc-mode ox-pandoc overseer osx-trash osx-dictionary orgit org-projectile org-category-capture org-present org-pomodoro org-gcal request-deferred deferred org-download org-bullets org-brain org-alert alert log4e gntp openwith open-junk-file nlinum-relative multi-term move-text mmm-mode markdown-toc markdown-mode magit-gitflow magit-gh-pulls macrostep lorem-ipsum live-py-mode link-hint launchctl info+ indent-guide hy-mode dash-functional hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-purpose window-purpose imenu-list helm-projectile helm-mode-manager helm-make projectile helm-gitignore request helm-github-stars helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio gnuplot gitignore-mode github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md fuzzy flycheck-pos-tip flycheck pkg-info epl flx-ido flx find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit ghub let-alist with-editor evil-lisp-state smartparens evil-lion evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig edit-indirect dumb-jump doom-themes all-the-icons memoize font-lock+ disaster diminish dash-at-point cython-mode company-quickhelp pos-tip company-c-headers company-anaconda column-enforce-mode cmake-mode cmake-ide levenshtein clean-aindent-mode clang-format browse-at-remote bind-map bind-key auto-yasnippet auto-highlight-symbol auto-compile packed anaconda-mode pythonic ace-pinyin pinyinlib ace-link ace-jump-helm-line helm helm-core ac-ispell auto-complete popup yasnippet which-key undo-tree realgud org-protocol-capture-html org-plus-contrib nlinum nameless hydra evil-unimpaired diff-hl company-statistics async aggressive-indent adaptive-wrap ace-window))))
+    (ox-hugo org-journal web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data ox-reveal web-beautify livid-mode skewer-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc impatient-mode simple-httpd helm-gtags ggtags counsel-gtags company-tern tern coffee-mode add-node-modules-path org-mime counsel-projectile counsel swiper ivy yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum which-key wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package toc-org symon string-inflection spaceline-all-the-icons smeargle shell-pop reveal-in-osx-finder restart-emacs realgud rainbow-delimiters pyvenv pytest pyim pyenv-mode py-isort popwin pippel pip-requirements persp-mode pcre2el pbcopy password-generator paradox pandoc-mode ox-pandoc overseer osx-trash osx-dictionary orgit org-protocol-capture-html org-projectile org-present org-pomodoro org-gcal org-download org-bullets org-brain org-alert openwith open-junk-file nlinum-relative nameless multi-term move-text mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum live-py-mode link-hint launchctl info+ indent-guide importmagic hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-github-stars helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy flycheck-rtags flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig edit-indirect dumb-jump doom-themes disaster diminish diff-hl dash-at-point cython-mode company-statistics company-rtags company-quickhelp company-c-headers company-anaconda column-enforce-mode cmake-mode cmake-ide clean-aindent-mode clang-format browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-pinyin ace-link ace-jump-helm-line ac-ispell)))
+ '(safe-local-variable-values
+   (quote
+    ((eval font-lock-add-keywords nil
+           (\`
+            (((\,
+               (concat "("
+                       (regexp-opt
+                        (quote
+                         ("sp-do-move-op" "sp-do-move-cl" "sp-do-put-op" "sp-do-put-cl" "sp-do-del-op" "sp-do-del-cl"))
+                        t)
+                       "\\_>"))
+              1
+              (quote font-lock-variable-name-face)))))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
