@@ -1,6 +1,6 @@
-;;; layers.el --- Org Layer packages File for Spacemacs
+;;; config.el --- Org Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2017 Voleking
+;; Copyright (c) 2018 Voleking
 ;;
 ;; Author: Sylvain Benner <volekingsg@gmail.com>
 ;; URL: https://github.com/Voleking/spacemacs-configuration
@@ -9,4 +9,5 @@
 ;;
 ;;; License: GPLv3
 
-(configuration-layer/declare-layers '(my-org lang writeroom openwith tiddlywiki))
+(defvar tiddlywiki-directory "~/Documents/Wiki"
+  "Directory with Wiki files.")

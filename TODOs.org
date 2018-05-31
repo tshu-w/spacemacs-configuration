@@ -51,3 +51,5 @@ The GNU Emacs Calculator
 ** [[https://blog.aaronbieber.com/page3/][The Chronicle]]
 ** [[https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html][Orgmode for GTD]]
 ** [[https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html][An Agenda for Life With Org Mode]]
+** [[http://dsdshcym.github.io/blog/2018/03/02/my-org-refile-workflow/][My org-refile workflow - dsdshome]]
+** [[https://emacs-china.org/t/topic/3650/9][在 Mac / Chrome 中实时地预览 Markdown 导出的结果 - Emacs-general - Emacs China]]

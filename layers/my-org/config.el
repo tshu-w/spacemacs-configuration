@@ -9,19 +9,60 @@
 ;;
 ;;; License: GPLv3
 
+;; (setq org-emphasis-regexp-components
+;;       ;; markup 记号前后允许中文
+;;       (list (concat " \t('\"{"            "[:nonascii:]")
+;;             (concat "- \t.,:!?;'\")}\\["  "[:nonascii:]")
+;;             " \t\r\n,\"'"
+;;             "."
+;;             1))
+
 (with-eval-after-load 'org
-  (require 'org-protocol-capture-html)
+  (setq org-image-actual-width 500)
+
+  ;; (setq org-match-substring-regexp
+  ;;       (concat
+  ;;        ;; 限制上标和下标的匹配范围，org 中对其的介绍见：(org) Subscripts and superscripts
+  ;;        "\\([0-9a-zA-Zα-γΑ-Ω]\\)\\([_^]\\)\\("
+  ;;        "\\(?:" (org-create-multibrace-regexp "{" "}" org-match-sexp-depth) "\\)"
+  ;;        "\\|"
+  ;;        "\\(?:" (org-create-multibrace-regexp "(" ")" org-match-sexp-depth) "\\)"
+  ;;        "\\|"
+  ;;        "\\(?:\\*\\|[+-]?[[:alnum:].,\\]*[[:alnum:]]\\)\\)"))
+
+  (setf org-html-mathjax-options
+        '((path " https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS_HTML")
+         (scale "100")
+         (align "center")
+         (font "TeX")
+         (linebreaks "false")
+         (autonumber "AMS")
+         (indent "0em")
+         (multlinewidth "85%")
+         (tagindent ".8em")
+         (tagside "right"))
+        )
+
+  (setq org-latex-create-formula-image-program 'dvisvgm)
+
+  ;; (require 'org-protocol-capture-html)
 
   (setq evil-org-key-theme '(textobjects navigation additional insert todo))
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
   (setq org-startup-indented t)
   (setq org-agenda-span 'day)
 
+  (require 'org-projectile)
+	(mapcar '(lambda (file)
+			   (when (file-exists-p file)
+				 (push file org-agenda-files)))
+			(org-projectile-todo-files))
+
   (setq org-agenda-custom-commands
         '(("c" "Daily agenda and all TODOs"
-           ((tags "PRIORITY=\"A\""
-                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '(done "CANCELED")))
-                   (org-agenda-overriding-header "High-priority unfinished tasks:")))
+           ((tags-todo "PRIORITY=\"A\""
+                       ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo))
+                        (org-agenda-overriding-header "High-priority unfinished tasks:")))
             (agenda "" ((org-agenda-overriding-header "Today tasks:")))
             (todo "TODO|STARTED" ((org-agenda-skip-function '(or (org-agenda-skip-entry-if 'regexp "\\[#A\\]")
                                                                  (org-agenda-skip-subtree-if 'regexp ":LAST_REPEAT:")
@@ -35,19 +76,21 @@
             (org-agenda-repeating-timestamp-show-all nil)))
          ))
 
-  (require 'org-projectile)
-  (mapcar '(lambda (file)
-             (when (file-exists-p file)
-               (push file org-agenda-files)))
-          (org-projectile-todo-files))
-
   (setq org-refile-targets
         '((nil :maxlevel . 1)
           (org-agenda-files :maxlevel . 2)))
 
+  (defun org-search ()
+    "use org-refile to search org-mode headings"
+    (interactive)
+    (org-refile '(4))
+    )
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode
+    "sf" 'org-search)
+
   (setq org-todo-keywords
         '((sequence "TODO(t)" "STARTED(s!)" "|" "DONE(d)")
-          (sequence "WAITING(w@/!)" "SOMEDAY(f)" "|" "CANCELED(c!)"))
+          (sequence "WAITING(w@/!)" "|" "SOMEDAY(f)" "CANCELED(c!)"))
         )
 
   (setq org-todo-keyword-faces
@@ -66,20 +109,18 @@
   (setq org-capture-templates
        '(("t" "Todo" entry (file+headline org-agenda-file-gtd "Tasks")
           "* TODO %?\nSCHEDULED: %t\n")
-          ("a" "Appointment" entry (file org-agenda-file-gcal)
-           "* %?\n\n  %^T\n\n")
-          ("A" "Assignments" entry (file+headline org-agenda-file-gtd "Assignments")
-           "* TODO [#A] %?\n  %i\n")
-          ("i" "Inbox" entry (file+headline org-agenda-file-gtd "Inbox")
-           "* %?\n  %i\n")
-          ("l" "Link" entry (file+headline org-agenda-file-gtd "Inbox")
-           "* [[%l][%:description]]\n %i\n")
-          ("n" "Notes" entry (file+headline org-agenda-file-note "Quick notes")
+         ("i" "Inbox" entry (file+headline org-agenda-file-gtd "Inbox")
+          "* %?\n  %i\n")
+         ("a" "Appointment" entry (file org-agenda-file-gcal)
+            "* %?\n\n  %^T\n\n")
+         ("s" "Schoolworks" entry (file+headline org-agenda-file-gtd "Schoolworks")
+            "* TODO [#A] %?\n  %i\n")
+         ("l" "Link" entry (file+headline org-agenda-file-gtd "Inbox")
+            "* %:annotation\n %i\n" :immediate-finish t :kill-buffer t)
+         ("n" "Notes" entry (file+headline org-agenda-file-note "Quick notes")
             "* %?\n\t%U\n"
             :empty-lines 1)
-          ("w" "Web site" entry (file org-file-archive)
-           "* %a :website:\n\n%U %?\n\n%:initial")
-          ))
+         ))
 
   (setq org-journal-file-format "%Y-%m-%d")
   (setq org-journal-date-prefix "#+TITLE: ")
@@ -94,7 +135,11 @@
      (C . t)
      (latex . t)
      (org . t)
+     (dot . t)
      ))
+
+  (setq org-edit-src-content-indentation 0)
+  (setq org-src-tab-acts-natively t)
 
   ;; Org Agent alert
   ;; https://emacs-china.org/t/org-agenda/232
@@ -117,9 +162,9 @@
     (format "%s" msg)))                                ;; passed to -message in terminal-notifier call
   (setq appt-disp-window-function (function my-appt-display))
 
+
   ;; (require 'org-gcal)
   ;; (setq org-gcal-client-id "oauth 2.0 client ID"
   ;;       org-gcal-client-secret "client secret"
   ;;       org-gcal-file-alist '(("volekingsg@gmail.com" . "~/Documents/Org/gcal.org")))
-
   )

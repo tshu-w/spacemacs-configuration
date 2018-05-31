@@ -15,7 +15,7 @@
   "Initialize writeroom-mode"
 
   (use-package writeroom-mode
-    :init (spacemacs/set-leader-keys "aw" #'writeroom-mode)
+    :init (spacemacs/set-leader-keys "am" 'writeroom-mode)
     (global-writeroom-mode 1)
     (add-hook 'find-file-hook #'writeroom-mode))
 )
