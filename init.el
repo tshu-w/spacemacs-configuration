@@ -47,7 +47,6 @@ This function should only modify configuration layer settings."
      git
      github
      pandoc
-     graphviz
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support nil
@@ -466,6 +465,14 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil)
    dotspacemacs-pretty-docs nil))
 
+(defun dotspacemacs/user-env ()
+  "Environment variables setup.
+This function defines the environment variables for your Emacs session. By
+default it calls `spacemacs/load-spacemacs-env' which loads the environment
+variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
+See the header of this file for more information."
+  (spacemacs/load-spacemacs-env))
+
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
 This function is called immediately after `dotspacemacs/init', before layer
@@ -473,6 +480,13 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq-default git-magit-status-fullscreen t)
+  )
+
+(defun dotspacemacs/user-load ()
+  "Library to load while dumping.
+This function is called only while dumping Spacemacs configuration. You can
+`require' or `load' the libraries of your choice that will be included in the
+dump."
   )
 
 (defun dotspacemacs/user-config ()
@@ -535,7 +549,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yasnippet-snippets yapfify xterm-color ws-butler writeroom-mode visual-fill-column winum wakatime-mode volatile-highlights vi-tilde-fringe uuidgen unicode-fonts ucs-utils font-utils toc-org symon string-inflection spaceline-all-the-icons all-the-icons memoize spaceline powerline smeargle shell-pop reveal-in-osx-finder restart-emacs rainbow-delimiters pyvenv pytest pyim pyim-basedict pyenv-mode py-isort popwin pippel pipenv pip-requirements persp-mode persistent-soft list-utils password-generator paradox spinner pandoc-mode ox-reveal ox-pandoc overseer osx-trash osx-dictionary orgit org-protocol-capture-html org-projectile org-category-capture org-present org-pomodoro org-mime org-journal org-gcal request-deferred org-download org-bullets org-alert alert log4e gntp openwith open-junk-file nameless multi-term move-text mmm-mode markdown-toc markdown-mode magit-svn magit-gitflow magit-gh-pulls macrostep lorem-ipsum live-py-mode link-hint launchctl json-mode json-snatcher json-reformat indent-guide importmagic epc ctable concurrent deferred hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose window-purpose imenu-list helm-projectile helm-mode-manager helm-make helm-gitignore request helm-github-stars helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag graphviz-dot-mode google-translate google-c-style golden-ratio gnuplot gitignore-templates gitignore-mode github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md fuzzy flycheck-rtags flycheck-pos-tip flycheck flx-ido flx find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit ghub with-editor evil-lisp-state evil-lion evil-indent-plus evil-iedit-state iedit evil-goggles evil-exchange evil-escape evil-cleverparens smartparens paredit evil-args evil-anzu anzu eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig edit-indirect dumb-jump disaster diff-hl dash-at-point cython-mode counsel-projectile projectile counsel swiper ivy pkg-info epl company-statistics company-rtags rtags company-quickhelp pos-tip company-c-headers company-anaconda company column-enforce-mode clean-aindent-mode clang-format chinese-conv centered-cursor-mode browse-at-remote auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed anaconda-mode pythonic f dash s aggressive-indent ace-window ace-pinyin pinyinlib ace-link ace-jump-helm-line helm avy helm-core ac-ispell auto-complete popup which-key use-package pcre2el org-plus-contrib hydra font-lock+ evil goto-chg undo-tree dotenv-mode diminish bind-map bind-key async))))
+    (yasnippet-snippets yapfify xterm-color writeroom-mode visual-fill-column wakatime-mode unicode-fonts ucs-utils font-utils smeargle shell-pop reveal-in-osx-finder pyvenv pytest pyim pyim-basedict pyenv-mode py-isort pippel pipenv pip-requirements persistent-soft list-utils pandoc-mode ox-reveal ox-pandoc osx-trash osx-dictionary orgit org-protocol-capture-html org-projectile org-category-capture org-present org-pomodoro org-mime org-journal org-gcal request-deferred org-download org-alert alert log4e gntp openwith multi-term mmm-mode markdown-toc markdown-mode magit-svn magit-gitflow magit-gh-pulls live-py-mode launchctl json-mode json-snatcher json-reformat importmagic epc ctable concurrent deferred htmlize helm-rtags helm-pydoc helm-gitignore helm-github-stars helm-company helm-c-yasnippet google-c-style gnuplot gitignore-templates gitignore-mode github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md fuzzy flycheck-rtags flycheck-pos-tip flycheck find-by-pinyin-dired fcitx evil-org evil-magit magit magit-popup git-commit ghub with-editor eshell-z eshell-prompt-extras esh-help edit-indirect disaster diff-hl dash-at-point cython-mode company-statistics company-rtags rtags company-quickhelp pos-tip company-c-headers company-anaconda company clang-format chinese-conv browse-at-remote auto-yasnippet yasnippet anaconda-mode pythonic ace-pinyin pinyinlib ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org symon string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file neotree nameless move-text macrostep lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
