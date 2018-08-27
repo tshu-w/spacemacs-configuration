@@ -9,26 +9,8 @@
 ;;
 ;;; License: GPLv3
 
-;; (setq org-emphasis-regexp-components
-;;       ;; markup 记号前后允许中文
-;;       (list (concat " \t('\"{"            "[:nonascii:]")
-;;             (concat "- \t.,:!?;'\")}\\["  "[:nonascii:]")
-;;             " \t\r\n,\"'"
-;;             "."
-;;             1))
-
 (with-eval-after-load 'org
   (setq org-image-actual-width 500)
-
-  ;; (setq org-match-substring-regexp
-  ;;       (concat
-  ;;        ;; 限制上标和下标的匹配范围，org 中对其的介绍见：(org) Subscripts and superscripts
-  ;;        "\\([0-9a-zA-Zα-γΑ-Ω]\\)\\([_^]\\)\\("
-  ;;        "\\(?:" (org-create-multibrace-regexp "{" "}" org-match-sexp-depth) "\\)"
-  ;;        "\\|"
-  ;;        "\\(?:" (org-create-multibrace-regexp "(" ")" org-match-sexp-depth) "\\)"
-  ;;        "\\|"
-  ;;        "\\(?:\\*\\|[+-]?[[:alnum:].,\\]*[[:alnum:]]\\)\\)"))
 
   (setf org-html-mathjax-options
         '((path " https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS_HTML")
@@ -45,7 +27,7 @@
 
   (setq org-latex-create-formula-image-program 'dvisvgm)
 
-  ;; (require 'org-protocol-capture-html)
+  (require 'org-protocol-capture-html)
 
   (setq evil-org-key-theme '(textobjects navigation additional insert todo))
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
@@ -120,6 +102,8 @@
          ("n" "Notes" entry (file+headline org-agenda-file-note "Quick notes")
             "* %?\n\t%U\n"
             :empty-lines 1)
+         ("w" "Web site" entry (file org-file-archive)
+          "* %c :website:\n%U %?%:initial")
          ))
 
   (setq org-journal-file-format "%Y-%m-%d")
