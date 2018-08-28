@@ -81,7 +81,7 @@ This function should only modify configuration layer settings."
                wakatime-api-key  "2ccf4cb6-4369-40b5-9165-718666b8bb32"
                wakatime-cli-path "/usr/local/bin/wakatime")
      (unicode-fonts :variables unicode-fonts-force-multi-color-on-mac t)
-     ;;xkcd
+     ;; xkcd
      ;; vim-empty-lines
 
      cfg
@@ -101,7 +101,6 @@ This function should only modify configuration layer settings."
                                       (org-protocol-capture-html :location (recipe
                                                                             :fetcher github
                                                                             :repo "alphapapa/org-protocol-capture-html")))
-
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -135,8 +134,8 @@ It should only modify the values of Spacemacs settings."
 
    ;; File path pointing to emacs 27.1 executable compiled with support
    ;; for the portable dumper (this is currently the branch pdumper).
-   ;; (default "emacs")
-   dotspacemacs-emacs-pdumper-executable-file "emacs"
+   ;; (default "emacs-27.0.50")
+   dotspacemacs-emacs-pdumper-executable-file "emacs-27.0.50"
 
    ;; Name of the Spacemacs dump file. This is the file will be created by the
    ;; portable dumper in the cache directory under dumps sub-directory.
@@ -549,7 +548,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yasnippet-snippets yapfify xterm-color writeroom-mode visual-fill-column wakatime-mode unicode-fonts ucs-utils font-utils smeargle shell-pop reveal-in-osx-finder pyvenv pytest pyim pyim-basedict pyenv-mode py-isort pippel pipenv pip-requirements persistent-soft list-utils pandoc-mode ox-reveal ox-pandoc osx-trash osx-dictionary orgit org-protocol-capture-html org-projectile org-category-capture org-present org-pomodoro org-mime org-journal org-gcal request-deferred org-download org-alert alert log4e gntp openwith multi-term mmm-mode markdown-toc markdown-mode magit-svn magit-gitflow magit-gh-pulls live-py-mode launchctl json-mode json-snatcher json-reformat importmagic epc ctable concurrent deferred htmlize helm-rtags helm-pydoc helm-gitignore helm-github-stars helm-company helm-c-yasnippet google-c-style gnuplot gitignore-templates gitignore-mode github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md fuzzy flycheck-rtags flycheck-pos-tip flycheck find-by-pinyin-dired fcitx evil-org evil-magit magit magit-popup git-commit ghub with-editor eshell-z eshell-prompt-extras esh-help edit-indirect disaster diff-hl dash-at-point cython-mode company-statistics company-rtags rtags company-quickhelp pos-tip company-c-headers company-anaconda company clang-format chinese-conv browse-at-remote auto-yasnippet yasnippet anaconda-mode pythonic ace-pinyin pinyinlib ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org symon string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file neotree nameless move-text macrostep lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line))))
+    (helm-rtags flycheck-rtags company-rtags rtags yasnippet-snippets yapfify xterm-color ws-butler writeroom-mode winum which-key wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package unicode-fonts toc-org symon string-inflection spaceline-all-the-icons smeargle shell-pop reveal-in-osx-finder restart-emacs rainbow-delimiters pyvenv pytest pyim pyenv-mode py-isort popwin pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox pandoc-mode ox-reveal ox-pandoc overseer osx-trash osx-dictionary orgit org-protocol-capture-html org-projectile org-present org-pomodoro org-mime org-journal org-gcal org-download org-bullets org-alert openwith open-junk-file nameless multi-term move-text mmm-mode markdown-toc magit-svn magit-gitflow magit-gh-pulls macrostep lorem-ipsum live-py-mode link-hint launchctl json-mode indent-guide importmagic hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-github-stars helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy font-lock+ flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig edit-indirect dumb-jump dotenv-mode disaster diminish diff-hl dash-at-point cython-mode counsel-projectile company-statistics company-quickhelp company-c-headers company-anaconda column-enforce-mode clean-aindent-mode clang-format chinese-conv centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-pinyin ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
