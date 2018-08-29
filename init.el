@@ -508,19 +508,18 @@ before packages are loaded."
 
   ;; Appearance
   ;;
-  (spacemacs//set-monospaced-font   "Source Code Pro" "PingFang Sc" 13 15)
+  (if (display-graphic-p)
+      (spacemacs//set-monospaced-font "Source Code Pro" "PingFang Sc" 13 15))
   (setq powerline-image-apple-rgb nil)
   (spacemacs/toggle-mode-line-minor-modes-off)
   (setq display-time-24hr-format t
         display-time-default-load-average nil)
   (setq powerline-default-separator 'slant)
-  (golden-ratio-mode t)
   (setq org-bullets-bullet-list '("◉" "○" "✸" "✿" "▲" "▶" "■" "◆"))
   (global-git-commit-mode t)
-  ;; (add-to-list 'default-frame-alist '(width  . 77))
-  ;; (add-to-list 'default-frame-alist '(left  . 300))
-  ;; (add-to-list 'default-frame-alist '(height . 40))
-  ;; (add-to-list 'default-frame-alist '(top . 60))
+  (setq default-frame-alist
+        '((height . 50) (width . 77) (left . 300) (top . 0)
+          (vertical-scroll-bars . nil)))
 
   (fset 'evil-visual-update-x-selection 'ignore)
 
