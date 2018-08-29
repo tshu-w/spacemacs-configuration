@@ -9,17 +9,6 @@
 ;;
 ;;; License: GPLv3
 
-;; (defun run-c-cpp-file ()
-;;   (interactive)
-;;   (shell-command
-;;    (concat "make -k "
-;;            (if buffer-file-name
-;;                (shell-quote-argument
-;;                 (file-name-sans-extension buffer-file-name)))
-;;            " && open "
-;;            (if buffer-file-name
-;;                (shell-quote-argument
-;;                 (file-name-sans-extension buffer-file-name))))))
 
 (defun run-c-cpp-file ()
   (interactive)
@@ -31,6 +20,17 @@
     " && cd " (replace-regexp-in-string "\\\\" "\\\\\\\\" (shell-quote-argument (or default-directory "~")))
     " && clear"
     " && ./" (file-name-nondirectory (file-name-sans-extension buffer-file-name)))))
+;; (defun run-c-cpp-file ()
+;;   (interactive)
+;;   (shell-command
+;;    (concat "make -k "
+;;            (if buffer-file-name
+;;                (shell-quote-argument
+;;                 (file-name-sans-extension buffer-file-name)))
+;;            " && open "
+;;            (if buffer-file-name
+;;                (shell-quote-argument
+;;                 (file-name-sans-extension buffer-file-name))))))
 
 (defun run-current-file (arg)
   "Execute the current file.

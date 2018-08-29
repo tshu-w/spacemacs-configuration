@@ -21,14 +21,8 @@
   (push '(other . "k&r") c-default-style))
 (setq c-basic-offset 4)
 (c-set-offset 'case-label 4)
-;; (setq-default flycheck-gcc-language-standard "c++11")
-(setq-default flycheck-clang-language-standard "c++11")
-;; (setq flycheck-clang-include-path (list (expand-file-name "/usr/include/c++/4.2.1")))
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
 (setq company-c-headers-path-system '("/usr/include/c++/4.2.1" "/usr/include" "/usr/local/include"))
-;; (set 'company-clang-arguments (list "-I/usr/include/c++/4.2.1"
-;;                                     "-Wall"
-;;                                     "-std=c++11")
-;;      )
 (with-eval-after-load 'projectile
   (push '("C" "h") projectile-other-file-alist))
 
