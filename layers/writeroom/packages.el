@@ -18,5 +18,4 @@
     :commands (writeroom-mode)
     :init (spacemacs/set-leader-keys "Tw" 'writeroom-mode)
     (global-writeroom-mode 1)
-    (add-hook 'find-file-hook #'writeroom-mode)
-    ))
+    (add-hook 'find-file-hook #'writeroom-mode)))

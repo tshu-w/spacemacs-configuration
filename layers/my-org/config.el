@@ -27,8 +27,6 @@
 
   (setq org-latex-create-formula-image-program 'dvisvgm)
 
-  (require 'org-protocol-capture-html)
-
   (setq evil-org-key-theme '(textobjects navigation additional insert todo))
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
   (setq org-startup-indented t)
@@ -65,8 +63,7 @@
   (defun org-search ()
     "use org-refile to search org-mode headings"
     (interactive)
-    (org-refile '(4))
-    )
+    (org-refile '(4)))
   (spacemacs/set-leader-keys-for-major-mode 'org-mode
     "sf" 'org-search)
 
@@ -146,9 +143,4 @@
     (format "%s" msg)))                                ;; passed to -message in terminal-notifier call
   (setq appt-disp-window-function (function my-appt-display))
 
-
-  ;; (require 'org-gcal)
-  ;; (setq org-gcal-client-id "oauth 2.0 client ID"
-  ;;       org-gcal-client-secret "client secret"
-  ;;       org-gcal-file-alist '(("volekingsg@gmail.com" . "~/Documents/Org/gcal.org")))
   )

@@ -20,5 +20,4 @@
     (setq openwith-associations '(("\\.pdf\\'" "open" (file))
                                   ("\\.\\(?:docx?\\|pptx?|xlsx?\\)" "open" (file))
                                   ))
-    )
-)
+    ))

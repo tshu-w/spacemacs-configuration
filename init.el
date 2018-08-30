@@ -53,7 +53,8 @@ This function should only modify configuration layer settings."
             c-c++-enable-google-style nil)
      emacs-lisp
      (python :variables
-             python-enable-yapf-format-on-save t)
+             python-enable-yapf-format-on-save t
+             python-sort-imports-on-save t)
      (markdown :variables
                markdown-command "pandoc -t html5 -f markdown+smart --mathjax --highlight-style=pygments --toc --toc-depth 3 --template github.html5 --css html/css/github.css"
                markdown-live-preview-engine 'pandoc)
@@ -62,9 +63,11 @@ This function should only modify configuration layer settings."
           org-directory '"~/Documents/Org"
           org-projectile-file "TODOs.org"
           org-want-todo-bindings t
+          org-enable-hugo-support t
           org-enable-reveal-js-support t
           org-enable-org-journal-support t
           org-journal-dir "~/Documents/Org/journal/")
+     deft
      (auto-completion :variables
                       auto-completion-enable-help-tooltip 'manual
                       auto-completion-enable-snippets-in-popup t
@@ -72,19 +75,22 @@ This function should only modify configuration layer settings."
                       ;; :disabled-for org markdown
                       )
      (syntax-checking :variables
-                      flycheck-delayed-errors-timeout 1000)
-     (shell :variables
-            shell-default-shell 'multi-term
-            shell-default-height 80
-            shell-default-position 'bottom)
+                      syntax-checking-enable-by-default nil)
      (wakatime :variables
                wakatime-api-key  "2ccf4cb6-4369-40b5-9165-718666b8bb32"
                wakatime-cli-path "/usr/local/bin/wakatime")
-     (unicode-fonts :variables unicode-fonts-force-multi-color-on-mac t)
-     ;; xkcd
-     ;; vim-empty-lines
-
+     unicode-fonts
+     vim-empty-lines
+     xkcd
      cfg
+     ;; (shell :variables
+     ;;        shell-default-shell 'multi-term
+     ;;        shell-default-height 40
+     ;;        shell-default-position 'bottom)
+     ;; parinfer
+     ;; copy-as-format
+     ;; themes-megapack
+     ;; mu4e
      )
 
    ;; List of additional packages that will be installed without being
@@ -95,19 +101,13 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(helm-github-stars
-                                      edit-indirect
-                                      json-mode
-                                      s
-                                      (org-protocol-capture-html :location (recipe
-                                                                            :fetcher github
-                                                                            :repo "alphapapa/org-protocol-capture-html")))
+                                      edit-indirect)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(helm-dash window-purpose spacemacs-purpose-popwin neotree
-                                              pangu-spacing org-brain)
+   dotspacemacs-excluded-packages '(helm-dash org-brain)
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -494,8 +494,6 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (add-to-list 'load-path (expand-file-name "~/.spacemacs.d/elisp"))
-  (require 'company-english-helper)
   ;; Env
   ;;
   (set-language-environment "UTF-8")
@@ -530,9 +528,13 @@ before packages are loaded."
   (load (expand-file-name "secrets.el.gpg" dotspacemacs-directory))
 
   ;; fix hungry-delete & smartparents conflict
+  ;;
   (defadvice hungry-delete-backward (before sp-delete-pair-advice activate) (save-match-data (sp-delete-pair (ad-get-arg 0))))
 
-  (remove-hook 'c-mode-common-hook 'spacemacs//c-toggle-auto-newline)
+  ;; (add-to-list 'load-path (expand-file-name "~/.spacemacs.d/elisp"))
+  ;; (require 'company-english-helper)
+  (setq deft-directory "~/Documents/Org/Notes")
+  (setq deft-extensions '("org" "md" "txt"))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -549,7 +551,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (magithub ghub+ apiwrap helm-dash yasnippet-snippets yapfify xterm-color ws-butler writeroom-mode winum which-key wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package unicode-fonts toc-org symon string-inflection spaceline-all-the-icons smeargle shell-pop reveal-in-osx-finder restart-emacs rainbow-delimiters pyvenv pytest pyim pyenv-mode py-isort popwin pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox pandoc-mode ox-reveal ox-pandoc overseer osx-trash osx-dictionary orgit org-protocol-capture-html org-projectile org-present org-pomodoro org-mime org-journal org-gcal org-download org-bullets org-alert openwith open-junk-file nameless multi-term move-text mmm-mode markdown-toc magit-svn magit-gitflow magit-gh-pulls macrostep lorem-ipsum live-py-mode link-hint launchctl json-mode indent-guide importmagic hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-github-stars helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig edit-indirect dumb-jump dotenv-mode disaster diminish diff-hl dash-at-point cython-mode counsel-projectile company-statistics company-rtags company-quickhelp company-c-headers company-anaconda column-enforce-mode clean-aindent-mode clang-format chinese-conv centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-pinyin ace-link ace-jump-helm-line ac-ispell))))
+    (org-alert yasnippet-snippets yapfify xkcd ws-butler writeroom-mode winum which-key wakatime-mode volatile-highlights uuidgen use-package unicode-fonts toc-org symon string-inflection spaceline-all-the-icons smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters pyvenv pytest pyim pyenv-mode py-isort popwin pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox pangu-spacing pandoc-mode ox-reveal ox-pandoc ox-hugo overseer osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-mime org-journal org-gcal org-download org-bullets openwith open-junk-file neotree nameless move-text mmm-mode markdown-toc magithub magit-svn magit-gitflow magit-gh-pulls macrostep lorem-ipsum live-py-mode link-hint launchctl indent-guide importmagic hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-github-stars helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig edit-indirect dumb-jump dotenv-mode disaster diminish diff-hl deft dash-at-point cython-mode counsel-projectile company-statistics company-rtags company-quickhelp company-c-headers company-anaconda column-enforce-mode clean-aindent-mode clang-format chinese-conv centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-pinyin ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
