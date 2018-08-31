@@ -67,7 +67,9 @@ This function should only modify configuration layer settings."
           org-enable-reveal-js-support t
           org-enable-org-journal-support t
           org-journal-dir "~/Documents/Org/journal/")
-     deft
+     (deft :variables
+       deft-directory "~/Documents/Org/Notes"
+       deft-extensions '("org" "md" "txt"))
      (auto-completion :variables
                       auto-completion-enable-help-tooltip 'manual
                       auto-completion-enable-snippets-in-popup t
@@ -531,10 +533,8 @@ before packages are loaded."
   ;;
   (defadvice hungry-delete-backward (before sp-delete-pair-advice activate) (save-match-data (sp-delete-pair (ad-get-arg 0))))
 
-  ;; (add-to-list 'load-path (expand-file-name "~/.spacemacs.d/elisp"))
-  ;; (require 'company-english-helper)
-  (setq deft-directory "~/Documents/Org/Notes")
-  (setq deft-extensions '("org" "md" "txt"))
+  (add-to-list 'load-path (expand-file-name "~/.spacemacs.d/elisp"))
+  (require 'company-english-helper)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
