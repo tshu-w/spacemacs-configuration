@@ -1,47 +1,49 @@
 * Knowledges
+** Spacemacs-rocks
 ** Spacemacs-ABC
 ** emacs-lisps
+** [[http://raebear.net/comp/emacscolors.html][Colors Available to Emacs]]
 * TODOs
-** 学习配置 [0/0]
+** 学习配置
+*** DONE [[http://lengyueyang.github.io/2017/03/26/A%2520simple%2520introduction%2520of%2520lengyueyang%2527s%2520spacemacs%2520configration%5B%25E4%25B8%25AA%25E4%25BA%25BAspacemacs%25E9%2585%258D%25E7%25BD%25AE%25E7%25AE%2580%25E4%25BB%258B%5D/][A simple introduction of lengyueyang's spacemacs configration{个人 spacemacs 配置简介} | 深度识医]]
+CLOSED: [2017-09-12 Tue 09:33]
 *** [[http://cestlaz.github.io/stories/emacs/][Using Emacs Series | C'est la Z]]
-*** [[http://lengyueyang.github.io/2017/03/26/A%2520simple%2520introduction%2520of%2520lengyueyang%2527s%2520spacemacs%2520configration%5B%25E4%25B8%25AA%25E4%25BA%25BAspacemacs%25E9%2585%258D%25E7%25BD%25AE%25E7%25AE%2580%25E4%25BB%258B%5D/][A simple introduction of lengyueyang's spacemacs configration{个人 spacemacs 配置简介} | 深度识医]]
 *** [[https://github.com/zilongshanren/spacemacs-private][zilongshanren/spacemacs-private: My Spacemacs config]]
 *** [[https://github.com/TheBB/spacemacs-layers][TheBB/spacemacs-layers: Miscellaneous layers for Spacemacs]]
 *** [[https://github.com/ekaschalk/dotspacemacs][ekaschalk/dotspacemacs: My spacemacs configuration.]]
+*** [[http://www.modernemacs.com/categories/emacs/][Emacs | Modern Emacs]]
 ** Pandoc Latex
 *** [[http://joostkremers.github.io/pandoc-mode/][Pandoc-mode by joostkremers]]
 *** [[https://emacs-china.org/t/orgmode-pdf/2540/17][Orgmode 导出 PDF 显示不了中文 - Org-mode - Emacs China]]
 *** [[http://freizl.github.io/posts/2012-04-06-export-orgmode-file-in-Chinese.html][λ Corner - Export a OrgMode doc in Chinese to PDF]]
 *** [[https://github.com/fniessen/org-html-themes][fniessen/org-html-themes: How to export Org mode files into awesome HTML in 2 minutes]]
-*** [[https://www.zhihu.com/question/19840137/answer/123273604?utm_source=com.ideashower.readitlater.pro&utm_medium=social][值得看的 Python 的开源项目有哪些？ - 知乎]]
-** org reveal.js
-** 删除无用 package
-** Pandoc [0/0]
-*** beautify output
-*** [[https://github.com/slug404/Smark/blob/master/doc/Pandoc‘s%20Markdown%20 语法拓展.md][Pandoc Markdown 语法]]
-** Org [0/0]
+** Org
 *** [[http://doc.norang.ca/org-mode.html][Org Mode - Organize Your Life In Plain Text!]]
 *** [[http://orgmode.org][Org manual]]
 *** Beautify output [[https://github.com/fniessen/org-html-themes][org-html-themes]]
 *** [[https://github.com/purcell/emacs.d/blob/a7993fd125fcf81055234e27ab0ea16348c03601/lisp/init-org.el][emacs.d/init-org.el at a7993fd125fcf81055234e27ab0ea16348c03601 · purcell/emacs.d]]
 *** [[https://emacs-china.org/t/org-html/1919][org 导出 HTML 时怎么设置导出样式？ - Org-mode - Emacs China]]
 ** Email
-   [[https://emacs-china.org/t/mac-emacs/305/42][Emacs-China]]
-*** Reference
-**** [[http://raebear.net/comp/emacscolors.html][Colors Available to Emacs]]
+- State "WAITING"    from              [2018-09-03 Mon 19:58]
+[[https://emacs-china.org/t/mac-emacs/305/42][Emacs-China]]
+*** [[https://github.com/lengyueyang/spacemacs-lengyue/blob/master/lengyueyang.org#36-mu4e][spacemacs-lengyue/lengyueyang.org at master · lengyueyang/spacemacs-lengyue]]
+*** [[http://mbork.pl/2017-09-11_My_email_capturing_workflow][Marcin Borkowski: 2017-09-11 My email capturing workflow]]
 ** org ical 中文支持
-** 沉静式
-*** [[https://github.com/rnkn/olivetti][rnkn/olivetti: Emacs minor mode for a nice writing environment]]
-*** [[https://github.com/joostkremers/writeroom-mode][joostkremers/writeroom-mode: Writeroom-mode: distraction-free writing for Emacs.]]
-** [[https://github.com/syl20bnr/spacemacs/pull/4262/files][Fixes #247 - New layer: writeroom by algernon · Pull Request #4262 · syl20bnr/spacemacs]]
-** [[https://blog.aaronbieber.com/archive.html][The Chronicle]]
 ** [[http://heikkil.github.io/blog/2015/05/09/notes-from-elfeed-entries/][Note taking 3: Notes from elfeed entries - Heikki @ home]]
 ** [[http://heikkil.github.io/blog/2015/05/10/notes-using-org-dropbox/][Note taking 4: Notes from phones using org-dropbox - Heikki @ home]]
-** [[https://www.emacswiki.org/emacs/SiteMap][EmacsWiki: Site Map]]
 ** [[https://github.com/lujun9972/emacs-document][lujun9972/emacs-document: translate emacs documents to Chinese for convenient reference]]
 The GNU Emacs Calculator
-** [[http://www.modernemacs.com/categories/emacs/][Emacs | Modern Emacs]]
+** [[https://www.emacswiki.org/emacs/SiteMap][EmacsWiki: Site Map]]
 ** [[http://www.modernemacs.com/post/org-mode-blogging/][An Emacs Blogging Workflow | Modern Emacs]]
+** 删除无用 package
+** [[https://sam217pa.github.io/2016/09/02/how-to-build-your-own-spacemacs/][How to build your own spacemacs · Samuel Barreto]]
+** [[https://blog.aaronbieber.com/2016/08/07/getting-started-with-emacs-lisp.html][Getting Started With Emacs Lisp]]
+** [[https://blog.aaronbieber.com/2017/03/19/organizing-notes-with-refile.html][Organizing Notes With Refile]]
+** [[https://blog.aaronbieber.com/2016/01/30/dig-into-org-mode.html][Dig Into Org Mode]]
+** [[https://blog.aaronbieber.com/2016/03/05/playing-tag-in-org-mode.html][Playing Tag in Org Mode]]
+** spaceline-all-the-icons
+** [[https://sspai.com/post/43467][打开即写的笔记工具，Mac 上的草稿处理中心：nvALT - 少数派]]
+** [[https://github.com/lujun9972/emacs-document][lujun9972/emacs-document: translate emacs documents to Chinese for convenient reference]]
 * Awesome Articles or Blog
 ** [[http://www.modernemacs.com/categories/emacs/][Emacs | Modern Emacs]]
 ** [[http://www.modernemacs.com/post/org-mode-blogging/][An Emacs Blogging Workflow | Modern Emacs]]
@@ -51,5 +53,3 @@ The GNU Emacs Calculator
 ** [[https://blog.aaronbieber.com/page3/][The Chronicle]]
 ** [[https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html][Orgmode for GTD]]
 ** [[https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html][An Agenda for Life With Org Mode]]
-** [[http://dsdshcym.github.io/blog/2018/03/02/my-org-refile-workflow/][My org-refile workflow - dsdshome]]
-** [[https://emacs-china.org/t/topic/3650/9][在 Mac / Chrome 中实时地预览 Markdown 导出的结果 - Emacs-general - Emacs China]]
