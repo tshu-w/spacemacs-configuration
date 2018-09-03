@@ -30,3 +30,16 @@
 ;;
 (setq-default python-shell--interpreter '"python")
 (setq-default python-indent-offset 4)
+
+;; LaTeX
+;;
+(add-hook 'LaTeX-mode-hook
+          (lambda()
+            (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+            (setq TeX-command-default "XeLaTeX")
+            (setq TeX-save-query nil)
+            ;; (setq TeX-show-compilation t)
+            )
+          )
+(add-hook 'LaTeX-mode-hook 'cdlatex-mode)
+(add-hook 'doc-view-mode-hook 'auto-revert-mode)

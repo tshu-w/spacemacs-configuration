@@ -28,6 +28,7 @@
   (setq org-latex-create-formula-image-program 'dvisvgm)
 
   (setq evil-org-key-theme '(textobjects navigation additional insert todo))
+  (add-hook 'org-mode-hook 'org-cdlatex-mode)
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
   (setq org-startup-indented t)
   (setq org-agenda-span 'day)
@@ -117,9 +118,11 @@
      (latex . t)
      (org . t)
      (dot . t)
+     (latex . t)
      ))
 
   (setq org-edit-src-content-indentation 0)
+  (setq org-src-preserve-indentation t)
   (setq org-src-tab-acts-natively t)
 
   ;; Org Agent alert

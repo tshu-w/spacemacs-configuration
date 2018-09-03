@@ -51,7 +51,7 @@
                          "; clear")))
 
 ;; Add executable attribute to file
-(defun set-file-executable()
+(defun set-file-executable ()
   "Add executable permissions on current file."
   (interactive)
   (when (buffer-file-name)
