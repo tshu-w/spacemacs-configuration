@@ -93,15 +93,11 @@
           "* %?\n  %i\n")
          ("a" "Appointment" entry (file org-agenda-file-gcal)
             "* %?\n\n  %^T\n\n")
-         ("s" "Schoolworks" entry (file+headline org-agenda-file-gtd "Schoolworks")
-            "* TODO [#A] %?\n  %i\n")
          ("l" "Link" entry (file+headline org-agenda-file-gtd "Inbox")
             "* %:annotation\n %i\n" :immediate-finish t :kill-buffer t)
-         ("n" "Notes" entry (file+headline org-agenda-file-note "Quick notes")
+         ("n" "Notes" entry (file+headline org-agenda-file-note "Archived")
             "* %?\n\t%U\n"
             :empty-lines 1)
-         ("w" "Web site" entry (file org-file-archive)
-          "* %c :website:\n%U %?%:initial")
          ))
 
   (setq org-journal-file-format "%Y-%m-%d")

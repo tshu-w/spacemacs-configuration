@@ -539,9 +539,6 @@ before packages are loaded."
   ;; fix hungry-delete & smartparents conflict
   ;;
   (defadvice hungry-delete-backward (before sp-delete-pair-advice activate) (save-match-data (sp-delete-pair (ad-get-arg 0))))
-
-  (add-to-list 'load-path (expand-file-name "~/.spacemacs.d/elisp"))
-  (require 'company-english-helper)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
