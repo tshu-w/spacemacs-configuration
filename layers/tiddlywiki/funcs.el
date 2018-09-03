@@ -1,8 +1,8 @@
 ;;; funcs.el --- Org Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2018 Voleking
+;; Copyright (c) 2017-2018 Tshu Wang
 ;;
-;; Author: Sylvain Benner <volekingsg@gmail.com>
+;; Author: Tshu Wang <volekingsg@gmail.com>
 ;; URL: https://github.com/Voleking/spacemacs-configuration
 ;;
 ;; This file is not part of GNU Emacs.

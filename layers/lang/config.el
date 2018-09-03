@@ -1,8 +1,8 @@
 ;;; config.el --- Org Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2017 Voleking
+;; Copyright (c) 2017-2018 Tshu Wang
 ;;
-;; Author: Sylvain Benner <volekingsg@gmail.com>
+;; Author: Tshu Wang <volekingsg@gmail.com>
 ;; URL: https://github.com/Voleking/spacemacs-configuration
 ;;
 ;; This file is not part of GNU Emacs.
@@ -22,6 +22,8 @@
 (setq c-basic-offset 4)
 (c-set-offset 'case-label 4)
 (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
+(add-hook 'c++-mode-hook (lambda ()
+                           (set 'company-clang-arguments (list "-I/usr/include/c++/4.2.1" "-Wall" "-std=c++11"))))
 (setq company-c-headers-path-system '("/usr/include/c++/4.2.1" "/usr/include" "/usr/local/include"))
 (with-eval-after-load 'projectile
   (push '("C" "h") projectile-other-file-alist))
@@ -38,7 +40,6 @@
             (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
             (setq TeX-command-default "XeLaTeX")
             (setq TeX-save-query nil)
-            ;; (setq TeX-show-compilation t)
             )
           )
 (add-hook 'LaTeX-mode-hook 'cdlatex-mode)

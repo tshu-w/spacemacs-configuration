@@ -1,15 +1,13 @@
 ;;; funcs.el --- Org Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2017 Voleking
+;; Copyright (c) 2017-2018 Tshu Wang
 ;;
-;; Author: Sylvain Benner <volekingsg@gmail.com>
+;; Author: Tshu Wang <volekingsg@gmail.com>
 ;; URL: https://github.com/Voleking/spacemacs-configuration
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-
-;; (defun org-capture-template-goto-link ())
 
 (defun notify-osx (title message)
   (call-process "terminal-notifier"
@@ -58,30 +56,3 @@
     (set-file-modes buffer-file-name
                     (logior (file-modes buffer-file-name) #o100))
     (message (concat "Made " buffer-file-name " executable"))))
-
-(defun safari-refresh ()
-  "Refresh the current tab of Safari."
-  (do-applescript
-   "tell application \"Safari\"
-      set sameURL to URL of current tab of front window
-      set URL of current tab of front window to sameURL
-    end tell"))
-
-(defun safari-get-frontmost-url ()
-  (interactive)
-  "Return the URL of the current tab of Chrome"
-  (replace-regexp-in-string
-   (rx (or (and string-start ?\")
-           (and ?\" string-end)))
-   ""
-   (do-applescript
-    "tell application \"Safari\" to return URL of current tab of front window")))
-
-(defun org-preview-in-safari ()
-  "Export OrgMode and preview the result in Safari.
-This function reuses the current tab of Safari."
-  (interactive)
-  (let ((output (org-html-export-to-html)))
-    (if (string-match-p (regexp-quote output) (safari-get-frontmost-url))
-        (safari-refresh)
-      (browse-url output))))

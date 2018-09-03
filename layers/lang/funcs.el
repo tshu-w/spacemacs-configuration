@@ -1,14 +1,13 @@
 ;;; funcs.el --- Org Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2017 Voleking
+;; Copyright (c) 2017-2018 Tshu Wang
 ;;
-;; Author: Sylvain Benner <volekingsg@gmail.com>
+;; Author: Tshu Wang <volekingsg@gmail.com>
 ;; URL: https://github.com/Voleking/spacemacs-configuration
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-
 
 (defun run-c-cpp-file ()
   (interactive)

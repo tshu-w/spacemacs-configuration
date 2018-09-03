@@ -1,8 +1,8 @@
 ;;; config.el --- Org Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2017 Voleking
+;; Copyright (c) 2017-2018 Tshu Wang
 ;;
-;; Author: Sylvain Benner <volekingsg@gmail.com>
+;; Author: Tshu Wang <volekingsg@gmail.com>
 ;; URL: https://github.com/Voleking/spacemacs-configuration
 ;;
 ;; This file is not part of GNU Emacs.
@@ -10,34 +10,29 @@
 ;;; License: GPLv3
 
 (with-eval-after-load 'org
-  (setq org-image-actual-width 500)
-
-  (setf org-html-mathjax-options
-        '((path " https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS_HTML")
-         (scale "100")
-         (align "center")
-         (font "TeX")
-         (linebreaks "false")
-         (autonumber "AMS")
-         (indent "0em")
-         (multlinewidth "85%")
-         (tagindent ".8em")
-         (tagside "right"))
-        )
-
-  (setq org-latex-create-formula-image-program 'dvisvgm)
-
   (setq evil-org-key-theme '(textobjects navigation additional insert todo))
-  (add-hook 'org-mode-hook 'org-cdlatex-mode)
-  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
   (setq org-startup-indented t)
   (setq org-agenda-span 'day)
+  (setq org-edit-src-content-indentation 0)
+  (setq org-src-preserve-indentation t)
+  (setq org-src-tab-acts-natively t)
 
   (require 'org-projectile)
 	(mapcar '(lambda (file)
 			   (when (file-exists-p file)
 				 (push file org-agenda-files)))
 			(org-projectile-todo-files))
+
+  (setq org-refile-targets
+        '((nil :maxlevel . 1)
+          (org-agenda-files :maxlevel . 2)))
+
+  (defun org-search ()
+    "use org-refile to search org-mode headings"
+    (interactive)
+    (org-refile '(4)))
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode
+    "sf" 'org-search)
 
   (setq org-agenda-custom-commands
         '(("c" "Daily agenda and all TODOs"
@@ -57,26 +52,10 @@
             (org-agenda-repeating-timestamp-show-all nil)))
          ))
 
-  (setq org-refile-targets
-        '((nil :maxlevel . 1)
-          (org-agenda-files :maxlevel . 2)))
-
-  (defun org-search ()
-    "use org-refile to search org-mode headings"
-    (interactive)
-    (org-refile '(4)))
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode
-    "sf" 'org-search)
-
   (setq org-todo-keywords
         '((sequence "TODO(t)" "STARTED(s!)" "|" "DONE(d)")
           (sequence "WAITING(w@/!)" "|" "SOMEDAY(f)" "CANCELED(c!)"))
         )
-
-  (setq org-todo-keyword-faces
-        '(("WAITING" . (:foreground "IndianRed1" :weight bold))
-          ("STARTED" . (:foreground "plum" :weight bold))
-          ("SOMEDAY" . (:foreground "thistle" :weight bold))))
 
   ;; https://github.com/syl20bnr/spacemacs/issues/9763
   (setq-default org-directory '"~/Documents/Org")
@@ -117,9 +96,28 @@
      (latex . t)
      ))
 
-  (setq org-edit-src-content-indentation 0)
-  (setq org-src-preserve-indentation t)
-  (setq org-src-tab-acts-natively t)
+  (setq org-todo-keyword-faces
+        '(("WAITING" . (:foreground "IndianRed1" :weight bold))
+          ("STARTED" . (:foreground "plum" :weight bold))
+          ("SOMEDAY" . (:foreground "thistle" :weight bold))))
+
+  (add-hook 'org-mode-hook 'org-cdlatex-mode)
+  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+
+  (setq org-latex-create-formula-image-program 'dvisvgm)
+  (setq org-image-actual-width 500)
+  (setf org-html-mathjax-options
+        '((path " https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS_HTML")
+          (scale "100")
+          (align "center")
+          (font "TeX")
+          (linebreaks "false")
+          (autonumber "AMS")
+          (indent "0em")
+          (multlinewidth "85%")
+          (tagindent ".8em")
+          (tagside "right"))
+        )
 
   ;; Org Agent alert
   ;; https://emacs-china.org/t/org-agenda/232
