@@ -74,7 +74,13 @@ This function should only modify configuration layer settings."
             latex-enable-magic nil)
      (deft :variables
        deft-directory "~/Documents/Org/Notes"
-       deft-extensions '("org" "md" "txt"))
+       deft-extensions '("org" "md" "txt")
+       deft-recursive t
+       deft-use-filename-as-title nil
+       deft-use-filter-string-for-filename t
+       deft-file-naming-rules '((noslash . "-")
+                                (nospace . "-")
+                                (case-fn . downcase)))
      (auto-completion :variables
                       auto-completion-enable-help-tooltip 'manual
                       auto-completion-enable-snippets-in-popup t
