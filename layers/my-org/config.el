@@ -63,8 +63,7 @@
   (setq-default org-directory '"~/Documents/Org")
   (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-directory))
   (setq org-agenda-file-gcal (expand-file-name "gcal.org" org-directory))
-  (setq org-agenda-file-note (expand-file-name "notes.org" org-directory))
-  (setq org-file-archive (expand-file-name "archive.org" org-directory))
+  (setq org-agenda-file-archive (expand-file-name "archive.org" org-directory))
   (setq org-default-notes-file (expand-file-name "gtd.org" org-directory))
 
   (setq org-capture-templates
@@ -75,8 +74,8 @@
          ("a" "Appointment" entry (file org-agenda-file-gcal)
             "* %?\n\n  %^T\n\n")
          ("l" "Link" entry (file+headline org-agenda-file-gtd "Inbox")
-            "* %:annotation\n %i\n" :immediate-finish t :kill-buffer t)
-         ("n" "Notes" entry (file+headline org-agenda-file-note "Archived")
+            "* %:annotation\n%i\n" :immediate-finish t :kill-buffer t)
+         ("s" "Archive" entry (file+headline org-agenda-file-archive "Archived")
             "* %?\n\t%U\n"
             :empty-lines 1)
          ))
