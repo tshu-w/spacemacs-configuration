@@ -250,7 +250,7 @@ It should only modify the values of Spacemacs settings."
    ;; to create your own spaceline theme. Value can be a symbol or list with\
    ;; additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.2)
+   dotspacemacs-mode-line-theme '(all-the-icons :separator slant)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -530,7 +530,6 @@ before packages are loaded."
   (spacemacs/toggle-mode-line-minor-modes-off)
   (setq display-time-24hr-format t
         display-time-default-load-average nil)
-  (setq powerline-default-separator 'slant)
   (setq org-bullets-bullet-list '("◉" "○" "✸" "✿" "▲" "▶" "■" "◆"))
   (global-git-commit-mode t)
   (setq default-frame-alist
