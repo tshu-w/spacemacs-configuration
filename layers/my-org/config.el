@@ -18,9 +18,11 @@
   (setq org-src-tab-acts-natively t)
 
   (require 'org-projectile)
-	(mapcar '(lambda (file)
-			   (when (file-exists-p file)
-				 (push file org-agenda-files)))
+  (defun append-org-agenda-files (file)
+    "append to org-agenda-files if file exists"
+    (when (file-exists-p file)
+      (push file org-agenda-files)))
+	(mapcar 'append-org-agenda-files
 			(org-projectile-todo-files))
 
   (setq org-refile-targets
@@ -134,7 +136,7 @@
     (org-agenda-to-appt))            ;; generate the appt list from org agenda files on emacs launch
   (run-at-time "24:01" 3600 'org-agenda-to-appt)           ;; update appt list hourly
   (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt) ;; update appt list on agenda view
-  (defun my-appt-display (min-to-app new-time msg)
+  (defun appt-display (min-to-app new-time msg)
     (notify-osx
     (format "Appointment in %s minutes" min-to-app)    ;; passed to -title in terminal-notifier call
     (format "%s" msg)))                                ;; passed to -message in terminal-notifier call
