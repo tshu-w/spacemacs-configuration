@@ -52,9 +52,7 @@ This function should only modify configuration layer settings."
             c-c++-enable-clang-support nil
             c-c++-enable-google-style nil)
      emacs-lisp
-     (python :variables
-             python-enable-yapf-format-on-save t
-             python-sort-imports-on-save t)
+     python
      (markdown :variables
                markdown-command "pandoc -t html5 -f markdown+smart --mathjax --highlight-style=pygments --toc --toc-depth 3 --template github.html5 --css html/css/github.css"
                markdown-live-preview-engine 'pandoc)
