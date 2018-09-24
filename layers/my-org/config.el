@@ -41,7 +41,8 @@
            ((tags-todo "PRIORITY=\"A\""
                        ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo))
                         (org-agenda-overriding-header "High-priority unfinished tasks:")))
-            (agenda "" ((org-agenda-overriding-header "Today tasks:")))
+            (agenda "" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("WAITING")))
+                        (org-agenda-overriding-header "Today tasks:")))
             (todo "TODO|STARTED" ((org-agenda-skip-function '(or (org-agenda-skip-entry-if 'regexp "\\[#A\\]")
                                                                  (org-agenda-skip-subtree-if 'regexp ":LAST_REPEAT:")
                                                                  (org-agenda-skip-entry-if 'timestamp)))

@@ -17,12 +17,14 @@
 *** [[https://blog.aaronbieber.com/2016/08/07/getting-started-with-emacs-lisp.html][Getting Started With Emacs Lisp]]
 *** [[https://github.com/lujun9972/emacs-document][lujun9972/emacs-document: translate emacs documents to Chinese for convenient reference]]
 *** [[https://sam217pa.github.io/2016/09/02/how-to-build-your-own-spacemacs/][How to build your own spacemacs · Samuel Barreto]]
+*** [[https://github.com/seagle0128/.emacs.d][seagle0128/.emacs.d: Centaur Emacs - A Clean and Fast Emacs Configuration]]
 ** Email :ARCHIVE:
 [[https://emacs-china.org/t/mac-emacs/305/42][Emacs-China]]
 *** [[https://github.com/lengyueyang/spacemacs-lengyue/blob/master/lengyueyang.org#36-mu4e][spacemacs-lengyue/lengyueyang.org at master · lengyueyang/spacemacs-lengyue]]
 *** [[http://mbork.pl/2017-09-11_My_email_capturing_workflow][Marcin Borkowski: 2017-09-11 My email capturing workflow]]
 ** org ical 中文支持 :ARCHIVE:
 ** [[http://www.modernemacs.com/post/org-mode-blogging/][An Emacs Blogging Workflow | Modern Emacs]]
+** [[https://github.com/syl20bnr/spacemacs/pull/11242#issuecomment-420148896][Add lsp (cquery and ccls) backend support to c-c++ layer by cormacc · Pull Request #11242 · syl20bnr/spacemacs]]
 * Awesome Articles or Blog
 ** [[http://www.modernemacs.com/categories/emacs/][Emacs | Modern Emacs]]
 ** [[http://www.modernemacs.com/post/org-mode-blogging/][An Emacs Blogging Workflow | Modern Emacs]]
