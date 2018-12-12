@@ -24,7 +24,8 @@
 *** [[http://mbork.pl/2017-09-11_My_email_capturing_workflow][Marcin Borkowski: 2017-09-11 My email capturing workflow]]
 ** org ical 中文支持 :ARCHIVE:
 ** [[http://www.modernemacs.com/post/org-mode-blogging/][An Emacs Blogging Workflow | Modern Emacs]]
-** [[https://github.com/syl20bnr/spacemacs/pull/11242#issuecomment-420148896][Add lsp (cquery and ccls) backend support to c-c++ layer by cormacc · Pull Request #11242 · syl20bnr/spacemacs]]
+** [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%252Btools/lsp][spacemacs/layers/+tools/lsp at develop · syl20bnr/spacemacs]]
+** [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%252Blang/c-c%252B%252B][spacemacs/layers/+lang/c-c++ at develop · syl20bnr/spacemacs]]
 * Awesome Articles or Blog
 ** [[http://www.modernemacs.com/categories/emacs/][Emacs | Modern Emacs]]
 ** [[http://www.modernemacs.com/post/org-mode-blogging/][An Emacs Blogging Workflow | Modern Emacs]]

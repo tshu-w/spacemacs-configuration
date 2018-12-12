@@ -74,9 +74,9 @@ This function should only modify configuration layer settings."
             latex-enable-magic nil)
      (deft :variables
        deft-directory "~/Documents/Org/Notes"
-       deft-extensions '("org" "md" "txt")
        deft-recursive t
-       deft-use-filename-as-title nil
+       deft-extensions '("org" "md" "txt")
+       deft-use-filename-as-title t
        deft-use-filter-string-for-filename t
        deft-auto-save-interval 0
        deft-file-naming-rules '((noslash . "-")
@@ -94,7 +94,7 @@ This function should only modify configuration layer settings."
                wakatime-api-key  "2ccf4cb6-4369-40b5-9165-718666b8bb32"
                wakatime-cli-path "/usr/local/bin/wakatime")
      unicode-fonts
-     vim-empty-lines
+     ;; vim-empty-lines
      xkcd
      cfg
      ;; (shell :variables
@@ -523,6 +523,7 @@ before packages are loaded."
   (when (string= system-type "darwin")
     (setq dired-use-ls-dired nil))
   (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
+  (setq mac-system-move-file-to-trash-use-finder nil)
 
   ;; Appearance
   ;;
@@ -537,6 +538,15 @@ before packages are loaded."
   (setq default-frame-alist
         '((height . 50) (width . 77) (left . 300) (top . 0)
           (vertical-scroll-bars . nil)))
+
+  (setq writeroom-width 120)
+  (setq writeroom-fringes-outside-margins t)
+  (setq writeroom-bottom-divider-width 0)
+  (setq writeroom-mode-line t)
+  (setq writeroom-mode-line-toggle-position 'mode-line-format)
+  (setq writeroom-major-modes '(text-mode prog-mode))
+  (global-writeroom-mode 1)
+  (add-hook 'find-file-hook #'writeroom-mode)
 
   (fset 'evil-visual-update-x-selection 'ignore)
 
@@ -561,9 +571,14 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("b54826e5d9978d59f9e0a169bbd4739dd927eead3ef65f56786621b53c031a7c" "8aca557e9a17174d8f847fb02870cb2bb67f3b6e808e46c0e54a44e3e18e1020" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "6d589ac0e52375d311afaa745205abb6ccb3b21f6ba037104d71111e7e76a3fc" "100e7c5956d7bb3fd0eebff57fde6de8f3b9fafa056a2519f169f85199cc1c96" "f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "a3fa4abaf08cc169b61dea8f6df1bbe4123ec1d2afeb01c17e11fdc31fc66379" "7e78a1030293619094ea6ae80a7579a562068087080e01c2b8b503b27900165c" default)))
+ '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (reveal-in-osx-finder osx-trash osx-dictionary launchctl yasnippet-snippets yapfify xkcd ws-butler writeroom-mode winum which-key wakatime-mode volatile-highlights uuidgen use-package unicode-fonts toc-org symon string-inflection spaceline-all-the-icons smeargle restart-emacs rainbow-delimiters pyvenv pytest pyim pyenv-mode py-isort popwin pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox pangu-spacing pandoc-mode ox-reveal ox-pandoc ox-hugo overseer orgit org-projectile org-present org-pomodoro org-mime org-journal org-gcal org-edit-latex org-download org-bullets org-alert openwith open-junk-file nameless move-text mmm-mode markdown-toc magit-svn magit-gitflow magit-gh-pulls macrostep lorem-ipsum live-py-mode link-hint json-mode indent-guide importmagic hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-github-stars helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig edit-indirect dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl deft define-word dash-at-point cython-mode counsel-projectile company-statistics company-rtags company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode clean-aindent-mode clang-format chinese-conv centered-cursor-mode cdlatex browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-pinyin ace-link ace-jump-helm-line ac-ispell))))
+    (pyim ox-hugo hl-todo git-link doom-modeline anaconda-mode helm-core projectile magit git-commit ghub with-editor org-plus-contrib yasnippet-snippets yapfify xkcd ws-butler writeroom-mode winum which-key wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package unicode-fonts treepy toc-org symon string-inflection spaceline-all-the-icons smeargle shrink-path reveal-in-osx-finder restart-emacs rainbow-delimiters pyvenv pytest pyim-basedict pyenv-mode py-isort popwin pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox pangu-spacing pandoc-mode ox-reveal ox-pandoc overseer osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-mime org-journal org-gcal org-edit-latex org-download org-bullets org-alert openwith open-junk-file nameless move-text mmm-mode markdown-toc magit-svn magit-gitflow magit-gh-pulls macrostep lorem-ipsum live-py-mode link-hint launchctl json-mode indent-guide importmagic hungry-delete htmlize highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-github-stars helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag graphql google-translate google-c-style golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav eldoc-eval editorconfig edit-indirect dumb-jump dotenv-mode disaster diminish diff-hl deft dash-at-point cython-mode counsel-projectile company-statistics company-rtags company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode clean-aindent-mode clang-format chinese-conv centered-cursor-mode cdlatex browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-pinyin ace-link ace-jump-helm-line ac-ispell)))
+ '(wakatime-python-bin nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
