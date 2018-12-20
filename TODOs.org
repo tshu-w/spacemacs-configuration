@@ -18,7 +18,14 @@
 *** [[https://github.com/lujun9972/emacs-document][lujun9972/emacs-document: translate emacs documents to Chinese for convenient reference]]
 *** [[https://sam217pa.github.io/2016/09/02/how-to-build-your-own-spacemacs/][How to build your own spacemacs · Samuel Barreto]]
 *** [[https://github.com/seagle0128/.emacs.d][seagle0128/.emacs.d: Centaur Emacs - A Clean and Fast Emacs Configuration]]
-** Email :ARCHIVE:
+** Scrivener
+**** [[https://www.literatureandlatte.com/scrivener/overview][Scrivener | Literature & Latte]]
+**** [[http://irreal.org/blog/?p=2878][Moving from Scrivener to Org-mode | Irreal]]
+**** [[http://irreal.org/blog/?p=6266][Replacing Scrivener with Emacs | Irreal]]
+**** [[https://www.reddit.com/r/emacs/comments/4kj7cv/emacs_for_writing_tell_me_your_tricks/][Emacs for writing ? Tell me your tricks ! : emacs]]
+**** [[https://vimvalley.com/replacing-scrivener-with-emacs-and-vim/][Replacing Scrivener with Emacs and Vim]]
+**** [[https://www.reddit.com/r/emacs/comments/62sy6c/replacing_scrivener_with_emacs_and_vim/][Replacing Scrivener with Emacs and Vim : emacs]]
+** Email                                                           :ARCHIVE:
 [[https://emacs-china.org/t/mac-emacs/305/42][Emacs-China]]
 *** [[https://github.com/lengyueyang/spacemacs-lengyue/blob/master/lengyueyang.org#36-mu4e][spacemacs-lengyue/lengyueyang.org at master · lengyueyang/spacemacs-lengyue]]
 *** [[http://mbork.pl/2017-09-11_My_email_capturing_workflow][Marcin Borkowski: 2017-09-11 My email capturing workflow]]
