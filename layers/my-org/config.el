@@ -25,9 +25,12 @@
 	(mapcar 'append-org-agenda-files
 			(org-projectile-todo-files))
 
+  (setq deft-files (directory-files-recursively deft-directory ""))
+
   (setq org-refile-targets
         '((nil :maxlevel . 1)
-          (org-agenda-files :maxlevel . 2)))
+          (org-agenda-files :maxlevel . 2)
+          (deft-files :maxlevel . 2)))
 
   (defun org-search ()
     "use org-refile to search org-mode headings"
