@@ -32,6 +32,11 @@
           (org-agenda-files :maxlevel . 2)
           (deft-files :maxlevel . 2)))
 
+  (defun deft-search-for (filter)
+    (interactive "MFilter: ")
+    (spacemacs/deft)
+    (deft-filter filter t))
+
   (defun org-search ()
     "use org-refile to search org-mode headings"
     (interactive)
