@@ -45,8 +45,7 @@ This function should only modify configuration layer settings."
               chinese-enable-fcitx t)
      dash
      git
-     (version-control :variables
-                      version-control-diff-tool 'diff-hl)
+     version-control
      github
      pandoc
      (c-c++ :variables
