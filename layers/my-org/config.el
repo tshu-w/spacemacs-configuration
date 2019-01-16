@@ -93,7 +93,7 @@
   (setq org-journal-date-prefix "#+TITLE: ")
   (setq org-journal-date-format "%A, %B %d %Y")
   (setq org-journal-time-prefix "* ")
-  (setq org-journal-time-format "")
+  ;; (setq org-journal-time-format "")
 
   (org-babel-do-load-languages
    'org-babel-load-languages
