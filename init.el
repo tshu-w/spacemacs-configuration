@@ -517,6 +517,12 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  ;; Proxy
+  ;;
+  (setq url-proxy-services
+        '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
+          ("http" . "127.0.0.1:6152")
+          ("https" . "127.0.0.1:6152")))
   ;; Env
   ;;
   (set-language-environment "UTF-8")
