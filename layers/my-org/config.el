@@ -27,10 +27,13 @@
 
   (setq deft-files (directory-files-recursively deft-directory ""))
 
+  (setq org-refile-use-outline-path 'file)
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-allow-creating-parent-nodes 'confirm)
   (setq org-refile-targets
         '((nil :maxlevel . 1)
           (org-agenda-files :maxlevel . 2)
-          (deft-files :maxlevel . 2)))
+          (deft-files :maxlevel . 1)))
 
   (defun deft-search-for (filter)
     (interactive "MFilter: ")
