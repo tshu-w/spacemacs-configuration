@@ -537,11 +537,14 @@ before packages are loaded."
   (if (display-graphic-p)
       (spacemacs//set-monospaced-font "Source Code Pro" "PingFang SC" 13 15))
   (setq powerline-image-apple-rgb nil)
+  (setq powerline-default-separator 'slant)
+  (setq powerline-height 22)
+  (spaceline-compile)
   (spacemacs/toggle-mode-line-minor-modes-off)
+
   (setq display-time-24hr-format t
         display-time-default-load-average nil)
   (setq org-bullets-bullet-list '("◉" "○" "✸" "✿" "▲" "▶" "■" "◆"))
-  (global-git-commit-mode t)
   (setq default-frame-alist
         '((height . 50) (width . 77) (left . 300) (top . 0)
           (vertical-scroll-bars . nil)))
