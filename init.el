@@ -498,10 +498,6 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq-default git-magit-status-fullscreen t)
   (if (display-graphic-p) nil
     (setq dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.2)))
-
-  ;; fix spaceline temporarily
-  (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "stable.melpa.org/packages/"))
-  (add-to-list 'package-pinned-packages '(spaceline . "melpa-stable"))
   )
 
 (defun dotspacemacs/user-load ()
