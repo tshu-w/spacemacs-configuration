@@ -20,7 +20,7 @@ This function should only modify configuration layer settings."
    ;; installation feature and you have to explicitly list a layer in the
    ;; variable `dotspacemacs-configuration-layers' to install it.
    ;; (default 'unused)
-   dotspacemacs-enable-lazy-installation 'unused
+   dotspacemacs-enable-lazy-installation 'nil
 
    ;; If non-nil then Spacemacs will ask for confirmation before installing
    ;; a layer lazily. (default t)
@@ -49,13 +49,19 @@ This function should only modify configuration layer settings."
                       version-control-diff-tool 'diff-hl)
      github
      pandoc
+     lsp
+     dap
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support nil
             c-c++-enable-google-style nil)
      emacs-lisp
      (python :variables
-             python-enable-yapf-format-on-save t)
+             python-backend 'lsp
+             python-pipenv-activate nil
+             python-format-on-save t
+             python-sort-imports-on-save nil
+             python-fill-column 99)
      (markdown :variables
                markdown-command "pandoc -t html5 -f markdown+smart --mathjax --highlight-style=pygments --toc --toc-depth 3 --template github.html5 --css html/css/github.css"
                markdown-live-preview-engine 'pandoc)
@@ -65,7 +71,7 @@ This function should only modify configuration layer settings."
           org-projectile-file "TODOs.org"
           org-want-todo-bindings t
           org-enable-hugo-support t
-          org-enable-reveal-js-support t
+          org-enable-reveal-js-support nil
           org-enable-org-journal-support t
           org-journal-dir "~/Documents/Org/Journals/")
      (latex :variables
@@ -118,7 +124,8 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '(helm-github-stars
                                       edit-indirect
                                       org-edit-latex cdlatex
-                                      json-mode)
+                                      json-mode
+                                      web-mode)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -519,6 +526,7 @@ before packages are loaded."
         '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
           ("http" . "127.0.0.1:6152")
           ("https" . "127.0.0.1:6152")))
+
   ;; Env
   ;;
   (set-language-environment "UTF-8")
@@ -541,6 +549,9 @@ before packages are loaded."
   (setq powerline-height 22)
   (spaceline-compile)
   (spacemacs/toggle-mode-line-minor-modes-off)
+  (if (display-graphic-p)
+      (spaceline-toggle-all-the-icons-flycheck-status-off))
+  (custom-set-faces '(nobreak-space ((t nil))))
 
   (setq display-time-24hr-format t
         display-time-default-load-average nil)
@@ -567,6 +578,11 @@ before packages are loaded."
   ;; fix hungry-delete & smartparents conflict
   ;;
   (defadvice hungry-delete-backward (before sp-delete-pair-advice activate) (save-match-data (sp-delete-pair (ad-get-arg 0))))
+
+  ;; fix tramp file slow
+  ;;
+  (defadvice projectile-project-root (around ignore-remote first activate)
+    (unless (file-remote-p default-directory) ad-do-it))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -583,11 +599,11 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (spaceline yasnippet-snippets yapfify xkcd ws-butler writeroom-mode winum which-key wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package unicode-fonts toc-org symon string-inflection spaceline-all-the-icons smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters pyvenv pytest pyim pyenv-mode py-isort powerline popwin pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox pangu-spacing pandoc-mode ox-reveal ox-pandoc ox-hugo overseer osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-mime org-journal org-gcal org-edit-latex org-download org-bullets org-alert openwith open-junk-file nameless move-text mmm-mode markdown-toc magit-svn magit-gitflow magit-gh-pulls macrostep lorem-ipsum live-py-mode link-hint launchctl json-mode indent-guide importmagic hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-github-stars helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig edit-indirect dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl deft dash-at-point cython-mode counsel-projectile company-statistics company-rtags company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode clean-aindent-mode clang-format chinese-conv centered-cursor-mode cdlatex browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-window ace-pinyin ace-link ace-jump-helm-line ac-ispell))))
+    (yapfify yaml-mode xkcd ws-butler winum which-key web-mode wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters pyvenv pytest pyim pyim-basedict pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el pbcopy paradox spinner pandoc-mode ox-pandoc osx-trash osx-dictionary orgit org-projectile org-category-capture org-present org-pomodoro org-mime org-gcal request-deferred deferred org-edit-latex org-download org-bullets org-alert alert log4e gntp openwith open-junk-file move-text mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup magit-gh-pulls macrostep lorem-ipsum live-py-mode linum-relative link-hint launchctl json-mode json-snatcher json-reformat indent-guide hydra lv hy-mode dash-functional hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile projectile helm-mode-manager helm-make helm-gitignore request helm-github-stars helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md fuzzy flycheck-pos-tip flycheck pkg-info epl flx-ido flx find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav edit-indirect dumb-jump disaster diminish diff-hl deft dash-at-point cython-mode company-statistics company-quickhelp pos-tip company-c-headers company-auctex company-anaconda company column-enforce-mode cmake-mode clean-aindent-mode clang-format cdlatex bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed auctex anaconda-mode pythonic f dash s aggressive-indent adaptive-wrap ace-window ace-pinyin pinyinlib ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(nobreak-space ((t nil))))
 )

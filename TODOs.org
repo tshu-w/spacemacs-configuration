@@ -1,4 +1,4 @@
-* TODOs
+* TO-DO
 ** 学习配置
 *** [[http://cestlaz.github.io/stories/emacs/][Using Emacs Series | C'est la Z]]
 *** [[https://github.com/zilongshanren/spacemacs-private][zilongshanren/spacemacs-private: My Spacemacs config]]
