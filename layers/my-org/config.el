@@ -10,6 +10,7 @@
 ;;; License: GPLv3
 
 (with-eval-after-load 'org
+  (require 'org-tempo)
   (setq evil-org-key-theme '(textobjects navigation additional insert todo))
   (setq org-startup-indented t)
   (setq org-agenda-span 'day)
@@ -135,26 +136,4 @@
           (tagindent ".8em")
           (tagside "right"))
         )
-
-  ;; Org Agent alert
-  ;; https://emacs-china.org/t/org-agenda/232
-  (require 'appt)
-  (setq appt-time-msg-list nil)      ;; clear existing appt list
-  (setq appt-display-interval '10)   ;; warn every 10 minutes from t - appt-message-warning-time
-  (setq
-    appt-message-warning-time '15    ;; send first warning 15 minutes before appointment
-    appt-display-mode-line nil       ;; don't show in the modeline
-    appt-display-format 'window)     ;; pass warnings to the designated window function
-    (appt-activate 1)                ;; activate appointment notification
-    (display-time)                   ;; activate time display
-  (with-eval-after-load 'org-agenda
-    (org-agenda-to-appt))            ;; generate the appt list from org agenda files on emacs launch
-  (run-at-time "24:01" 3600 'org-agenda-to-appt)           ;; update appt list hourly
-  (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt) ;; update appt list on agenda view
-  (defun appt-display (min-to-app new-time msg)
-    (notify-osx
-    (format "Appointment in %s minutes" min-to-app)    ;; passed to -title in terminal-notifier call
-    (format "%s" msg)))                                ;; passed to -message in terminal-notifier call
-  (setq appt-disp-window-function (function my-appt-display))
-
   )
