@@ -101,17 +101,8 @@ This function should only modify configuration layer settings."
                wakatime-api-key  "2ccf4cb6-4369-40b5-9165-718666b8bb32"
                wakatime-cli-path "/usr/local/bin/wakatime")
      unicode-fonts
-     ;; vim-empty-lines
      xkcd
      cfg
-     ;; (shell :variables
-     ;;        shell-default-shell 'multi-term
-     ;;        shell-default-height 40
-     ;;        shell-default-position 'bottom)
-     ;; parinfer
-     ;; copy-as-format
-     ;; themes-megapack
-     ;; mu4e
      )
 
    ;; List of additional packages that will be installed without being
@@ -125,6 +116,7 @@ This function should only modify configuration layer settings."
                                       edit-indirect
                                       org-edit-latex cdlatex
                                       json-mode
+                                      yaml-mode
                                       web-mode)
 
    ;; A list of packages that cannot be updated.
@@ -599,7 +591,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yapfify yaml-mode xkcd ws-butler winum which-key web-mode wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters pyvenv pytest pyim pyim-basedict pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el pbcopy paradox spinner pandoc-mode ox-pandoc osx-trash osx-dictionary orgit org-projectile org-category-capture org-present org-pomodoro org-mime org-gcal request-deferred deferred org-edit-latex org-download org-bullets org-alert alert log4e gntp openwith open-junk-file move-text mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup magit-gh-pulls macrostep lorem-ipsum live-py-mode linum-relative link-hint launchctl json-mode json-snatcher json-reformat indent-guide hydra lv hy-mode dash-functional hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile projectile helm-mode-manager helm-make helm-gitignore request helm-github-stars helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md fuzzy flycheck-pos-tip flycheck pkg-info epl flx-ido flx find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav edit-indirect dumb-jump disaster diminish diff-hl deft dash-at-point cython-mode company-statistics company-quickhelp pos-tip company-c-headers company-auctex company-anaconda company column-enforce-mode cmake-mode clean-aindent-mode clang-format cdlatex bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed auctex anaconda-mode pythonic f dash s aggressive-indent adaptive-wrap ace-window ace-pinyin pinyinlib ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup))))
+    (yapfify yaml-mode xkcd ws-butler winum which-key web-mode wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters pyvenv pytest pyim pyim-basedict pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el pbcopy paradox spinner pandoc-mode ox-pandoc osx-trash osx-dictionary orgit org-projectile org-category-capture org-present org-pomodoro org-mime org-gcal request-deferred deferred org-edit-latex org-download org-bullets alert log4e gntp openwith open-junk-file move-text mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup magit-gh-pulls macrostep lorem-ipsum live-py-mode linum-relative link-hint launchctl json-mode json-snatcher json-reformat indent-guide hydra lv hy-mode dash-functional hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile projectile helm-mode-manager helm-make helm-gitignore request helm-github-stars helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md fuzzy flycheck-pos-tip flycheck pkg-info epl flx-ido flx find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav edit-indirect dumb-jump disaster diminish diff-hl deft dash-at-point cython-mode company-statistics company-quickhelp pos-tip company-c-headers company-auctex company-anaconda company column-enforce-mode cmake-mode clean-aindent-mode clang-format cdlatex bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed auctex anaconda-mode pythonic f dash s aggressive-indent adaptive-wrap ace-window ace-pinyin pinyinlib ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

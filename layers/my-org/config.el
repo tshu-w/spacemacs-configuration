@@ -115,9 +115,6 @@
           ("WAITING" . (:foreground "IndianRed1" :weight bold))
           ("STARTED" . (:foreground "plum" :weight bold))
           ("SOMEDAY" . (:foreground "thistle" :weight bold))))
-  (setq org-todo-keyword-faces '(("TODO" . "red")
-                                 ("DOING" . "yellow")
-                                 ("DONE" . "green")))
 
   (add-hook 'org-mode-hook 'org-cdlatex-mode)
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))

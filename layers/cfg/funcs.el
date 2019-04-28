@@ -12,10 +12,11 @@
 (defun notify-osx (title message)
   (call-process "terminal-notifier"
                 nil 0 nil
-                "-sender" "org.gnu.Emacs"
-                "-group" "Emacs"
+                "-sound" "default"
                 "-title" title
                 "-message" message
+                "-group" "Emacs"
+                ;; "-sender" "org.gnu.Emacs"
                 "-activate" "org.gnu.Emacs"))
 
 (defun backward-kill-line (arg)

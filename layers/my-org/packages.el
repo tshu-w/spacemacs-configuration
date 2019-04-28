@@ -9,14 +9,10 @@
 ;;
 ;;; License: GPLv3
 
-(setq my-org-packages '(org-alert org-gcal))
-
-(defun my-org/init-org-alert ()
-  (use-package org-alert
-    :defer t))
+(setq my-org-packages '(org-gcal))
 
 (defun my-org/init-org-gcal ()
-  (use-package org-alert
+  (use-package org-gcal
     :defer t
     :init
     (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync nil t t)))
