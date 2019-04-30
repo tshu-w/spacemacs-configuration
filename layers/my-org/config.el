@@ -67,11 +67,6 @@
             (org-agenda-repeating-timestamp-show-all nil)))
          ))
 
-  (setq org-todo-keywords
-        '((sequence "TODO(t)" "STARTED(s!)" "|" "DONE(d)")
-          (sequence "WAITING(w@/!)" "|" "SOMEDAY(f)" "CANCELED(c!)"))
-        )
-
   ;; https://github.com/syl20bnr/spacemacs/issues/9763
   (setq-default org-directory '"~/Documents/Org")
   (setq org-agenda-file-gtd (expand-file-name "gtd.org" org-directory))
@@ -110,6 +105,11 @@
      (latex . t)
      ))
 
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "STARTED(s!)" "|" "DONE(d)")
+          (sequence "WAITING(w@/!)" "|" "SOMEDAY(f)" "CANCELED(c!)"))
+        )
+
   (setq org-todo-keyword-faces
         '(("TODO" . (:foreground "red" :weight bold))
           ("WAITING" . (:foreground "IndianRed1" :weight bold))
@@ -119,7 +119,28 @@
   (add-hook 'org-mode-hook 'org-cdlatex-mode)
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
-  (setq org-latex-create-formula-image-program 'dvisvgm)
+  (setq org-latex-compiler "xelatex")
+  (setq org-preview-latex-default-process 'dvisvgm)
+  (setq org-latex-packages-alist
+               '(("fontset=macnew,UTF8" "ctex" t)))
+  (setq org-preview-latex-process-alist
+        '((dvisvgm :programs
+                   ("xelatex" "dvisvgm")
+                   :description "xdv > svg" :message "you need to install the programs: xelatex and dvisvgm." :use-xcolor t :image-input-type "xdv" :image-output-type "svg" :image-size-adjust
+                   (1.7 . 1.5)
+                   :latex-compiler
+                   ("xelatex -no-pdf -interaction nonstopmode -output-directory %o %f")
+                   :image-converter
+                   ("dvisvgm %f -n -b min -c %S -o %O"))
+          (imagemagick :programs
+                       ("xelatex" "convert")
+                       :description "pdf > png" :message "you need to install the programs: xelatex and imagemagick." :use-xcolor t :image-input-type "pdf" :image-output-type "png" :image-size-adjust
+                       (1.0 . 1.0)
+                       :latex-compiler
+                       ("xelatex -interaction nonstopmode -output-directory %o %f")
+                       :image-converter
+                       ("convert -density %D -trim -antialias %f -quality 100 %O"))))
+
   (setq org-image-actual-width 500)
   (setf org-html-mathjax-options
         '((path " https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS_HTML")
