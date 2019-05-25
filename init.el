@@ -59,7 +59,7 @@ This function should only modify configuration layer settings."
      (python :variables
              python-backend 'lsp
              python-pipenv-activate nil
-             python-format-on-save t
+             python-format-on-save nil
              python-sort-imports-on-save nil
              python-fill-column 99)
      (markdown :variables

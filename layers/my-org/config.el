@@ -120,6 +120,7 @@
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
   (setq org-latex-compiler "xelatex")
+  (setq TeX-engine 'xetex)
   (setq org-preview-latex-default-process 'dvisvgm)
   (setq org-latex-packages-alist
                '(("fontset=macnew,UTF8" "ctex" t)))
