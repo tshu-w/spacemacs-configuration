@@ -35,7 +35,7 @@
 ** [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%252Btools/lsp][spacemacs/layers/+tools/lsp at develop · syl20bnr/spacemacs]]
 ** [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%252Blang/c-c%252B%252B][spacemacs/layers/+lang/c-c++ at develop · syl20bnr/spacemacs]]
 ** [[https://github.com/oracleyue/latex-templates][oracleyue/latex-templates: LaTeX templates, useful shell scripts for productivity and other logos etc.]]
-* Awesome Articles or Blog
+* Awesome Articles, Blogs or Video
 ** [[http://www.modernemacs.com/categories/emacs/][Emacs | Modern Emacs]]
 ** [[http://www.modernemacs.com/post/org-mode-blogging/][An Emacs Blogging Workflow | Modern Emacs]]
 ** [[https://sam217pa.github.io/2016/09/01/emacs-iterm-integration/][Integrate iTerm2 in your Emacs setup · Samuel Barreto]]
@@ -45,3 +45,5 @@
 ** [[https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html][Orgmode for GTD]]
 ** [[https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html][An Agenda for Life With Org Mode]]
 ** [[http://raebear.net/comp/emacscolors.html][Colors Available to Emacs]]
+** [[https://www.youtube.com/watch?v=PVsSOmUB7ic][Learn Emacs Org Mode: Spacemacs Intro Tutorial - YouTube]]
+** [[https://www.youtube.com/watch?v=S4f-GUxu3CY&t=2s][Org mode and Spacemacs: The Absolute Minimum you need to know - YouTube]]
