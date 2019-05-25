@@ -14,6 +14,8 @@
 ;; (evil-ex-define-cmd "q[uit]" 'evil-delete-buffer)
 (spacemacs/set-leader-keys "o" (lookup-key global-map (kbd "C-c")))
 (spacemacs/set-leader-keys "o g" 'org-mac-grab-link)
+(spacemacs/set-leader-keys "o s" 'org-save-all-org-buffers)
+(spacemacs/set-leader-keys "o h" 'helm-org-agenda-files-headings)
 (spacemacs/set-leader-keys "a o g" 'org-mac-grab-link)
 
 (global-set-key (kbd "H-'") 'iterm-goto-filedir-or-home)
