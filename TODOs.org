@@ -8,7 +8,6 @@
 ** Org
 *** [[http://doc.norang.ca/org-mode.html][Org Mode - Organize Your Life In Plain Text!]]
 *** [[http://orgmode.org][Org manual]]
-*** Beautify output [[https://github.com/fniessen/org-html-themes][org-html-themes]]
 *** [[https://github.com/purcell/emacs.d/blob/a7993fd125fcf81055234e27ab0ea16348c03601/lisp/init-org.el][emacs.d/init-org.el at a7993fd125fcf81055234e27ab0ea16348c03601 · purcell/emacs.d]]
 *** TODO Org Agenda Alert
 ** Learning Emacs
@@ -32,8 +31,6 @@
 *** [[http://mbork.pl/2017-09-11_My_email_capturing_workflow][Marcin Borkowski: 2017-09-11 My email capturing workflow]]
 ** org ical 中文支持 :ARCHIVE:
 ** [[http://www.modernemacs.com/post/org-mode-blogging/][An Emacs Blogging Workflow | Modern Emacs]]
-** [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%252Btools/lsp][spacemacs/layers/+tools/lsp at develop · syl20bnr/spacemacs]]
-** [[https://github.com/syl20bnr/spacemacs/tree/develop/layers/%252Blang/c-c%252B%252B][spacemacs/layers/+lang/c-c++ at develop · syl20bnr/spacemacs]]
 ** [[https://github.com/oracleyue/latex-templates][oracleyue/latex-templates: LaTeX templates, useful shell scripts for productivity and other logos etc.]]
 * Awesome Articles, Blogs or Video
 ** [[http://www.modernemacs.com/categories/emacs/][Emacs | Modern Emacs]]
