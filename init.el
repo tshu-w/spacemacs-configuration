@@ -123,7 +123,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(helm-dash org-brain magithub exec-path-from-shell neotree)
+   dotspacemacs-excluded-packages '()
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -355,7 +355,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
 
    ;; If non-nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
@@ -509,7 +509,7 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq-default git-magit-status-fullscreen t)
-  (if (display-graphic-p) nil
+  (unless (display-graphic-p)
     (setq dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.2)))
   )
 
@@ -548,38 +548,33 @@ before packages are loaded."
 
   ;; Appearance
   ;;
-  (if (display-graphic-p)
-      (spacemacs//set-monospaced-font "Source Code Pro" "PingFang SC" 13 15))
-  (setq powerline-image-apple-rgb nil)
-  (setq powerline-default-separator 'slant)
-  (setq powerline-height 22)
+  (when (display-graphic-p)
+    (spacemacs//set-monospaced-font "Source Code Pro" "PingFang SC" 13 15)
+    (spaceline-toggle-all-the-icons-flycheck-status-off))
+  (setq-default powerline-image-apple-rgb nil
+                powerline-default-separator 'slant
+                powerline-height 22)
   (spaceline-compile)
   (spacemacs/toggle-mode-line-minor-modes-off)
-  (if (display-graphic-p)
-      (spaceline-toggle-all-the-icons-flycheck-status-off))
   (custom-set-faces '(nobreak-space ((t nil))))
 
   (setq display-time-24hr-format t
         display-time-default-load-average nil)
   (setq org-bullets-bullet-list '("◉" "○" "✸" "✿" "▲" "▶" "■" "◆"))
-  (setq default-frame-alist
-        '((height . 50) (width . 77) (left . 300) (top . 0)
-          (vertical-scroll-bars . nil)))
 
-  (setq writeroom-width 120)
-  (setq writeroom-fringes-outside-margins t)
-  (setq writeroom-bottom-divider-width 0)
-  (setq writeroom-mode-line t)
-  (setq writeroom-mode-line-toggle-position 'mode-line-format)
-  (setq writeroom-major-modes '(text-mode prog-mode))
+  (setq writeroom-width 120
+        writeroom-fringes-outside-margins t
+        writeroom-bottom-divider-width 0
+        writeroom-mode-line t
+        writeroom-mode-line-toggle-position 'mode-line-format
+        writeroom-major-modes '(text-mode prog-mode))
   (global-writeroom-mode 1)
   (add-hook 'find-file-hook #'writeroom-mode)
 
-  (fset 'evil-visual-update-x-selection 'ignore)
-
-  ;; Private Setting
+  ;; cfg
   ;;
-  (load (expand-file-name "secrets.el.gpg" dotspacemacs-directory))
+  (fset 'evil-visual-update-x-selection 'ignore)
+  ;; (load (expand-file-name "secrets.el.gpg" dotspacemacs-directory))
 
   ;; fix hungry-delete & smartparents conflict
   ;;

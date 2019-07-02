@@ -1,6 +1,6 @@
 ;;; funcs.el --- Org Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2017-2018 Tshu Wang
+;; Copyright (c) 2017-2019 Tshu Wang
 ;;
 ;; Author: Tshu Wang <volekingsg@gmail.com>
 ;; URL: https://github.com/Voleking/spacemacs-configuration
@@ -23,6 +23,15 @@
   "Kill ARG lines backward."
   (interactive "p")
   (kill-line (- 1 arg)))
+
+;; Add executable attribute to file
+(defun set-file-executable ()
+  "Add executable permissions on current file."
+  (interactive)
+  (when (buffer-file-name)
+    (set-file-modes buffer-file-name
+                    (logior (file-modes buffer-file-name) #o100))
+    (message (concat "Made " buffer-file-name " executable"))))
 
 ;; Iterm2 Intergration
 (defun iterm-focus ()
@@ -48,12 +57,3 @@
   (iterm-command (concat (replace-regexp-in-string "\\\\" "\\\\\\\\"
                                                    (shell-quote-argument (or default-directory "~")))
                          "; clear")))
-
-;; Add executable attribute to file
-(defun set-file-executable ()
-  "Add executable permissions on current file."
-  (interactive)
-  (when (buffer-file-name)
-    (set-file-modes buffer-file-name
-                    (logior (file-modes buffer-file-name) #o100))
-    (message (concat "Made " buffer-file-name " executable"))))

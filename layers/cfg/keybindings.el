@@ -1,6 +1,6 @@
 ;;; keybindings.el --- Org Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2017-2018 Tshu Wang
+;; Copyright (c) 2017-2019 Tshu Wang
 ;;
 ;; Author: Tshu Wang <volekingsg@gmail.com>
 ;; URL: https://github.com/Voleking/spacemacs-configuration
@@ -9,9 +9,6 @@
 ;;
 ;;; License: GPLv3
 
-;; (evil-leader/set-key
-;;   "q q" 'spacemacs/frame-killer)
-;; (evil-ex-define-cmd "q[uit]" 'evil-delete-buffer)
 (spacemacs/set-leader-keys "o" (lookup-key global-map (kbd "C-c")))
 (spacemacs/set-leader-keys "o g" 'org-mac-grab-link)
 (spacemacs/set-leader-keys "o s" 'org-save-all-org-buffers)

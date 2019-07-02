@@ -1,6 +1,6 @@
 ;;; funcs.el --- Org Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2017-2018 Tshu Wang
+;; Copyright (c) 2017-2019 Tshu Wang
 ;;
 ;; Author: Tshu Wang <volekingsg@gmail.com>
 ;; URL: https://github.com/Voleking/spacemacs-configuration
@@ -13,31 +13,18 @@
   (interactive)
   (iterm-command
    (concat
-    ;; "cd " (projectile-project-root)
     "cd " (locate-dominating-file default-directory "makefile")
     " && make -k " (file-name-sans-extension buffer-file-name)
     " && cd " (replace-regexp-in-string "\\\\" "\\\\\\\\" (shell-quote-argument (or default-directory "~")))
     " && clear"
     " && ./" (file-name-nondirectory (file-name-sans-extension buffer-file-name)))))
-;; (defun run-c-cpp-file ()
-;;   (interactive)
-;;   (shell-command
-;;    (concat "make -k "
-;;            (if buffer-file-name
-;;                (shell-quote-argument
-;;                 (file-name-sans-extension buffer-file-name)))
-;;            " && open "
-;;            (if buffer-file-name
-;;                (shell-quote-argument
-;;                 (file-name-sans-extension buffer-file-name))))))
 
 (defun run-current-file (arg)
   "Execute the current file.
 If the file is modified or not saved, save it automatically before run.
 Version 2017-06-17"
   (interactive "P")
-  (let (
-        (-suffix-map
+  (let ((-suffix-map
          ;; (‹extension› . ‹shell program name›)
          `(
            ("pl" . "perl")
