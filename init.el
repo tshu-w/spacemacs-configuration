@@ -98,7 +98,6 @@ This function should only modify configuration layer settings."
      (syntax-checking :variables
                       syntax-checking-enable-by-default nil)
      (wakatime :variables
-               wakatime-api-key  "2ccf4cb6-4369-40b5-9165-718666b8bb32"
                wakatime-cli-path "/usr/local/bin/wakatime")
      unicode-fonts
      xkcd
@@ -574,7 +573,7 @@ before packages are loaded."
   ;; cfg
   ;;
   (fset 'evil-visual-update-x-selection 'ignore)
-  ;; (load (expand-file-name "secrets.el.gpg" dotspacemacs-directory))
+  (load (expand-file-name "secrets.el.gpg" dotspacemacs-directory))
 
   ;; fix hungry-delete & smartparents conflict
   ;;
