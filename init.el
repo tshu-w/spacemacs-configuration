@@ -83,12 +83,18 @@ This function should only modify configuration layer settings."
        deft-directory "~/Documents/Org/Notes"
        deft-recursive t
        deft-extensions '("org" "md" "txt")
-       deft-use-filename-as-title t
+       deft-org-mode-title-prefix t
+       deft-use-filename-as-title nil
        deft-use-filter-string-for-filename t
        deft-auto-save-interval 0
        deft-file-naming-rules '((noslash . "-")
                                 (nospace . "-")
-                                (case-fn . downcase)))
+                                (case-fn . downcase))
+       deft-strip-summary-regexp (concat "\\("
+                                         "[\n\t]" ;; blank
+                                         "\\|^#\\+[[:upper:]_]+:.*$" ;; org-mode metadata
+                                         "\\|^#\\+[[:alnum:]_]+:.*$" ;; org-mode metadata
+                                         "\\)"))
      (auto-completion :variables
                       auto-completion-enable-help-tooltip 'manual
                       auto-completion-enable-snippets-in-popup t
