@@ -128,7 +128,7 @@
             (goto-char (point-max))))))
 
   (setq org-agenda-custom-commands
-        '(("t" "Daily agenda and all TODOs"
+        '(("c" "Daily agenda and all TODOs"
            ((agenda "" ((org-agenda-overriding-header "Today's tasks:")
                         (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("WAITING" "DONE")))
                         (org-agenda-skip-scheduled-if-deadline-is-shown t)
