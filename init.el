@@ -257,7 +257,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(all-the-icons :separator slant)
+   dotspacemacs-mode-line-theme '(all-the-icons :separator wave)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -265,7 +265,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font or prioritized list of fonts.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 14
                                :weight normal
                                :width normal)
 
@@ -551,10 +551,9 @@ before packages are loaded."
   ;; Appearance
   ;;
   (when (display-graphic-p)
-    (spacemacs//set-monospaced-font "Source Code Pro" "PingFang SC" 13 15)
-    (spaceline-toggle-all-the-icons-flycheck-status-off))
+    (spacemacs//set-monospaced-font "Source Code Pro" "PingFang SC" 14 16))
   (setq-default powerline-image-apple-rgb nil
-                powerline-default-separator 'slant
+                powerline-default-separator 'wave
                 powerline-height 22)
   (spaceline-compile)
   (spacemacs/toggle-mode-line-minor-modes-off)
