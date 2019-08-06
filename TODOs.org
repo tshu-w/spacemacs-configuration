@@ -5,6 +5,7 @@
 *** [[https://github.com/TheBB/spacemacs-layers][TheBB/spacemacs-layers: Miscellaneous layers for Spacemacs]]
 *** [[https://github.com/ekaschalk/dotspacemacs][ekaschalk/dotspacemacs: My spacemacs configuration.]]
 *** [[http://www.modernemacs.com/categories/emacs/][Emacs | Modern Emacs]]
+*** [[https://practicalli.github.io/spacemacs/][Introduction · Clojure development with Spacemacs & Cider]]
 ** Org
 *** [[http://doc.norang.ca/org-mode.html][Org Mode - Organize Your Life In Plain Text!]]
 *** [[http://orgmode.org][Org manual]]
@@ -14,6 +15,7 @@
 在 arxiv、google scholar 上用 org-protocol 触发 org-capture 时，自动新增内容到记录待读论文列表的 papers.org 中
 在淘宝、京东、亚马逊网站上用 org-protocol 触发 org-capture 时，自动新增内容到记录心愿单列表的 wishlist.org 中
 
+*** [[http://doc.norang.ca/org-mode.html][Org Mode - Organize Your Life In Plain Text!]]
 ** Learning Emacs
 *** Spacemacs-rocks
 *** Spacemacs-ABC
