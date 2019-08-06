@@ -20,9 +20,8 @@
   (require 'org-tempo)
 
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "|" "DONE(d)")
-          (sequence "WAITING(w@/!)" "|" "SOMEDAY(s)" "CANCELED(c!)")
-          (sequence "PROJ(p)" "NEXT(n)")))
+        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+          (sequence "PROJ(p)" "WAITING(w@/!)" "|" "SOMEDAY(s)" "CANCELED(c!)")))
 
   (setq org-todo-keyword-faces
         '(("WAITING" . (:foreground "indian red" :weight bold))
@@ -129,16 +128,15 @@
             (goto-char (point-max))))))
 
   (setq org-agenda-custom-commands
-        '(("t" "Daily agenda and all TODOs"
+        '(("c" "Daily agenda and all TODOs"
            ((agenda "" ((org-agenda-overriding-header "Today's tasks:")
                         (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("WAITING" "DONE")))
                         (org-agenda-skip-scheduled-if-deadline-is-shown t)
                         (org-agenda-span 1)
                         (org-agenda-time-grid nil)))
             (todo "TODO" ((org-agenda-overriding-header "All TODO items without scheduled or deadline")
-                          (org-agenda-skip-function '(or (org-agenda-skip-entry-if 'timestamp 'scheduled 'deadline)
-                                                         (org-agenda-skip-subtree-if 'regexp "habit")
-                                                         (org-agenda-skip-all-siblings-but-first))))))
+                          (org-agenda-skip-function '(or (org-agenda-skip-entry-if 'timestamp)
+                                                         (org-agenda-skip-subtree-if 'regexp "habit"))))))
            ((org-agenda-compact-blocks t)
             (org-agenda-repeating-timestamp-show-all nil)))
           ("w" "Weekly Review"
