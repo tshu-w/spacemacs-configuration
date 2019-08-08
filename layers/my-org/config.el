@@ -11,13 +11,12 @@
 
 (with-eval-after-load 'org
   ;; Org basic
-  (add-to-list 'org-modules 'org-habit t)
-  (setq org-startup-indented t)
+  (require 'org-tempo)
   (setq org-edit-src-content-indentation 0)
+  (setq org-image-actual-width 500)
   (setq org-src-preserve-indentation t)
   (setq org-src-tab-acts-natively t)
-  (setq org-image-actual-width 500)
-  (require 'org-tempo)
+  (setq org-startup-indented t)
 
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
@@ -57,8 +56,16 @@
           (tagindent ".8em")
           (tagside "right")))
 
-  ;; Org Capture and Agenda
+  ;; Org for GTD
   (require 'org-projectile)
+  (add-to-list 'org-modules 'org-habit t)
+  (setq org-stuck-projects '("/+PROJ" ("TODO" "NEXT") nil ""))
+  (setq org-enforce-todo-dependencies t)
+  (setq org-enforce-todo-checkbox-dependencies t)
+  (setq org-agenda-dim-blocked-tasks t)
+  (setq org-habit-graph-column 70)
+  (setq org-tags-match-list-sublevels 'indented)
+  (setq org-track-ordered-property-with-tag t)
   (defun append-org-agenda-files (file)
     "append to org-agenda-files if file exists"
     (when (file-exists-p file)
