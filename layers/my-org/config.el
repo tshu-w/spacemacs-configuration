@@ -19,11 +19,15 @@
   (setq org-startup-indented t)
 
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+        '((sequence "TODO(t)" "|" "DONE(d)")
           (sequence "PROJ(p)" "WAITING(w@/!)" "|" "SOMEDAY(s)" "CANCELED(c!)")))
 
   (setq org-todo-keyword-faces
-        '(("WAITING" . (:foreground "indian red" :weight bold))
+        '(("TODO" . org-upcoming-deadline)
+          ("DONE" . org-upcoming-distant-deadline)
+          ("CANCELED" . org-upcoming-distant-deadline)
+          ("PROJ" . (:foreground "RosyBrown4" :weight bold))
+          ("WAITING" . (:foreground "light coral" :weight bold))
           ("SOMEDAY" . (:foreground "plum" :weight bold))))
 
   (org-babel-do-load-languages
@@ -59,7 +63,7 @@
   ;; Org for GTD
   (require 'org-projectile)
   (add-to-list 'org-modules 'org-habit t)
-  (setq org-stuck-projects '("/+PROJ" ("TODO" "NEXT") nil ""))
+  (setq org-stuck-projects '("/PROJ" ("TODO") nil ""))
   (setq org-enforce-todo-dependencies t)
   (setq org-enforce-todo-checkbox-dependencies t)
   (setq org-agenda-dim-blocked-tasks t)
@@ -119,25 +123,11 @@
           ("ss" "Schedule" entry (file org-agenda-file-gtd)
            "* TODO %?\nSCHEDULED: %^T")))
 
-  (defun org-current-is-todo ()
-    (string= "TODO" (org-get-todo-state)))
-  (defun org-agenda-skip-all-siblings-but-first ()
-    "Skip all but the first non-done entry."
-    (let (should-skip-entry)
-      (unless (org-current-is-todo)
-        (setq should-skip-entry t))
-      (save-excursion
-        (while (and (not should-skip-entry) (org-goto-sibling t))
-          (when (org-current-is-todo)
-            (setq should-skip-entry t))))
-      (when should-skip-entry
-        (or (outline-next-heading)
-            (goto-char (point-max))))))
-
   (setq org-agenda-custom-commands
         '(("c" "Daily agenda and all TODOs"
            ((agenda "" ((org-agenda-overriding-header "Today's tasks:")
-                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("WAITING" "DONE")))
+                        (org-agenda-skip-scheduled-if-done t)
+                        (org-agenda-skip-deadline-if-done t)
                         (org-agenda-skip-scheduled-if-deadline-is-shown t)
                         (org-agenda-span 1)
                         (org-agenda-time-grid nil)))
@@ -145,6 +135,7 @@
                           (org-agenda-skip-function '(or (org-agenda-skip-entry-if 'timestamp)
                                                          (org-agenda-skip-subtree-if 'regexp "habit"))))))
            ((org-agenda-compact-blocks t)
+            (org-agenda-dim-blocked-tasks 'invisible)
             (org-agenda-repeating-timestamp-show-all nil)))
           ("w" "Weekly Review"
            ((agenda "" ((org-agenda-span 7)
