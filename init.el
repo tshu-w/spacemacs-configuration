@@ -61,7 +61,8 @@ This function should only modify configuration layer settings."
              python-pipenv-activate nil
              python-format-on-save nil
              python-sort-imports-on-save nil
-             python-fill-column 99)
+             python-formatter 'black
+             blacken-fast-unsafe t)
      (markdown :variables
                markdown-command "pandoc -t html5 -f markdown+smart --mathjax --highlight-style=pygments --toc --toc-depth 3 --template github.html5 --css html/css/github.css"
                markdown-live-preview-engine 'pandoc)
