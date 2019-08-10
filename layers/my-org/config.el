@@ -12,6 +12,8 @@
 (with-eval-after-load 'org
   ;; Org basic
   (require 'org-tempo)
+  (require 'ox-html)
+  (require 'ox-latex)
   (setq org-edit-src-content-indentation 0)
   (setq org-image-actual-width 500)
   (setq org-src-preserve-indentation t)
@@ -20,7 +22,7 @@
 
   (setq org-todo-keywords
         '((sequence "TODO(t)" "|" "DONE(d)")
-          (sequence "PROJ(p)" "WAITING(w@/!)" "|" "SOMEDAY(s)" "CANCELED(c!)")))
+          (sequence "PROJ(p)" "WAITING(w@/!)" "|" "SOMEDAY(s)" "CANCELED(c)")))
 
   (setq org-todo-keyword-faces
         '(("TODO" . org-upcoming-deadline)
@@ -63,13 +65,39 @@
   ;; Org for GTD
   (require 'org-projectile)
   (add-to-list 'org-modules 'org-habit t)
-  (setq org-stuck-projects '("/PROJ" ("TODO") nil ""))
+  (org-clock-persistence-insinuate)
+  (setq org-agenda-clockreport-parameter-plist
+        '(:link t :maxlevel 3 :scope agenda-with-archives :fileskip0 t :stepskip0 t :compact t :narrow 80))
+  (setq org-agenda-dim-blocked-tasks t)
+  (setq org-agenda-persistent-filter t)
+  (setq org-agenda-skip-additional-timestamps-same-entry t)
+  (setq org-agenda-time-grid nil)
+  (setq org-global-properties
+        '(("Effort_ALL" .
+           "0:10 0:15 0:30 0:45 1:00 2:00 3:00 5:00 0:00")
+          ("STYLE_ALL" . "habit")))
+  (setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
+  (setq org-clock-continuously t)
+  (setq org-clock-history-length 10)
+  (setq org-clock-idle-time 5)
+  (setq org-clock-in-resume t)
+  (setq org-clock-persist t)
+  (setq org-clock-persist-query-resume nil)
+  (setq org-clock-out-remove-zero-time-clocks t)
+  (setq org-clock-out-when-done t)
+  (setq org-columns-default-format "%50ITEM %2PRIORITY %10Effort(Effort){:} %10CLOCKSUM")
   (setq org-enforce-todo-dependencies t)
   (setq org-enforce-todo-checkbox-dependencies t)
-  (setq org-agenda-dim-blocked-tasks t)
   (setq org-habit-graph-column 70)
+  (setq org-pretty-entities t)
+  (setq org-stuck-projects '("/PROJ" ("TODO") nil ""))
   (setq org-tags-match-list-sublevels 'indented)
   (setq org-track-ordered-property-with-tag t)
+
+  (defun my-org-clock-select-task ()
+    (interactive)
+    (org-clock-in '(4)))
+
   (defun append-org-agenda-files (file)
     "append to org-agenda-files if file exists"
     (when (file-exists-p file)
@@ -101,7 +129,7 @@
 
   (setq org-capture-templates
         '(("j" "Journal" plain (function org-journal-find-location)
-           "** %(format-time-string org-journal-time-format)%k%?")
+           "** %(format-time-string org-journal-time-format)%k%?" :clock-in t :clock-resume t)
           ("i" "Inbox" entry (file org-agenda-file-gtd)
            "* TODO %?\n  %i\n")
           ("l" "Link" plain (file+function org-agenda-file-gtd org-capture-goto-link)
@@ -128,29 +156,36 @@
            ((agenda "" ((org-agenda-overriding-header "Today's tasks:")
                         (org-agenda-skip-scheduled-if-done t)
                         (org-agenda-skip-deadline-if-done t)
+                        (org-agenda-skip-timestamp-if-done t)
                         (org-agenda-skip-scheduled-if-deadline-is-shown t)
-                        (org-agenda-span 1)
-                        (org-agenda-time-grid nil)))
+                        (org-agenda-span 1)))
             (todo "TODO" ((org-agenda-overriding-header "All TODO items without scheduled or deadline")
                           (org-agenda-skip-function '(or (org-agenda-skip-entry-if 'timestamp)
                                                          (org-agenda-skip-subtree-if 'regexp "habit"))))))
            ((org-agenda-compact-blocks t)
             (org-agenda-dim-blocked-tasks 'invisible)
             (org-agenda-repeating-timestamp-show-all nil)))
-          ("w" "Weekly Review"
+          ("O" . "Overview")
+          ("Od" "Daily Review"
+           ((agenda "" ((org-agenda-span 3))))
+           ((org-agenda-compact-blocks t)
+            (org-agenda-start-with-log-mode '(closed clock state))
+            (org-agenda-start-with-clockreport-mode t)
+            (org-agenda-archives-mode)))
+          ("Ow" "Weekly Review"
            ((agenda "" ((org-agenda-span 7)
-                        (org-agenda-start-on-weekday nil)
-                        (org-agenda-time-grid nil)))
+                        (org-agenda-start-on-weekday 1)))
             (todo "PROJECT")
             (todo "WAITING")
             (todo "SOMEDAY")
             (stuck ""))
-           ((org-agenda-compact-blocks t)))
+           ((org-agenda-compact-blocks t)
+            (org-agenda-start-with-clockreport-mode t)
+            (org-agenda-archives-mode t)))
           ("d" "Upcoming deadlines" agenda ""
            ((org-agenda-entry-types '(:deadline))
             (org-agenda-span 1)
-            (org-deadline-warning-days 30)
-            (org-agenda-time-grid nil)))))
+            (org-deadline-warning-days 30)))))
 
   ;; Tex
   (add-hook 'org-mode-hook 'org-cdlatex-mode)

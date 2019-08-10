@@ -10,6 +10,9 @@
 ;;; License: GPLv3
 
 (spacemacs/set-leader-keys "o" (lookup-key global-map (kbd "C-c")))
+(spacemacs/set-leader-keys "o i" 'my-org-clock-select-task)
+(spacemacs/set-leader-keys "o I" 'org-clock-in)
+(spacemacs/set-leader-keys "o o" 'org-clock-out)
 (spacemacs/set-leader-keys "o g" 'org-mac-grab-link)
 (spacemacs/set-leader-keys "o s" 'org-save-all-org-buffers)
 (spacemacs/set-leader-keys "o h" 'helm-org-agenda-files-headings)
