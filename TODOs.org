@@ -47,3 +47,4 @@
 ** [[https://www.youtube.com/watch?v=S4f-GUxu3CY&t=2s][Org mode and Spacemacs: The Absolute Minimum you need to know - YouTube]]
 ** [[http://www.zmonster.me/2018/02/28/org-mode-capture.html][强大的 Org mode(4): 使用 capture 功能快速记录 · ZMonster's Blog]]
 ** [[https://hamberg.no/gtd/][GTD in 15 minutes – A Pragmatic Guide to Getting Things Done]]
+** [[https://github.com/weirdNox/dotfiles/blob/26c5c2739aff28af5ed4d6f243c7ec0e9b581821/config/.emacs.d/config.org#emacs-configuration][dotfiles/config.org at 26c5c2739aff28af5ed4d6f243c7ec0e9b581821 · weirdNox/dotfiles]]

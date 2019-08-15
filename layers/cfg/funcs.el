@@ -19,12 +19,24 @@
                 ;; "-sender" "org.gnu.Emacs"
                 "-activate" "org.gnu.Emacs"))
 
+(defun osx-switch-back-to-previous-application ()
+  (interactive)
+  (do-applescript
+   (mapconcat
+    #'identity
+    '("tell application \"System Events\""
+      "  tell process \"Finder\""
+      "    activate"
+      "    keystroke tab using {command down}"
+      "  end tell"
+      "end tell")
+    "\n")))
+
 (defun backward-kill-line (arg)
   "Kill ARG lines backward."
   (interactive "p")
   (kill-line (- 1 arg)))
 
-;; Add executable attribute to file
 (defun set-file-executable ()
   "Add executable permissions on current file."
   (interactive)
@@ -33,11 +45,10 @@
                     (logior (file-modes buffer-file-name) #o100))
     (message (concat "Made " buffer-file-name " executable"))))
 
-;; Iterm2 Intergration
 (defun iterm-focus ()
+  "open iTerm"
   (interactive)
-  (do-applescript
-   " do shell script \"open -a iTerm\"\n"))
+  (do-applescript " do shell script \"open -a iTerm\"\n"))
 
 (defun iterm-command (cmd)
   "Go to present working dir and focus iterm"
