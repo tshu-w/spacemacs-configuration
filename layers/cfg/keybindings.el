@@ -25,6 +25,11 @@
 (global-set-key (kbd "H-/") 'comment-dwim)
 (global-set-key (kbd "<H-backspace>") 'backward-kill-line)
 
+(with-eval-after-load 'helm-files
+	(define-key helm-find-files-map (kbd "M-o") (lambda () (interactive)
+                                                (setq current-prefix-arg '(4))
+                                                (helm-ff-run-switch-other-window))))
+
 (with-eval-after-load 'evil-maps
   (define-key evil-normal-state-map (kbd "DEL") 'evil-repeat-find-char-reverse)
   (define-key evil-insert-state-map (kbd "C-c u") 'backward-kill-line)
