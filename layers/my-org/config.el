@@ -120,10 +120,10 @@
           ("Ow" "Weekly Review"
            ((agenda "" ((org-agenda-span 7)
                         (org-agenda-start-on-weekday 1)))
-            (todo "PROJECT")
+            (stuck "")
+            (todo "PROJ")
             (todo "WAITING")
-            (todo "SOMEDAY")
-            (stuck ""))
+            (todo "SOMEDAY"))
            ((org-agenda-compact-blocks t)
             (org-agenda-start-with-clockreport-mode t)
             (org-agenda-archives-mode t)))
@@ -311,9 +311,12 @@ and some custom text on a newly created journal file."
 
   (defun org-agenda-get-restriction-and-command@around (org-agenda-get-restriction-and-command prefix-descriptions)
     (let ((res (ignore-errors (funcall org-agenda-get-restriction-and-command prefix-descriptions))))
-      (if res res
+      (when (and (not res)
+                 (equal "agenda" (frame-parameter nil 'name)))
         (run-at-time 0 nil #'osx-switch-back-to-previous-application)
-        (delete-frame))))
+        (delete-frame))
+      res))
+
 
   (advice-add 'org-switch-to-buffer-other-window :after 'supress-frame-splitting)
   (advice-add 'org-capture-finalize :after 'org-capture-finalize@after)

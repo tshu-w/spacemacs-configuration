@@ -9,6 +9,11 @@
 ;;
 ;;; License: GPLv3
 
+(defun backward-kill-line (arg)
+  "Kill ARG lines backward."
+  (interactive "p")
+  (kill-line (- 1 arg)))
+
 (defun notify-osx (title message)
   (call-process "terminal-notifier"
                 nil 0 nil
@@ -16,7 +21,7 @@
                 "-title" title
                 "-message" message
                 "-group" "Emacs"
-                ;; "-sender" "org.gnu.Emacs"
+                ;; "-sender" "com.apple.Terminal"
                 "-activate" "org.gnu.Emacs"))
 
 (defun osx-switch-back-to-previous-application ()
@@ -31,11 +36,6 @@
       "  end tell"
       "end tell")
     "\n")))
-
-(defun backward-kill-line (arg)
-  "Kill ARG lines backward."
-  (interactive "p")
-  (kill-line (- 1 arg)))
 
 (defun set-file-executable ()
   "Add executable permissions on current file."
@@ -65,6 +65,7 @@
 (defun iterm-goto-filedir-or-home ()
   "Go to present working dir and focus iterm"
   (interactive)
-  (iterm-command (concat (replace-regexp-in-string "\\\\" "\\\\\\\\"
-                                                   (shell-quote-argument (or default-directory "~")))
+  (iterm-command (concat (replace-regexp-in-string
+                          "\\\\" "\\\\\\\\"
+                          (shell-quote-argument (or default-directory "~")))
                          "; clear")))
