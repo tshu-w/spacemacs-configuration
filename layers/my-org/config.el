@@ -116,7 +116,7 @@
            ((org-agenda-compact-blocks t)
             (org-agenda-start-with-log-mode '(closed clock state))
             (org-agenda-start-with-clockreport-mode t)
-            (org-agenda-archives-mode)))
+            (org-agenda-archives-mode t)))
           ("Ow" "Weekly Review"
            ((agenda "" ((org-agenda-span 7)
                         (org-agenda-start-on-weekday 1)))
@@ -261,62 +261,36 @@ and some custom text on a newly created journal file."
     "sf" 'org-search)
 
   ;; Interaction with system
-  (defun make-capture-frame (&rest r)
-    "Create a new frame and run org-capture."
-    (make-frame '((name . "capture")
-                  (height . 20)
-                  (width . 100)))
-    (select-frame-by-name "capture")
-    (org-capture))
-
-  (defun make-agenda-frame (&rest r)
-    "Create a new frame and run org-agenda."
-    (make-frame '((name . "agenda")
-                  (height . 40)
-                  (width . 100)))
-    (select-frame-by-name "agenda")
-    (org-agenda r))
-
   (defun supress-frame-splitting (&rest r)
     (let ((frame-name (frame-parameter nil 'name)))
       (when (or (equal "capture" frame-name)
                 (equal "agenda" frame-name))
         (delete-other-windows))))
 
-  (defun delete-specific-frame (&rest r)
-    (let ((frame-name (frame-parameter nil 'name)))
-      (when (or (equal "capture" frame-name)
-                (equal "agenda" frame-name))
-        (delete-frame))))
-
   (defun org-capture-finalize@after (&rest r)
-    (when (or (equal "capture" (frame-parameter nil 'name))
-              (equal "l" (plist-get org-capture-plist :key)))
+    (when (equal "l" (plist-get org-capture-plist :key))
       (run-at-time 0 nil #'osx-switch-back-to-previous-application))
-    (delete-specific-frame))
+    (when (equal "capture" (frame-parameter nil 'name))
+      (spacemacs/frame-killer)))
 
   (defun org-agenda-finalize@after (&rest r)
     (when (equal "agenda" (frame-parameter nil 'name))
-      (run-at-time 0 nil #'osx-switch-back-to-previous-application)
-      (delete-specific-frame)))
+      (spacemacs/frame-killer)))
 
   (defun org-capture-select-template@around (org-capture-select-template &optional keys)
     (let ((res (ignore-errors (funcall org-capture-select-template keys))))
       (unless res (setq res "q"))
       (when (and (equal "capture" (frame-parameter nil 'name))
-               (equal "q" res))
-        (run-at-time 0 nil #'osx-switch-back-to-previous-application)
-        (delete-frame))
+                 (equal "q" res))
+        (spacemacs/frame-killer))
       res))
 
   (defun org-agenda-get-restriction-and-command@around (org-agenda-get-restriction-and-command prefix-descriptions)
     (let ((res (ignore-errors (funcall org-agenda-get-restriction-and-command prefix-descriptions))))
       (when (and (not res)
                  (equal "agenda" (frame-parameter nil 'name)))
-        (run-at-time 0 nil #'osx-switch-back-to-previous-application)
-        (delete-frame))
+        (spacemacs/frame-killer))
       res))
-
 
   (advice-add 'org-switch-to-buffer-other-window :after 'supress-frame-splitting)
   (advice-add 'org-capture-finalize :after 'org-capture-finalize@after)
