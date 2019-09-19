@@ -55,12 +55,12 @@
   (interactive)
   (do-applescript
    (concat
-    " do shell script \"open -a iTerm\"\n"
-    " tell application \"iTerm2\"\n"
-    "   tell the current session of current window\n"
-    (format "     write text \"%s\" \n" cmd)
-    "   end tell\n"
-    " end tell\n")))
+    "tell application \"iTerm2\"\n"
+    "  create window with default profile\n"
+    "  tell the current session of current window\n"
+    (format "    write text \"%s\" \n" cmd)
+    "  end tell\n"
+    "end tell\n")))
 
 (defun iterm-goto-filedir-or-home ()
   "Go to present working dir and focus iTerm"

@@ -17,6 +17,7 @@
   (setq org-columns-default-format "%50ITEM %2PRIORITY %10Effort(Effort){:} %10CLOCKSUM"
         org-image-actual-width 500
         org-global-properties '(("STYLE_ALL" . "habit"))
+        org-hide-emphasis-markers t
         org-log-into-drawer t
         org-startup-indented t
         org-tags-match-list-sublevels 'intented
@@ -61,9 +62,8 @@
            "* TODO %?\n  %i\n")
           ("l" "Link" plain (file+function org-gtd-file org-capture-goto-link)
            "%i\n" :empty-lines 1 :immediate-finish t)
-          ("a" "Attach" entry (file org-gtd-file)
-           "* %?\n %(call-interactively #'org-attach-attach)"
-           :immediate-finish t)
+          ("r" "Record" entry (file org-gtd-file)
+           "* %?\n  %i\n" :clock-in t :clock-keep t)
           ("R" "Review")
           ("Rd" "Daily Review" plain (function org-journal-find-location)
            "** Daily Review\n%?\n%i")
@@ -88,6 +88,7 @@
         org-agenda-persistent-filter t
         org-agenda-skip-additional-timestamps-same-entry t
         org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
+        org-agenda-span 1
         org-agenda-todo-ignore-scheduled t
         org-agenda-todo-ignore-deadlines 'far
         org-agenda-time-grid nil
@@ -188,6 +189,12 @@
           (tagside "right")))
 
   ; Tex
+  (setq TeX-engine 'xetex)
+  (setq org-edit-latex-create-master nil)
+  (setq org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex"))
+        org-pandoc-options-for-beamer-pdf '((pdf-engine . "xelatex")))
+  (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
+                                "xelatex -interaction nonstopmode %f"))
   (add-hook 'org-mode-hook 'org-cdlatex-mode)
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
@@ -224,9 +231,10 @@
                               ("@phone" . ?p)
                               (:endgroup)
                               ("PERSONAL" . ?p)
-                              ("errants" . ?e)
                               ("WORK" . ?w)
-                              ("NOTE" . ?n))))
+                              ("NOTE" . ?n)
+                              ("errants" . ?e)
+                              ("relex" . ?r))))
 
   ;; Deft
   (setq deft-files (directory-files-recursively deft-directory ""))
@@ -292,11 +300,14 @@ and some custom text on a newly created journal file."
         (spacemacs/frame-killer))
       res))
 
-  (advice-add 'org-switch-to-buffer-other-window :after 'supress-frame-splitting)
-  (advice-add 'org-capture-finalize :after 'org-capture-finalize@after)
-  (advice-add 'org-capture-select-template :around 'org-capture-select-template@around)
+  (advice-add 'org-agenda-quit :before 'org-save-all-org-buffers)
   (advice-add 'org-agenda-quit :after 'org-agenda-finalize@after)
   (advice-add 'org-agenda-exit :after 'org-agenda-finalize@after)
   (advice-add 'org-agenda-get-restriction-and-command :around 'org-agenda-get-restriction-and-command@around)
+  (advice-add 'org-capture-finalize :after 'org-capture-finalize@after)
+  (advice-add 'org-capture-select-template :around 'org-capture-select-template@around)
+  (advice-add 'org-refile :after 'org-save-all-org-buffers)
+  (advice-add 'org-switch-to-buffer-other-window :after 'supress-frame-splitting)
+
 
   )

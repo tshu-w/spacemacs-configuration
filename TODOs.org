@@ -15,10 +15,12 @@ CLOCK: [2019-08-12 Mon 15:46]--[2019-08-12 Mon 16:34] =>  0:48
 在淘宝、京东、亚马逊网站上用 org-protocol 触发 org-capture 时，自动新增内容到记录心愿单列表的 wishlist.org 中
 
 *** Org Alert
+*** Org babel
+*** Org export
+*** Org feeds
+*** [[https://github.com/oracleyue/latex-templates][oracleyue/latex-templates: LaTeX templates, useful shell scripts for productivity and other logos etc.]]
+*** [[https://github.com/specter119/RefTools/tree/master/org-ref][RefTools/org-ref at master · specter119/RefTools]]
 ** Learning Emacs
-*** [[https://www.youtube.com/playlist?list=PLrJ2YN5y27KLhd3yNs2dR8_inqtEiEweE][Spacemacs ABC - YouTube]]
-*** [[https://blog.aaronbieber.com/2016/08/07/getting-started-with-emacs-lisp.html][Getting Started With Emacs Lisp]]
-*** Sams Teach Yourself Emacs in 24 Hours
 *** GNU Emacs Lisp Manual
 *** 学习 GNU Emacs
 *** GNU Emacs Lisp 编程入门 涵盖了入门需要的几乎所有知识，写给没用过 Emacs，没学过 lisp； 但是用过编辑器，会写程序的人看的入门书。这本书最好用 info 看， 一边看一边就可以试。在 info 里面显示为 Emacs Lisp Intro。
@@ -26,16 +28,10 @@ CLOCK: [2019-08-12 Mon 15:46]--[2019-08-12 Mon 16:34] =>  0:48
 *** [[https://cestlaz.github.io/stories/emacs/][Using Emacs Series]]
 *** [[http://www.modernemacs.com/][Modern Emacs]]
 *** [[https://github.com/ekaschalk/.spacemacs.d][ekaschalk/.spacemacs.d: My spacemacs configuration.]]
+*** Magit & forge
 *** [[https://github.com/lujun9972/emacs-document][lujun9972/emacs-document: translate emacs documents to Chinese for convenient reference]]
 *** [[https://sam217pa.github.io/2016/09/02/how-to-build-your-own-spacemacs/][How to build your own spacemacs · Samuel Barreto]]
-** Emacs for Writing
-*** [[https://www.literatureandlatte.com/scrivener/overview][Scrivener | Literature & Latte]]
-*** [[http://irreal.org/blog/?p=2878][Moving from Scrivener to Org-mode | Irreal]]
-*** [[http://irreal.org/blog/?p=6266][Replacing Scrivener with Emacs | Irreal]]
-*** [[https://www.reddit.com/r/emacs/comments/4kj7cv/emacs_for_writing_tell_me_your_tricks/][Emacs for writing ? Tell me your tricks ! : emacs]]
-*** [[https://vimvalley.com/replacing-scrivener-with-emacs-and-vim/][Replacing Scrivener with Emacs and Vim]]
-*** [[https://www.reddit.com/r/emacs/comments/62sy6c/replacing_scrivener_with_emacs_and_vim/][Replacing Scrivener with Emacs and Vim : emacs]]
-*** [[https://github.com/oracleyue/latex-templates][oracleyue/latex-templates: LaTeX templates, useful shell scripts for productivity and other logos etc.]]
+** [[https://vimvalley.com/][Vim Valley Course – The fastest and easiest way to learn Vim]]
 * Awesome Articles, Blogs or Video
 ** [[http://www.modernemacs.com/categories/emacs/][Emacs | Modern Emacs]]
 ** [[http://www.modernemacs.com/post/org-mode-blogging/][An Emacs Blogging Workflow | Modern Emacs]]

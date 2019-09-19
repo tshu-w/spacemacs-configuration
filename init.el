@@ -48,7 +48,8 @@ This function should only modify configuration layer settings."
      (version-control :variables
                       version-control-diff-tool 'diff-hl)
      github
-     pandoc
+     (pandoc :variables
+             pandoc-data-dir "~/.spacemacs.d/pandoc-mode")
      lsp
      dap
      (c-c++ :variables
@@ -57,12 +58,13 @@ This function should only modify configuration layer settings."
             c-c++-enable-google-style nil)
      emacs-lisp
      (python :variables
-             python-backend 'lsp
-             python-pipenv-activate nil
-             python-format-on-save nil
+             python-backend 'anaconda
+             python-pipenv-activate t
              python-sort-imports-on-save nil
              python-formatter 'black
-             blacken-fast-unsafe t)
+             python-format-on-save nil
+             blacken-fast-unsafe t
+             python-fill-column 99)
      (markdown :variables
                markdown-command "pandoc -t html5 -f markdown+smart --mathjax --highlight-style=pygments --toc --toc-depth 3 --template github.html5 --css html/css/github.css"
                markdown-live-preview-engine 'pandoc)
@@ -97,9 +99,9 @@ This function should only modify configuration layer settings."
                                          "\\|^#\\+[[:alnum:]_]+:.*$" ;; org-mode metadata
                                          "\\)"))
      (auto-completion :variables
-                      auto-completion-enable-help-tooltip 'manual
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-sort-by-usage t
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-snippets-in-popup nil
+                      auto-completion-enable-sort-by-usage nil
                       ;; :disabled-for org markdown
                       )
      (syntax-checking :variables
@@ -192,8 +194,8 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-use-spacelpa nil
 
    ;; If non-nil then verify the signature for downloaded Spacelpa archives.
-   ;; (default nil)
-   dotspacemacs-verify-spacelpa-archives nil
+   ;; (default t)
+   dotspacemacs-verify-spacelpa-archives t
 
    ;; If non-nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
@@ -452,7 +454,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server t
+   dotspacemacs-persistent-server nil
 
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
@@ -565,6 +567,7 @@ before packages are loaded."
         display-time-default-load-average nil)
   (setq org-bullets-bullet-list '("◉" "○" "✸" "✿" "▲" "▶" "■" "◆"))
 
+  (setq scroll-margin 7)
   (setq writeroom-width 120
         writeroom-fringes-outside-margins t
         writeroom-bottom-divider-width 0
@@ -578,6 +581,8 @@ before packages are loaded."
   ;;
   (fset 'evil-visual-update-x-selection 'ignore)
   (load (expand-file-name "secrets.el.gpg" dotspacemacs-directory))
+  ;; Changes all yes/no questions to y/n type
+  (fset 'yes-or-no-p 'y-or-n-p)
 
   ;; fix hungry-delete & smartparents conflict
   ;;
