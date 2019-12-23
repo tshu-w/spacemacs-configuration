@@ -1,9 +1,9 @@
 ;;; config.el --- Org Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2017-2019 Tshu Wang
+;; Copyright (c) 2017-2020 Tianshu Wang
 ;;
-;; Author: Tshu Wang <volekingsg@gmail.com>
-;; URL: https://github.com/Voleking/spacemacs-configuration
+;; Author: Tianshu Wang <volekingsg@gmail.com>
+;; URL: https://github.com/tshu-w/spacemacs-configuration
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -15,19 +15,6 @@
 ;; (if (version< "26.0" emacs-version)
 ;;     (setq sp-escape-quotes-after-insert nil))
 
-;; C++
-;;
-;; (with-eval-after-load 'cc-vars
-;;   (push '(other . "k&r") c-default-style))
-;; (setq c-basic-offset 4)
-;; (c-set-offset 'case-label 4)
-;; (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
-;; (add-hook 'c++-mode-hook (lambda ()
-;;                            (set 'company-clang-arguments (list "-I/usr/include/c++/4.2.1" "-Wall" "-std=c++11"))))
-;; (setq company-c-headers-path-system '("/usr/include/c++/4.2.1" "/usr/include" "/usr/local/include"))
-;; (with-eval-after-load 'projectile
-;;   (push '("C" "h") projectile-other-file-alist))
-
 ;; Python
 ;;
 (setq-default python-shell--interpreter '"python")
@@ -37,8 +24,37 @@
 ;;
 (add-hook 'LaTeX-mode-hook
           (lambda()
-            (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
-            (setq TeX-command-default "XeLaTeX")
-            (setq TeX-save-query nil)))
-(add-hook 'LaTeX-mode-hook 'cdlatex-mode)
+            (setq TeX-save-query nil)
+            (local-set-key (kbd "<H-S-mouse-1>") #'TeX-view)))
+
+;; (defun my-after-load-cdlatex ()
+;;   (define-key cdlatex-mode-map "_" nil)
+;;   (define-key cdlatex-mode-map "^" nil)
+;;   t)
+;; (eval-after-load "cdlatex" '(my-after-load-cdlatex))
+(add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)   ; with AUCTeX LaTeX mode
+(add-hook 'latex-mode-hook 'turn-on-cdlatex)   ; with Emacs latex mode
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+
+(setq TeX-engine 'xetex
+      TeX-master t
+      TeX-source-correlate-mode t
+      ;; TeX-source-correlate-method 'synctex
+      TeX-source-correlate-start-server t)
+
+(setq TeX-view-program-list
+      '(("Preview.app" "open -a Preview.app %o")
+        ("Skim" "open -a Skim.app %o")
+        ("displayline" "displayline -b %n %o %b")
+        ("open" "open %o"))
+      TeX-view-program-selection
+      '((output-dvi "open")
+        (output-pdf "displayline")
+        (output-html "open")))
+
+;; Json
+;; Make the variable buffer local so that it does not conflict with js-mode for JavaScript files.
+(add-hook 'json-mode-hook
+          (lambda ()
+            (make-local-variable 'js-indent-level)
+            (setq js-indent-level 2)))

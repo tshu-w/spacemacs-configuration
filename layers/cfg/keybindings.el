@@ -1,9 +1,9 @@
 ;;; keybindings.el --- Org Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2017-2019 Tshu Wang
+;; Copyright (c) 2017-2020 2017-2020Tianshu Wang
 ;;
-;; Author: Tshu Wang <volekingsg@gmail.com>
-;; URL: https://github.com/Voleking/spacemacs-configuration
+;; Author: Tianshu Wang <volekingsg@gmail.com>
+;; URL: https://github.com/tshu-w/spacemacs-configuration
 ;;
 ;; This file is not part of GNU Emacs.
 ;;

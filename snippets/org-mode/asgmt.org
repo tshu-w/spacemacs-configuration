@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: assignment
+# key: asgmt
+# --
+
+#+title: $1
+#+author: 201928015029026王天舒
+#+date: `(format-time-string "%Y-%m-%d")`
+#+LATEX_HEADER: \usepackage{ctex}
+#+OPTIONS: toc:nil
+#+mathspec: true
+
+
+$2

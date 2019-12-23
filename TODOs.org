@@ -1,14 +1,9 @@
 * TO-DO
 ** Org
 *** Org Capture attach file
-:LOGBOOK:
-CLOCK: [2019-08-12 Mon 17:28]--[2019-08-12 Mon 17:38] =>  0:10
-CLOCK: [2019-08-12 Mon 15:46]--[2019-08-12 Mon 16:34] =>  0:48
-:END:
 *** Org Export and Publishing
-**** [[http://doc.norang.ca/org-mode.html#Publishing][Org Mode - Organize Your Life In Plain Text!]]
+**** [[https://orgmode.org/][Org mode for Emacs – Your Life in Plain Text]]
 **** [[https://emacs-china.org/t/org-mode-html/10120/7][有没有办法让 org-mode 导出的 html 页面漂亮一点？ - Emacs-general - Emacs China]]
-*** [[https://orgmode.org/][Org mode for Emacs – Your Life in Plain Text]]
 *** Org Capture
 **** Web Link automatic classification
 在 arxiv、google scholar 上用 org-protocol 触发 org-capture 时，自动新增内容到记录待读论文列表的 papers.org 中
@@ -19,7 +14,6 @@ CLOCK: [2019-08-12 Mon 15:46]--[2019-08-12 Mon 16:34] =>  0:48
 *** Org export
 *** Org feeds
 *** [[https://github.com/oracleyue/latex-templates][oracleyue/latex-templates: LaTeX templates, useful shell scripts for productivity and other logos etc.]]
-*** [[https://github.com/specter119/RefTools/tree/master/org-ref][RefTools/org-ref at master · specter119/RefTools]]
 ** Learning Emacs
 *** GNU Emacs Lisp Manual
 *** 学习 GNU Emacs
@@ -28,11 +22,10 @@ CLOCK: [2019-08-12 Mon 15:46]--[2019-08-12 Mon 16:34] =>  0:48
 *** [[https://cestlaz.github.io/stories/emacs/][Using Emacs Series]]
 *** [[http://www.modernemacs.com/][Modern Emacs]]
 *** [[https://github.com/ekaschalk/.spacemacs.d][ekaschalk/.spacemacs.d: My spacemacs configuration.]]
-*** Magit & forge
 *** [[https://github.com/lujun9972/emacs-document][lujun9972/emacs-document: translate emacs documents to Chinese for convenient reference]]
 *** [[https://sam217pa.github.io/2016/09/02/how-to-build-your-own-spacemacs/][How to build your own spacemacs · Samuel Barreto]]
 ** [[https://vimvalley.com/][Vim Valley Course – The fastest and easiest way to learn Vim]]
-* Awesome Articles, Blogs or Video
+* Awesome articles, blogs or videos
 ** [[http://www.modernemacs.com/categories/emacs/][Emacs | Modern Emacs]]
 ** [[http://www.modernemacs.com/post/org-mode-blogging/][An Emacs Blogging Workflow | Modern Emacs]]
 ** [[https://sam217pa.github.io/2016/09/01/emacs-iterm-integration/][Integrate iTerm2 in your Emacs setup · Samuel Barreto]]

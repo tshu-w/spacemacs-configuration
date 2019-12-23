@@ -1,9 +1,9 @@
 ;;; config.el --- Org Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2017-2019 Tshu Wang
+;; Copyright (c) 2017-2020 Tianshu Wang
 ;;
-;; Author: Tshu Wang <volekingsg@gmail.com>
-;; URL: https://github.com/Voleking/spacemacs-configuration
+;; Author: Tianshu Wang <volekingsg@gmail.com>
+;; URL: https://github.com/tshu-w/spacemacs-configuration
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -188,18 +188,23 @@
           (tagindent ".8em")
           (tagside "right")))
 
-  ; Tex
-  (setq TeX-engine 'xetex)
+  ;; Tex
   (setq org-edit-latex-create-master nil)
   (setq org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex"))
         org-pandoc-options-for-beamer-pdf '((pdf-engine . "xelatex")))
-  (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
-                                "xelatex -interaction nonstopmode %f"))
+
+  ;; (setq org-latex-pdf-process '("xelatex -interaction nonstopmode -shell-escape -output-directory %o %f"
+  ;;                               "biber %b"
+  ;;                               "xelatex -interaction nonstopmode -shell-escape -output-directory %o %f"
+  ;;                               "xelatex -interaction nonstopmode -shell-escape -output-directory %o %f"))
+  (setq org-latex-pdf-process '("latexmk -xelatex -quiet -shell-escape -f %f"))
+
   (add-hook 'org-mode-hook 'org-cdlatex-mode)
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
   (setq org-latex-compiler "xelatex"
-        org-latex-packages-alist '(("fontset=macnew,UTF8" "ctex" t))
+        org-latex-packages-alist '(("" "mathspec" t)
+                                   ("fontset=macnew,UTF8" "ctex" t))
         org-preview-latex-default-process 'dvisvgm
         org-preview-latex-process-alist
         '((dvisvgm :programs ("xelatex" "dvisvgm")
@@ -214,6 +219,25 @@
                        :image-input-type "pdf" :image-output-type "png" :image-size-adjust (1.0 . 1.0)
                        :latex-compiler ("xelatex -interaction nonstopmode -output-directory %o %f")
                        :image-converter ("convert -density %D -trim -antialias %f -quality 100 %O"))))
+
+  (add-hook 'org-mode-hook 'turn-on-reftex)
+  (spacemacs|diminish reftex-mode " ⓡ" " r")
+  (spacemacs/declare-prefix-for-mode 'org-mode "mr" "reftex")
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode
+    "rc"    'reftex-citation
+    "ic"    'reftex-citation
+    "rg"    'reftex-grep-document
+    "ri"    'reftex-index-selection-or-word
+    "rI"    'reftex-display-index
+    "r TAB" 'reftex-index
+    "rl"    'reftex-label
+    "rp"    'reftex-index-phrase-selection-or-word
+    "rP"    'reftex-index-visit-phrases-buffer
+    "rr"    'reftex-reference
+    "rs"    'reftex-search-document
+    "rt"    'reftex-toc
+    "rT"    'reftex-toc-recenter
+    "rv"    'reftex-view-crossref)
 
   ;; org attach
   (setq org-attach-auto-tag "ATTACH"
@@ -309,5 +333,49 @@ and some custom text on a newly created journal file."
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
   (advice-add 'org-switch-to-buffer-other-window :after 'supress-frame-splitting)
 
+  (defun insert-zero-width-space ()
+    (interactive)
+    (insert-char ?\u200B))
+
+  (define-key org-mode-map (kbd "C-*") 'insert-zero-width-space)
+
+  ;; Export Org to Apple Note
+  ;; https://emacs-china.org/t/org-apple-note/10706
+  ;; https://vxlabs.com/2018/10/29/importing-orgmode-notes-into-apple-notes/
+  ;; https://www.emacswiki.org/emacs/string-utils.el
+  (defun string-utils-escape-double-quotes (str-val)
+  "Return STR-VAL with every double-quote escaped with backslash."
+  (save-match-data
+    (replace-regexp-in-string "\"" "\\\\\"" str-val)))
+
+  (defun string-utils-escape-backslash (str-val)
+    "Return STR-VAL with every backslash escaped with an additional backslash."
+    (save-match-data
+      (replace-regexp-in-string "\\\\" "\\\\\\\\" str-val)))
+
+  (setq as-tmpl "set TITLE to \"%s\"
+  set NBODY to \"%s\"
+  tell application \"Notes\"
+          tell folder \"Org-mode\"
+                  if not (note named TITLE exists) then
+                          make new note with properties {name:TITLE}
+                  end if
+                  set body of note TITLE to NBODY
+          end tell
+  end tell")
+
+  (defun oan-export ()
+    (interactive)
+    (let ((title (file-name-base (buffer-file-name))))
+      (with-current-buffer (org-export-to-buffer 'html "*orgmode-to-apple-notes*")
+        (let ((body (string-utils-escape-double-quotes
+                    (string-utils-escape-backslash (buffer-string)))))
+          ;; install title + body into template above and send to notes
+          (do-applescript (format as-tmpl title body))
+          ;; get rid of temp orgmode-to-apple-notes buffer
+          (kill-buffer)
+          (delete-window)
+          (message "export successfully"))
+        )))
 
   )

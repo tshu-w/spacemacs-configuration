@@ -44,9 +44,9 @@ This function should only modify configuration layer settings."
      (chinese :variables
               chinese-enable-fcitx t)
      dash
-     git
      (version-control :variables
                       version-control-diff-tool 'diff-hl)
+     git
      github
      (pandoc :variables
              pandoc-data-dir "~/.spacemacs.d/pandoc-mode")
@@ -54,19 +54,17 @@ This function should only modify configuration layer settings."
      dap
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
-            c-c++-enable-clang-support nil
-            c-c++-enable-google-style nil)
+            c++-enable-organize-includes-on-save t)
      emacs-lisp
      (python :variables
              python-backend 'anaconda
-             python-pipenv-activate t
-             python-sort-imports-on-save nil
+             python-sort-imports-on-save t
              python-formatter 'black
-             python-format-on-save nil
+             python-format-on-save t
              blacken-fast-unsafe t
              python-fill-column 99)
      (markdown :variables
-               markdown-command "pandoc -t html5 -f markdown+smart --mathjax --highlight-style=pygments --toc --toc-depth 3 --template github.html5 --css html/css/github.css"
+               markdown-command "pandoc -f markdown+smart -t html5 --mathjax --highlight-style=pygments --toc --toc-depth 3 --template github.html5 --shift-heading-level-by=-1 --quiet"
                markdown-live-preview-engine 'pandoc)
      (org :variables
           org-agenda-files '("~/Documents/Org")
@@ -78,10 +76,13 @@ This function should only modify configuration layer settings."
           org-enable-org-journal-support t
           org-journal-dir "~/Documents/Org/Journals/")
      (latex :variables
-            latex-build-command "XeLaTeX"
-            latex-enable-auto-fill t
+            latex-enable-auto-fill nil
             latex-enable-folding t
             latex-enable-magic nil)
+     (bibtex :variables
+             org-ref-default-bibliography '("~/Dropbox/Documents/Zotero/refs.bib")
+             org-ref-pdf-directory "~/Dropbox/Documents/Zotero/"
+             org-ref-bibliography-notes "~/Dropbox/Documents/Zotero/notes.org")
      (deft :variables
        deft-directory "~/Documents/Org/Notes"
        deft-recursive t
@@ -123,9 +124,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '(helm-github-stars
                                       edit-indirect
                                       org-edit-latex cdlatex
-                                      json-mode
-                                      yaml-mode
-                                      web-mode
+                                      json-mode yaml-mode web-mode
                                       cal-china-x)
 
    ;; A list of packages that cannot be updated.
@@ -545,12 +544,11 @@ before packages are loaded."
   (set-default-coding-systems 'utf-8)
   (setenv "LC_TIME" "C")
   (setenv "LC_NUMERIC" "C")
-  (setq helm-github-stars-username "Voleking")
+  (setq helm-github-stars-username "tshu-w")
   (setq helm-github-stars-refetch-time 1)
   (when (string= system-type "darwin")
     (setq dired-use-ls-dired nil))
   (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
-  (setq mac-system-move-file-to-trash-use-finder nil)
 
   ;; Appearance
   ;;
@@ -567,7 +565,8 @@ before packages are loaded."
         display-time-default-load-average nil)
   (setq org-bullets-bullet-list '("◉" "○" "✸" "✿" "▲" "▶" "■" "◆"))
 
-  (setq scroll-margin 7)
+  (setq scroll-margin 7
+        standard-indent 2)
   (setq writeroom-width 120
         writeroom-fringes-outside-margins t
         writeroom-bottom-divider-width 0
@@ -586,7 +585,8 @@ before packages are loaded."
 
   ;; fix hungry-delete & smartparents conflict
   ;;
-  (defadvice hungry-delete-backward (before sp-delete-pair-advice activate) (save-match-data (sp-delete-pair (ad-get-arg 0))))
+  (defadvice hungry-delete-backward
+      (before sp-delete-pair-advice activate) (save-match-data (sp-delete-pair (ad-get-arg 0))))
 
   ;; fix tramp file slow
   ;;
@@ -608,9 +608,12 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   (quote
+    ("~/.spacemacs.d/TODOs.org" "/Users/wangtianshu/Documents/Org/gtd.org" "~/.spacemacs.d/TODOs.org" "/Users/wangtianshu/Documents/Org/archive.org" "/Users/wangtianshu/Documents/Org/someday.org" "/Users/wangtianshu/Documents/Org/tickler.org")))
  '(package-selected-packages
    (quote
-    (cal-china-x ucs-utils font-utils pyim-basedict pyvenv persistent-soft list-utils org-category-capture alert log4e gntp magit-popup python json-snatcher json-reformat epc ctable concurrent deferred gitignore-mode fringe-helper git-gutter+ git-gutter gh marshal logito pcache ghub closql emacsql-sqlite emacsql treepy magit transient git-commit with-editor bui tree-mode rtags pos-tip company lsp-mode markdown-mode dash-functional yasnippet auctex anaconda-mode pythonic pinyinlib auto-complete evil-mc define-word yasnippet-snippets yapfify yaml-mode xkcd ws-butler writeroom-mode winum which-key web-mode wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package unicode-fonts treemacs-projectile treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters pytest pyim pyenv-mode py-isort popwin pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox pangu-spacing pandoc-mode ox-pandoc ox-hugo overseer osx-trash osx-dictionary osx-clipboard orgit org-projectile org-present org-pomodoro org-mime org-journal org-gcal org-edit-latex org-download org-cliplink org-bullets openwith open-junk-file nameless move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lsp-ui lsp-treemacs lsp-python-ms lorem-ipsum live-py-mode link-hint launchctl json-mode indent-guide importmagic hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-lsp helm-gitignore helm-github-stars helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy forge font-lock+ flycheck-rtags flycheck-pos-tip flycheck-package flx-ido find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig edit-indirect dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl devdocs deft dash-at-point dap-mode cython-mode cquery cpp-auto-include counsel-projectile company-statistics company-rtags company-reftex company-quickhelp company-lsp company-c-headers company-auctex company-anaconda column-enforce-mode clean-aindent-mode clang-format chinese-conv centered-cursor-mode cdlatex ccls browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-pinyin ace-link ace-jump-helm-line ac-ispell))))
+    (exec-path-from-shell zotxt zotelo cal-china-x ucs-utils font-utils pyim-basedict pyvenv persistent-soft list-utils org-category-capture alert log4e gntp magit-popup python json-snatcher json-reformat epc ctable concurrent deferred gitignore-mode fringe-helper git-gutter+ git-gutter gh marshal logito pcache ghub closql emacsql-sqlite emacsql treepy magit transient git-commit with-editor bui tree-mode rtags pos-tip company lsp-mode markdown-mode dash-functional yasnippet auctex anaconda-mode pythonic pinyinlib auto-complete evil-mc define-word yasnippet-snippets yapfify yaml-mode xkcd ws-butler writeroom-mode winum which-key web-mode wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package unicode-fonts treemacs-projectile treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters pytest pyim pyenv-mode py-isort popwin pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox pangu-spacing pandoc-mode ox-pandoc ox-hugo overseer osx-trash osx-dictionary osx-clipboard orgit org-projectile org-present org-pomodoro org-mime org-journal org-gcal org-edit-latex org-download org-cliplink org-bullets openwith open-junk-file nameless move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lsp-ui lsp-treemacs lsp-python-ms lorem-ipsum live-py-mode link-hint launchctl json-mode indent-guide importmagic hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-lsp helm-gitignore helm-github-stars helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy forge font-lock+ flycheck-rtags flycheck-pos-tip flycheck-package flx-ido find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig edit-indirect dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl devdocs deft dash-at-point dap-mode cython-mode cquery cpp-auto-include counsel-projectile company-statistics company-rtags company-reftex company-quickhelp company-lsp company-c-headers company-auctex company-anaconda column-enforce-mode clean-aindent-mode clang-format chinese-conv centered-cursor-mode cdlatex ccls browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-pinyin ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
