@@ -47,7 +47,8 @@ This function should only modify configuration layer settings."
      (version-control :variables
                       version-control-diff-tool 'diff-hl)
      git
-     github
+     (github :variables
+             forge-topic-list-limit '(60 . 5))
      (pandoc :variables
              pandoc-data-dir "~/.spacemacs.d/pandoc-mode")
      lsp
@@ -57,12 +58,17 @@ This function should only modify configuration layer settings."
             c++-enable-organize-includes-on-save t)
      emacs-lisp
      (python :variables
+             python-shell-interpreter "/usr/local/anaconda3/bin/python"
+             org-babel-python-command "/usr/local/anaconda3/bin/python"
              python-backend 'anaconda
              python-sort-imports-on-save t
+             python-test-runner '(pytest nose)
              python-formatter 'black
-             python-format-on-save t
+             python-format-on-save nil
              blacken-fast-unsafe t
-             python-fill-column 99)
+             python-fill-column 88)
+     (conda :variables
+            conda-anaconda-home "/usr/local/anaconda3")
      (markdown :variables
                markdown-command "pandoc -f markdown+smart -t html5 --mathjax --highlight-style=pygments --toc --toc-depth 3 --template github.html5 --shift-heading-level-by=-1 --quiet"
                markdown-live-preview-engine 'pandoc)
@@ -71,7 +77,7 @@ This function should only modify configuration layer settings."
           org-directory '"~/Documents/Org"
           org-projectile-file "TODOs.org"
           org-want-todo-bindings t
-          org-enable-hugo-support t
+          org-enable-hugo-support nil
           org-enable-reveal-js-support nil
           org-enable-org-journal-support t
           org-journal-dir "~/Documents/Org/Journals/")
@@ -101,16 +107,23 @@ This function should only modify configuration layer settings."
                                          "\\)"))
      (auto-completion :variables
                       auto-completion-enable-help-tooltip t
+                      auto-completion-use-company-box t
                       auto-completion-enable-snippets-in-popup nil
-                      auto-completion-enable-sort-by-usage nil
-                      ;; :disabled-for org markdown
-                      )
+                      auto-completion-enable-sort-by-usage t)
+     (templates :variables
+                templates-private-directory "~/.spacemacs.d/templates")
      (syntax-checking :variables
-                      syntax-checking-enable-by-default nil)
+                      syntax-checking-enable-by-default t)
+     (pdf :variables
+          pdf-view-use-scaling t)
      (wakatime :variables
                wakatime-cli-path "/usr/local/bin/wakatime")
+     (geolocation :variables
+                  geolocation-enable-automatic-theme-changer t
+                  geolocation-enable-location-service t)
+     evil-commentary
+     helpful
      unicode-fonts
-     xkcd
      cfg
      )
 
@@ -560,6 +573,7 @@ before packages are loaded."
   (spaceline-compile)
   (spacemacs/toggle-mode-line-minor-modes-off)
   (custom-set-faces '(nobreak-space ((t nil))))
+  (add-hook 'pdf-view-mode-hook (lambda () (pdf-view-midnight-minor-mode)))
 
   (setq display-time-24hr-format t
         display-time-default-load-average nil)
@@ -580,6 +594,7 @@ before packages are loaded."
   ;;
   (fset 'evil-visual-update-x-selection 'ignore)
   (load (expand-file-name "secrets.el.gpg" dotspacemacs-directory))
+  (global-git-commit-mode t)
   ;; Changes all yes/no questions to y/n type
   (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -608,12 +623,13 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol nil)
  '(org-agenda-files
    (quote
     ("~/.spacemacs.d/TODOs.org" "/Users/wangtianshu/Documents/Org/gtd.org" "~/.spacemacs.d/TODOs.org" "/Users/wangtianshu/Documents/Org/archive.org" "/Users/wangtianshu/Documents/Org/someday.org" "/Users/wangtianshu/Documents/Org/tickler.org")))
  '(package-selected-packages
    (quote
-    (exec-path-from-shell zotxt zotelo cal-china-x ucs-utils font-utils pyim-basedict pyvenv persistent-soft list-utils org-category-capture alert log4e gntp magit-popup python json-snatcher json-reformat epc ctable concurrent deferred gitignore-mode fringe-helper git-gutter+ git-gutter gh marshal logito pcache ghub closql emacsql-sqlite emacsql treepy magit transient git-commit with-editor bui tree-mode rtags pos-tip company lsp-mode markdown-mode dash-functional yasnippet auctex anaconda-mode pythonic pinyinlib auto-complete evil-mc define-word yasnippet-snippets yapfify yaml-mode xkcd ws-butler writeroom-mode winum which-key web-mode wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package unicode-fonts treemacs-projectile treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters pytest pyim pyenv-mode py-isort popwin pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox pangu-spacing pandoc-mode ox-pandoc ox-hugo overseer osx-trash osx-dictionary osx-clipboard orgit org-projectile org-present org-pomodoro org-mime org-journal org-gcal org-edit-latex org-download org-cliplink org-bullets openwith open-junk-file nameless move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lsp-ui lsp-treemacs lsp-python-ms lorem-ipsum live-py-mode link-hint launchctl json-mode indent-guide importmagic hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-lsp helm-gitignore helm-github-stars helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy forge font-lock+ flycheck-rtags flycheck-pos-tip flycheck-package flx-ido find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig edit-indirect dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl devdocs deft dash-at-point dap-mode cython-mode cquery cpp-auto-include counsel-projectile company-statistics company-rtags company-reftex company-quickhelp company-lsp company-c-headers company-auctex company-anaconda column-enforce-mode clean-aindent-mode clang-format chinese-conv centered-cursor-mode cdlatex ccls browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-pinyin ace-link ace-jump-helm-line ac-ispell))))
+    (evil-commentary ansi package-build shut-up epl git commander f dash s helpful elisp-refs loop company-box conda exec-path-from-shell zotxt zotelo cal-china-x ucs-utils font-utils pyim-basedict pyvenv persistent-soft list-utils org-category-capture alert log4e gntp magit-popup python json-snatcher json-reformat epc ctable concurrent deferred gitignore-mode fringe-helper git-gutter+ git-gutter gh marshal logito pcache ghub closql emacsql-sqlite emacsql treepy magit transient git-commit with-editor bui tree-mode rtags pos-tip company lsp-mode markdown-mode dash-functional yasnippet auctex anaconda-mode pythonic pinyinlib auto-complete evil-mc define-word yasnippet-snippets yapfify yaml-mode xkcd ws-butler writeroom-mode winum which-key web-mode wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package unicode-fonts treemacs-projectile treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons smeargle reveal-in-osx-finder restart-emacs rainbow-delimiters pytest pyim pyenv-mode py-isort popwin pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox pangu-spacing pandoc-mode ox-pandoc ox-hugo overseer osx-trash osx-dictionary osx-clipboard orgit org-projectile org-present org-pomodoro org-mime org-journal org-gcal org-edit-latex org-download org-cliplink org-bullets openwith open-junk-file nameless move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lsp-ui lsp-treemacs lsp-python-ms lorem-ipsum live-py-mode link-hint launchctl json-mode indent-guide importmagic hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-lsp helm-gitignore helm-github-stars helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy forge font-lock+ flycheck-rtags flycheck-pos-tip flycheck-package flx-ido find-by-pinyin-dired fill-column-indicator fcitx fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig edit-indirect dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl devdocs deft dash-at-point dap-mode cython-mode cquery cpp-auto-include counsel-projectile company-statistics company-rtags company-reftex company-quickhelp company-lsp company-c-headers company-auctex company-anaconda column-enforce-mode clean-aindent-mode clang-format chinese-conv centered-cursor-mode cdlatex ccls browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-pinyin ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
