@@ -35,3 +35,6 @@
   (define-key evil-insert-state-map (kbd "C-c u") 'backward-kill-line)
   (define-key evil-insert-state-map (kbd "C-c w") 'backward-kill-word))
 (evil-define-key 'insert org-mode-map (kbd "<tab>") #'org-cycle)
+
+(with-eval-after-load 'transient
+  (transient-bind-q-to-quit))
