@@ -33,8 +33,11 @@
 (with-eval-after-load 'evil-maps
   (define-key evil-normal-state-map (kbd "DEL") 'evil-repeat-find-char-reverse)
   (define-key evil-insert-state-map (kbd "C-c u") 'backward-kill-line)
-  (define-key evil-insert-state-map (kbd "C-c w") 'backward-kill-word))
-(evil-define-key 'insert org-mode-map (kbd "<tab>") #'org-cycle)
+  (define-key evil-insert-state-map (kbd "C-c w") 'backward-kill-word)
+  (evil-define-key 'insert org-mode-map (kbd "<tab>") #'org-cycle)
+  (evil-ex-define-cmd "q" 'kill-buffer-and-window)
+  (evil-ex-define-cmd "quit" 'evil-quit)
+  )
 
 (with-eval-after-load 'transient
   (transient-bind-q-to-quit))
