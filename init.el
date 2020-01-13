@@ -137,13 +137,14 @@ This function should only modify configuration layer settings."
                                       edit-indirect
                                       org-edit-latex cdlatex
                                       json-mode yaml-mode web-mode
+                                      doom-themes
                                       cal-china-x)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(fill-column-indicator exec-path-from-shell)
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -262,8 +263,10 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-light
-                         spacemacs-dark)
+   ;; dotspacemacs-themes '(spacemacs-light
+   ;;                       spacemacs-dark)
+   dotspacemacs-themes '(doom-nord-light
+                         doom-nord)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
