@@ -45,7 +45,8 @@ This function should only modify configuration layer settings."
      dash
      (version-control :variables
                       version-control-diff-tool 'diff-hl)
-     git
+     (git :variables
+          magit-wip-mode t)
      (github :variables
              forge-topic-list-limit '(60 . 5))
      (pandoc :variables
