@@ -41,3 +41,7 @@
 
 (with-eval-after-load 'transient
   (transient-bind-q-to-quit))
+
+(with-eval-after-load 'magit
+  (transient-append-suffix 'magit-remote "C"
+    '("o" "Open remote" magit-open-repo)))
