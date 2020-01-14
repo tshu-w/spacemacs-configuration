@@ -58,8 +58,6 @@ This function should only modify configuration layer settings."
             c++-enable-organize-includes-on-save t)
      emacs-lisp
      (python :variables
-             python-shell-interpreter "/usr/local/anaconda3/bin/python"
-             org-babel-python-command "/usr/local/anaconda3/bin/python"
              python-backend 'anaconda
              python-sort-imports-on-save t
              python-test-runner '(pytest nose)
@@ -568,6 +566,8 @@ before packages are loaded."
   (when (string= system-type "darwin")
     (setq dired-use-ls-dired nil))
   (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
+  (setq python-shell-interpreter "/usr/local/anaconda3/bin/python"
+        org-babel-python-command "/usr/local/anaconda3/bin/python")
 
   ;; Appearance
   ;;
