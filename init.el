@@ -595,12 +595,16 @@ before packages are loaded."
         writeroom-major-modes '(text-mode prog-mode))
   (global-writeroom-mode 1)
   (add-hook 'find-file-hook #'writeroom-mode)
+  ; AucTex preview
+  (custom-set-faces
+   '(preview-reference-face ((t (:foreground "black")))))
 
   ;; cfg
   ;;
   (fset 'evil-visual-update-x-selection 'ignore)
   (load (expand-file-name "secrets.el.gpg" dotspacemacs-directory))
   (global-git-commit-mode t)
+  (require 'insert-translated-name)
   ;; Changes all yes/no questions to y/n type
   (fset 'yes-or-no-p 'y-or-n-p)
 

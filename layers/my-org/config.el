@@ -173,7 +173,7 @@
      (org . t)
      (latex . t)))
 
-  ;; Org Exporter
+  ;; Org Publish
   (require 'ox-html)
   (require 'ox-latex)
   (setf org-html-mathjax-options
@@ -220,32 +220,13 @@
                        :latex-compiler ("xelatex -interaction nonstopmode -output-directory %o %f")
                        :image-converter ("convert -density %D -trim -antialias %f -quality 100 %O"))))
 
-  (add-hook 'org-mode-hook 'turn-on-reftex)
-  (spacemacs|diminish reftex-mode " ⓡ" " r")
-  (spacemacs/declare-prefix-for-mode 'org-mode "mr" "reftex")
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode
-    "rc"    'reftex-citation
-    "ic"    'reftex-citation
-    "rg"    'reftex-grep-document
-    "ri"    'reftex-index-selection-or-word
-    "rI"    'reftex-display-index
-    "r TAB" 'reftex-index
-    "rl"    'reftex-label
-    "rp"    'reftex-index-phrase-selection-or-word
-    "rP"    'reftex-index-visit-phrases-buffer
-    "rr"    'reftex-reference
-    "rs"    'reftex-search-document
-    "rt"    'reftex-toc
-    "rT"    'reftex-toc-recenter
-    "rv"    'reftex-view-crossref)
-
-  ;; org attach
+  ;; Org Attach
   (setq org-attach-auto-tag "ATTACH"
         org-attach-archive-delete 'query
         org-attach-directory "attach/"
         org-attach-method 'mv)
 
-  ;; org tag
+  ;; Org Tag
   (setq org-fast-tag-selection-single-key 'expert
         org-tags-column 0
         org-tag-alist (quote ((:startgroup)
@@ -263,7 +244,7 @@
   ;; Deft
   (setq deft-files (directory-files-recursively deft-directory ""))
 
-  ;; org-journal
+  ;; Org-journal
   (defun org-journal-find-location ()
     (org-journal-new-entry t)
     (goto-char (point-max)))
@@ -282,15 +263,6 @@ and some custom text on a newly created journal file."
 
   (setq org-journal-file-type 'weekly
         org-journal-date-format 'org-journal-date-format-func)
-
-  ;; miscellaneous
-  (defun org-search ()
-    "use org-refile to search org-mode headings"
-    (interactive)
-    (org-refile '(4)))
-
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode
-    "sf" 'org-search)
 
   ;; Interaction with system
   (defun supress-frame-splitting (&rest r)

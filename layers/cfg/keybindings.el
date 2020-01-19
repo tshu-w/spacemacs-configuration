@@ -22,6 +22,7 @@
 (global-set-key (kbd "H-.") 'iterm-focus)
 (global-set-key (kbd "H-b") 'compile)
 (global-set-key (kbd "H-r") 'run-current-file)
+(global-set-key (kbd "H-t") 'insert-translated-name-insert)
 (global-set-key (kbd "H-/") 'comment-dwim)
 (global-set-key (kbd "<H-backspace>") 'backward-kill-line)
 
