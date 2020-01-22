@@ -9,7 +9,7 @@ This function should only modify configuration layer settings."
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
-   dotspacemacs-distribution 'spacemacs
+   dotspacemacs-distribution 'spacemacs-base
 
    ;; Lazy installation of layers (i.e. layers are installed only when a file
    ;; with a supported type is opened). Possible values are `all', `unused'
@@ -38,7 +38,21 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     helm
+     spacemacs-completion
+     (spacemacs-layouts :variables spacemacs-layouts-restrict-spc-tab t)
+     spacemacs-editing
+     spacemacs-editing-visual
+     spacemacs-evil
+     spacemacs-language
+     spacemacs-misc
+     (spacemacs-modeline :packages
+                         spaceline spaceline-all-the-icons)
+     spacemacs-navigation
+     spacemacs-org
+     spacemacs-project
+     spacemacs-purpose
+     spacemacs-visual
+
      ;; helm
      (ivy :variables
           ivy-re-builders-alist '((spacemacs/counsel-search . spacemacs/ivy--regex-plus)
@@ -59,10 +73,10 @@ This function should only modify configuration layer settings."
      (pandoc :variables
              pandoc-data-dir "~/.spacemacs.d/pandoc-mode")
      lsp
-     dap
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
-            c++-enable-organize-includes-on-save t)
+            c++-enable-organize-includes-on-save t
+            c-c++-backend 'lsp-clangd)
      emacs-lisp
      (python :variables
              python-backend 'anaconda
@@ -126,6 +140,7 @@ This function should only modify configuration layer settings."
      (geolocation :variables
                   geolocation-enable-automatic-theme-changer t
                   geolocation-enable-location-service t)
+     imenu-list
      evil-commentary
      helpful
      unicode-fonts
@@ -235,7 +250,7 @@ It should only modify the values of Spacemacs settings."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'vim
+   dotspacemacs-editing-style 'hybrid
 
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text
