@@ -39,6 +39,13 @@ This function should only modify configuration layer settings."
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
+     ;; helm
+     (ivy :variables
+          ivy-re-builders-alist '((spacemacs/counsel-search . spacemacs/ivy--regex-plus)
+                                  (counsel-M-x . ivy--regex-fuzzy)
+                                  (t . ivy--regex-ignore-order))
+          ivy-initial-inputs-alist nil
+          ivy-enable-advanced-buffer-information t)
      osx
      (chinese :variables
               chinese-enable-fcitx t)
@@ -136,6 +143,9 @@ This function should only modify configuration layer settings."
                                       edit-indirect
                                       org-edit-latex cdlatex
                                       json-mode yaml-mode web-mode
+                                      ivy-posframe
+                                      (insert-translated-name
+                                       :location (recipe :fetcher github :repo "manateelazycat/insert-translated-name"))
                                       doom-themes
                                       cal-china-x)
 
@@ -561,8 +571,6 @@ before packages are loaded."
   (set-default-coding-systems 'utf-8)
   (setenv "LC_TIME" "C")
   (setenv "LC_NUMERIC" "C")
-  (setq helm-github-stars-username "tshu-w")
-  (setq helm-github-stars-refetch-time 1)
   (when (string= system-type "darwin")
     (setq dired-use-ls-dired nil))
   (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
@@ -573,11 +581,6 @@ before packages are loaded."
   ;;
   (when (display-graphic-p)
     (spacemacs//set-monospaced-font "Source Code Pro" "PingFang SC" 14 16))
-  (setq-default powerline-image-apple-rgb nil
-                powerline-default-separator 'wave
-                powerline-height 22)
-  (spaceline-compile)
-  (spacemacs/toggle-mode-line-minor-modes-off)
   (custom-set-faces '(nobreak-space ((t nil))))
   (add-hook 'pdf-view-mode-hook (lambda () (pdf-view-midnight-minor-mode)))
 
@@ -604,9 +607,47 @@ before packages are loaded."
   (fset 'evil-visual-update-x-selection 'ignore)
   (load (expand-file-name "secrets.el.gpg" dotspacemacs-directory))
   (global-git-commit-mode t)
-  (require 'insert-translated-name)
   ;; Changes all yes/no questions to y/n type
   (fset 'yes-or-no-p 'y-or-n-p)
+
+  ;; packages
+  ;;
+  (use-package helm-github-stars
+    :defer t
+    :custom
+    (helm-github-stars-username "tshu-w")
+    (helm-github-stars-refetch-time 1))
+
+  (use-package cdlatex
+    :defer t
+    :hook ((org-mode . org-cdlatex-mode)
+           (LaTeX-mode . turn-on-cdlatex)
+           (latex-mode . turn-on-cdlatex))
+    ;; :config
+    ;; (defun my-after-load-cdlatex ()
+    ;;   (define-key cdlatex-mode-map "_" nil)
+    ;;   (define-key cdlatex-mode-map "^" nil)
+    ;;   t)
+    ;; (eval-after-load "cdlatex" '(my-after-load-cdlatex))
+    )
+
+  (use-package ivy-posframe
+    :defer t
+    :after ivy
+    :init
+    (ivy-posframe-mode 1)
+    :config
+    (setq ivy-posframe-parameters
+          '((left-fringe . 8)
+            (right-fringe . 8))
+          ivy-posframe-width 100
+          ivy-posframe-display-functions-alist '((swiper . nil)
+                                                 (complete-symbol . ivy-posframe-display-at-point)
+                                                 (t . ivy-posframe-display-at-frame-center))))
+
+  (use-package insert-translated-name
+    :defer t
+    :bind ("H-t" . insert-translated-name-insert))
 
   ;; fix hungry-delete & smartparents conflict
   ;;

@@ -22,7 +22,6 @@
 (global-set-key (kbd "H-.") 'iterm-focus)
 (global-set-key (kbd "H-b") 'compile)
 (global-set-key (kbd "H-r") 'run-current-file)
-(global-set-key (kbd "H-t") 'insert-translated-name-insert)
 (global-set-key (kbd "H-/") 'comment-dwim)
 (global-set-key (kbd "<H-backspace>") 'backward-kill-line)
 
@@ -37,8 +36,7 @@
   (define-key evil-insert-state-map (kbd "C-c w") 'backward-kill-word)
   (evil-define-key 'insert org-mode-map (kbd "<tab>") #'org-cycle)
   (evil-ex-define-cmd "q" 'kill-buffer-and-window)
-  (evil-ex-define-cmd "quit" 'evil-quit)
-  )
+  (evil-ex-define-cmd "quit" 'evil-quit))
 
 (with-eval-after-load 'transient
   (transient-bind-q-to-quit))
@@ -46,3 +44,9 @@
 (with-eval-after-load 'magit
   (transient-append-suffix 'magit-remote "C"
     '("o" "Open remote" magit-open-repo)))
+
+(dolist (key-map
+         (list
+          counsel-find-file-map counsel-describe-map counsel-git-grep-map
+          ivy-switch-buffer-map swiper-map swiper-all-map))
+  (define-key key-map (kbd "<tab>") #'ivy-tab))

@@ -85,3 +85,14 @@
     (progn
       (browse-url (parse-url url))
       (message "opening repo %s" url))))
+
+(defun ivy-tab()
+  (interactive)
+  (let ((dir ivy--directory))
+    (ivy-partial-or-done)
+    (when (string= dir ivy--directory)
+      (ivy-insert-current)
+      (when (and (eq (ivy-state-collection ivy-last) #'read-file-name-internal)
+                 (setq dir (ivy-expand-file-if-directory (ivy-state-current ivy-last))))
+        (ivy--cd dir)
+        (setq this-command 'ivy-cd)))))

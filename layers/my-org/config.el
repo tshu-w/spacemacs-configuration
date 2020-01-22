@@ -189,7 +189,6 @@
           (tagside "right")))
 
   ;; Tex
-  (setq org-edit-latex-create-master nil)
   (setq org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex"))
         org-pandoc-options-for-beamer-pdf '((pdf-engine . "xelatex")))
 
@@ -199,7 +198,6 @@
   ;;                               "xelatex -interaction nonstopmode -shell-escape -output-directory %o %f"))
   (setq org-latex-pdf-process '("latexmk -xelatex -quiet -shell-escape -f %f"))
 
-  (add-hook 'org-mode-hook 'org-cdlatex-mode)
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
   (setq org-latex-compiler "xelatex"

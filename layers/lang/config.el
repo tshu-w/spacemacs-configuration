@@ -27,13 +27,6 @@
             (setq TeX-save-query nil)
             (local-set-key (kbd "<H-S-mouse-1>") #'TeX-view)))
 
-;; (defun my-after-load-cdlatex ()
-;;   (define-key cdlatex-mode-map "_" nil)
-;;   (define-key cdlatex-mode-map "^" nil)
-;;   t)
-;; (eval-after-load "cdlatex" '(my-after-load-cdlatex))
-(add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)   ; with AUCTeX LaTeX mode
-(add-hook 'latex-mode-hook 'turn-on-cdlatex)   ; with Emacs latex mode
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
 (setq TeX-engine 'xetex
