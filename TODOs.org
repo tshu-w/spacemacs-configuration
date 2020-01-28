@@ -2,29 +2,22 @@
 ** Org
 *** Org Capture attach file
 *** Org Export and Publishing
-**** [[https://orgmode.org/][Org mode for Emacs – Your Life in Plain Text]]
-**** [[https://emacs-china.org/t/org-mode-html/10120/7][有没有办法让 org-mode 导出的 html 页面漂亮一点？ - Emacs-general - Emacs China]]
 *** Org Capture
 **** Web Link automatic classification
 在 arxiv、google scholar 上用 org-protocol 触发 org-capture 时，自动新增内容到记录待读论文列表的 papers.org 中
 在淘宝、京东、亚马逊网站上用 org-protocol 触发 org-capture 时，自动新增内容到记录心愿单列表的 wishlist.org 中
-
 *** Org Alert
 *** Org babel
 *** Org export
 *** Org feeds
-*** [[https://github.com/oracleyue/latex-templates][oracleyue/latex-templates: LaTeX templates, useful shell scripts for productivity and other logos etc.]]
 ** Learning Emacs
 *** GNU Emacs Lisp Manual
 *** 学习 GNU Emacs
 *** GNU Emacs Lisp 编程入门 涵盖了入门需要的几乎所有知识，写给没用过 Emacs，没学过 lisp； 但是用过编辑器，会写程序的人看的入门书。这本书最好用 info 看， 一边看一边就可以试。在 info 里面显示为 Emacs Lisp Intro。
 *** GNU Emacs Manual 速查手册，info 里面显示为 Elisp。
 *** [[https://cestlaz.github.io/stories/emacs/][Using Emacs Series]]
-*** [[http://www.modernemacs.com/][Modern Emacs]]
-*** [[https://github.com/ekaschalk/.spacemacs.d][ekaschalk/.spacemacs.d: My spacemacs configuration.]]
 *** [[https://github.com/lujun9972/emacs-document][lujun9972/emacs-document: translate emacs documents to Chinese for convenient reference]]
 *** [[https://sam217pa.github.io/2016/09/02/how-to-build-your-own-spacemacs/][How to build your own spacemacs · Samuel Barreto]]
-** [[https://vimvalley.com/][Vim Valley Course – The fastest and easiest way to learn Vim]]
 * Awesome articles, blogs or videos
 ** [[http://www.modernemacs.com/categories/emacs/][Emacs | Modern Emacs]]
 ** [[http://www.modernemacs.com/post/org-mode-blogging/][An Emacs Blogging Workflow | Modern Emacs]]
@@ -41,3 +34,6 @@
 ** [[https://hamberg.no/gtd/][GTD in 15 minutes – A Pragmatic Guide to Getting Things Done]]
 ** [[https://github.com/weirdNox/dotfiles/blob/26c5c2739aff28af5ed4d6f243c7ec0e9b581821/config/.emacs.d/config.org#emacs-configuration][dotfiles/config.org at 26c5c2739aff28af5ed4d6f243c7ec0e9b581821 · weirdNox/dotfiles]]
 ** [[http://doc.norang.ca/org-mode.html][Org Mode - Organize Your Life In Plain Text!]]
+** [[http://www.modernemacs.com/][Modern Emacs]]
+*** [[https://github.com/ekaschalk/.spacemacs.d][ekaschalk/.spacemacs.d: My spacemacs configuration.]]
+** [[https://honmaple.me/articles/2019/05/%E5%85%B3%E4%BA%8Eivy%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html][关于ivy的使用技巧 · honmaple's blog · 风落花语风落天，花落风雨花落田.]]

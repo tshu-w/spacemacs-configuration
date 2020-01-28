@@ -1,19 +1,18 @@
-;;; config.el --- Org Layer packages File for Spacemacs
+;;; config.el --- my-org layer config file for Spacemacs.
 ;;
-;; Copyright (c) 2017-2020 Tianshu Wang
+;; Copyright (c) 2020 Tianshu Wang
 ;;
 ;; Author: Tianshu Wang <volekingsg@gmail.com>
-;; URL: https://github.com/tshu-w/spacemacs-configuration
+;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
 
 (with-eval-after-load 'org
-  ;; Org basic
-  (require 'org-tempo)
-  (require 'org-projectile)
+  (add-to-list 'org-modules 'org-tempo t)
 
+  ;; Org basic
   (setq org-columns-default-format "%50ITEM %2PRIORITY %10Effort(Effort){:} %10CLOCKSUM"
         org-image-actual-width 500
         org-global-properties '(("STYLE_ALL" . "habit"))
@@ -27,29 +26,12 @@
         '((sequence "TODO(t)" "|" "DONE(d)")
           (sequence "PROJ(p)" "WAITING(w@/!)" "|" "SOMEDAY(s)" "CANCELED(c)"))
         org-todo-keyword-faces
-        '(("TODO" . org-upcoming-deadline)
-          ("DONE" . org-upcoming-distant-deadline)
-          ("CANCELED" . org-upcoming-distant-deadline)
+        '(("CANCELED" . org-upcoming-distant-deadline)
           ("PROJ" . (:foreground "RosyBrown4" :weight bold))
           ("WAITING" . (:foreground "light coral" :weight bold))
           ("SOMEDAY" . (:foreground "plum" :weight bold))))
 
   ;; Org Capture
-  (defun org-capture-goto-link ()
-    (org-capture-put :target (list 'file+headline
-                                   (nth 1 (org-capture-get :target))
-                                   (org-capture-get :annotation)))
-    (org-capture-put-target-region-and-position)
-    (widen)
-    (let ((hd (org-capture-get :annotation)))
-      (goto-char (point-min))
-      (if (re-search-forward
-           (format org-complex-heading-regexp-format (regexp-quote hd)) nil t)
-          (org-end-of-subtree)
-        (goto-char (point-max))
-        (or (bolp) (insert "\n"))
-        (insert "* " (nth 2 (org-capture-get :target)) "\n"))))
-
   (setq org-gtd-file (expand-file-name "gtd.org" org-directory)
         org-default-notes-file (expand-file-name "gtd.org" org-directory))
 
@@ -73,13 +55,6 @@
   ;; Org Agenda
   (add-to-list 'org-modules 'org-habit t)
 
-  (defun append-org-agenda-files (file)
-    "append to org-agenda-files if file exists"
-    (when (file-exists-p file)
-      (push file org-agenda-files)))
-	(mapcar 'append-org-agenda-files
-          (org-projectile-todo-files))
-
   (setq org-agenda-clockreport-parameter-plist
         '(:maxlevel 3 :scope agenda-with-archives :fileskip0 t :stepskip0 t
                     :emphasize t :link t :narrow 80! :tcolumns 1 :formula %)
@@ -88,29 +63,29 @@
         org-agenda-persistent-filter t
         org-agenda-skip-additional-timestamps-same-entry t
         org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
+        org-agenda-skip-scheduled-if-done t
+        org-agenda-skip-deadline-if-done t
+        org-agenda-skip-timestamp-if-done t
+        org-agenda-skip-scheduled-if-deadline-is-shown t
         org-agenda-span 1
-        org-agenda-todo-ignore-scheduled t
+        org-agenda-start-on-weekday nil
+        org-agenda-todo-ignore-scheduled 'all
         org-agenda-todo-ignore-deadlines 'far
         org-agenda-time-grid nil
         org-enforce-todo-dependencies t
-        org-enforce-todo-checkbox-dependencies t
+        org-enforce-todo-checkbox-dependencies nil
         org-habit-graph-column 75
         org-stuck-projects '("/PROJ" ("TODO") nil ""))
 
   (setq org-agenda-custom-commands
-        '(("c" "Daily agenda and all TODOs"
-           ((agenda "" ((org-agenda-overriding-header "Today's tasks:")
-                        (org-agenda-skip-scheduled-if-done t)
-                        (org-agenda-skip-deadline-if-done t)
-                        (org-agenda-skip-timestamp-if-done t)
-                        (org-agenda-skip-scheduled-if-deadline-is-shown t)
-                        (org-agenda-span 1)))
-            (todo "TODO" ((org-agenda-overriding-header "All TODO items without scheduled or deadline")
-                          (org-agenda-skip-function '(or (org-agenda-skip-entry-if 'timestamp)
-                                                         (org-agenda-skip-subtree-if 'regexp "habit"))))))
-           ((org-agenda-compact-blocks t)
-            (org-agenda-dim-blocked-tasks 'invisible)
-            (org-agenda-repeating-timestamp-show-all nil)))
+        '(;; ("c" "Custom agenda view"
+          ;;  ((agenda "" ((org-agenda-overriding-header "Today's tasks:")
+          ;;               (org-agenda-span 1)))
+          ;;   (todo "TODO" ((org-agenda-overriding-header "All TODO items without scheduled or deadline")
+          ;;                 (org-agenda-skip-function '(or (org-agenda-skip-entry-if 'timestamp)
+          ;;                                                (org-agenda-skip-subtree-if 'regexp "habit"))))))
+          ;;  ((org-agenda-compact-blocks t)
+          ;;   (org-agenda-dim-blocked-tasks 'invisible)))
           ("O" . "Overview")
           ("Od" "Daily Review"
            ((agenda "" ((org-agenda-span 3))))
@@ -134,11 +109,6 @@
             (org-deadline-warning-days 30)))))
 
   ;; Org Clock
-  (defun my-org-clock-select-task ()
-    (interactive)
-    (org-clock-in '(4)))
-
-  (org-clock-persistence-insinuate)
   (setq org-clock-auto-clock-resolution 'when-no-clock-is-running
         org-clock-history-length 10
         org-clock-idle-time 10
@@ -150,13 +120,14 @@
         org-clock-report-include-clocking-task t)
 
   ;; Org Refile
+  (setq deft-files (directory-files-recursively deft-directory ""))
   (setq org-outline-path-complete-in-steps nil
         org-refile-allow-creating-parent-nodes 'confirm
         org-refile-use-outline-path 'file
         org-refile-targets
-        '((nil :maxlevel . 1)
-          (org-agenda-files :maxlevel . 2)
-          (deft-files :maxlevel . 1)))
+        '((nil :maxlevel . 3)
+          (org-agenda-files :maxlevel . 4)
+          (deft-files :maxlevel . 2)))
 
   ;; Org Babel
   (setq org-confirm-babel-evaluate nil
@@ -169,54 +140,100 @@
    '((python . t)
      (emacs-lisp . t)
      (C . t)
-     (latex . t)
      (org . t)
      (latex . t)))
+  (setq org-babel-C-compiler "gcc -std=c++17"
+        org-babel-C++-compiler "g++ -std=c++17")
 
-  ;; Org Publish
-  (require 'ox-html)
-  (require 'ox-latex)
-  (setf org-html-mathjax-options
-        '((path " https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS_HTML")
-          (scale "100")
-          (align "center")
-          (font "TeX")
-          (linebreaks "false")
-          (autonumber "AMS")
-          (indent "0em")
-          (multlinewidth "85%")
-          (tagindent ".8em")
-          (tagside "right")))
+  ;; Org Export
+  (with-eval-after-load 'ox-html
+    (setq org-export-with-section-numbers nil
+          org-html-divs '((preamble "header" "preamble")
+                          (content "main" "content")
+                          (postamble "footer" "postamble"))
+          org-html-doctype "html5"
+          org-html-html5-fancy t
+          org-html-checkbox-type 'html
+          org-html-metadata-timestamp-format "%Y-%m-%d"
+          org-html-htmlize-output-type 'inline-css
+          org-publish-project-alist
+          `(("site" :components ("posts" "static"))
+            ("posts"
+             :base-directory ,(expand-file-name "Site/content/posts/" org-directory)
+             :base-extension "org"
+             :publishing-directory ,(expand-file-name "Site/public/posts/" org-directory)
+             :recursive t
+             :exclude "sitemap.org"
+             :publishing-function org-html-publish-to-html
+             :headline-levels 3
+             :html-head-include-default-style nil
+             :html-head-include-scripts nil
+             :html-preamble t
+             :html-postamble t
+             :auto-sitemap t
+             :sitemap-filename "_sitemap.org"
+             :sitemap-title "Sitemap"
+             :sitemap-format-entry org-publish-sitemap-default-entry
+             :sitemap-function org-publish-sitemap-default)
+            ("pages"
+             :base-directory ,(expand-file-name "Site/content/" org-directory)
+             :base-extension "org"
+             :publishing-directory ,(expand-file-name "Site/public/" org-directory)
+             :recursive t
+             :exclude ,(regexp-opt (list "posts" "static" "public"))
+             :publishing-function org-html-publish-to-html
+             :html-head-include-default-style nil
+             :html-head-include-scripts nil
+             :html-preamble t
+             :html-postamble t
+             :auto-sitemap nil)
+            ("static"
+             :base-directory ,(expand-file-name "Site/content/static/" org-directory)
+             :base-extension "css\\|js\\|png\\|jpg\\|gif\\|svg\\|pdf\\|mp3\\|ogg\\|eot\\|woff\\|woff2\\|ttf"
+             :publishing-directory ,(expand-file-name "site/public/static/" org-directory)
+             :recursive t
+             :publishing-function org-publish-attachment)
+            ("rss"
+             :base-directory ,(expand-file-name "Site/content/" org-directory)
+             :base-extension "org"
+             :publishing-directory ,(expand-file-name "Site/public/" org-directory)
+             :publishing-function org-rss-publish-to-rss
+             :html-link-home "http://example.com"
+             :html-link-use-abs-url t
+             :rss-extension "xml"
+             :table-of-contents nil
+             :exclude ".*"
+             :include ("sitemap.org"))))
+    (add-to-list 'org-export-filter-link-functions 'filter-local-links)
+    )
 
   ;; Tex
-  (setq org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex"))
-        org-pandoc-options-for-beamer-pdf '((pdf-engine . "xelatex")))
+  (with-eval-after-load 'ox-latex
+    (setq org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex"))
+          org-pandoc-options-for-beamer-pdf '((pdf-engine . "xelatex")))
 
-  ;; (setq org-latex-pdf-process '("xelatex -interaction nonstopmode -shell-escape -output-directory %o %f"
-  ;;                               "biber %b"
-  ;;                               "xelatex -interaction nonstopmode -shell-escape -output-directory %o %f"
-  ;;                               "xelatex -interaction nonstopmode -shell-escape -output-directory %o %f"))
-  (setq org-latex-pdf-process '("latexmk -xelatex -quiet -shell-escape -f %f"))
+    (setq org-latex-pdf-process '("latexmk -xelatex -quiet -shell-escape -f %f"))
 
-  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+    (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
-  (setq org-latex-compiler "xelatex"
-        org-latex-packages-alist '(("" "mathspec" t)
-                                   ("fontset=macnew,UTF8" "ctex" t))
-        org-preview-latex-default-process 'dvisvgm
-        org-preview-latex-process-alist
-        '((dvisvgm :programs ("xelatex" "dvisvgm")
-                   :description "xdv > svg" :use-xcolor t
-                   :message "you need to install the programs: xelatex and dvisvgm."
-                   :image-input-type "xdv" :image-output-type "svg" :image-size-adjust (1.7 . 1.5)
-                   :latex-compiler ("xelatex -no-pdf -interaction nonstopmode -output-directory %o %f")
-                   :image-converter ("dvisvgm %f -n -b min -c %S -o %O"))
-          (imagemagick :programs ("xelatex" "convert")
-                       :description "pdf > png" :use-xcolor t
-                       :message "you need to install the programs: xelatex and imagemagick."
-                       :image-input-type "pdf" :image-output-type "png" :image-size-adjust (1.0 . 1.0)
-                       :latex-compiler ("xelatex -interaction nonstopmode -output-directory %o %f")
-                       :image-converter ("convert -density %D -trim -antialias %f -quality 100 %O"))))
+    (setq org-latex-compiler "xelatex"
+          org-latex-packages-alist '(("" "mathspec" t)
+                                     ("fontset=macnew,UTF8" "ctex" t))
+          org-preview-latex-default-process 'dvisvgm
+          org-preview-latex-process-alist
+          '((dvisvgm :programs ("xelatex" "dvisvgm")
+                     :description "xdv > svg" :use-xcolor t
+                     :message "you need to install the programs: xelatex and dvisvgm."
+                     :image-input-type "xdv" :image-output-type "svg" :image-size-adjust (1.7 . 1.5)
+                     :latex-compiler ("xelatex -no-pdf -interaction nonstopmode -output-directory %o %f")
+                     :image-converter ("dvisvgm %f -n -b min -c %S -o %O"))
+            (imagemagick :programs ("xelatex" "convert")
+                         :description "pdf > png" :use-xcolor t
+                         :message "you need to install the programs: xelatex and imagemagick."
+                         :image-input-type "pdf" :image-output-type "png" :image-size-adjust (1.0 . 1.0)
+                         :latex-compiler ("xelatex -interaction nonstopmode -output-directory %o %f")
+                         :image-converter ("convert -density %D -trim -antialias %f -quality 100 %O"))))
+    )
 
   ;; Org Attach
   (setq org-attach-auto-tag "ATTACH"
@@ -237,115 +254,16 @@
                               ("WORK" . ?w)
                               ("NOTE" . ?n)
                               ("errants" . ?e)
-                              ("relex" . ?r))))
+                              ("Action" . ?a)
+                              ("Focused" . ?f)
+                              ("Dessert" . ?d))))
 
-  ;; Deft
-  (setq deft-files (directory-files-recursively deft-directory ""))
-
-  ;; Org-journal
-  (defun org-journal-find-location ()
-    (org-journal-new-entry t)
-    (goto-char (point-max)))
-
-  (defun org-journal-date-format-func (time)
-    "Custom function to insert journal date header,
-and some custom text on a newly created journal file."
-    (when (= (buffer-size) 0)
-      (insert
-       (pcase org-journal-file-type
-         (`daily "#+TITLE: Daily Journal\n\n")
-         (`weekly "#+TITLE: Weekly Journal\n\n")
-         (`monthly "#+TITLE: Monthly Journal\n\n")
-         (`yearly "#+TITLE: Yearly Journal\n\n"))))
-    (concat org-journal-date-prefix (format-time-string "%A, %B %d %Y" time)))
-
-  (setq org-journal-file-type 'weekly
-        org-journal-date-format 'org-journal-date-format-func)
-
-  ;; Interaction with system
-  (defun supress-frame-splitting (&rest r)
-    (let ((frame-name (frame-parameter nil 'name)))
-      (when (or (equal "capture" frame-name)
-                (equal "agenda" frame-name))
-        (delete-other-windows))))
-
-  (defun org-capture-finalize@after (&rest r)
-    (when (equal "l" (plist-get org-capture-plist :key))
-      (run-at-time 0 nil #'osx-switch-back-to-previous-application))
-    (when (equal "capture" (frame-parameter nil 'name))
-      (spacemacs/frame-killer)))
-
-  (defun org-agenda-finalize@after (&rest r)
-    (when (equal "agenda" (frame-parameter nil 'name))
-      (spacemacs/frame-killer)))
-
-  (defun org-capture-select-template@around (org-capture-select-template &optional keys)
-    (let ((res (ignore-errors (funcall org-capture-select-template keys))))
-      (unless res (setq res "q"))
-      (when (and (equal "capture" (frame-parameter nil 'name))
-                 (equal "q" res))
-        (spacemacs/frame-killer))
-      res))
-
-  (defun org-agenda-get-restriction-and-command@around (org-agenda-get-restriction-and-command prefix-descriptions)
-    (let ((res (ignore-errors (funcall org-agenda-get-restriction-and-command prefix-descriptions))))
-      (when (and (not res)
-                 (equal "agenda" (frame-parameter nil 'name)))
-        (spacemacs/frame-killer))
-      res))
-
-  (advice-add 'org-agenda-quit :before 'org-save-all-org-buffers)
-  (advice-add 'org-agenda-quit :after 'org-agenda-finalize@after)
-  (advice-add 'org-agenda-exit :after 'org-agenda-finalize@after)
-  (advice-add 'org-agenda-get-restriction-and-command :around 'org-agenda-get-restriction-and-command@around)
-  (advice-add 'org-capture-finalize :after 'org-capture-finalize@after)
-  (advice-add 'org-capture-select-template :around 'org-capture-select-template@around)
-  (advice-add 'org-refile :after 'org-save-all-org-buffers)
-  (advice-add 'org-switch-to-buffer-other-window :after 'supress-frame-splitting)
-
-  (defun insert-zero-width-space ()
-    (interactive)
-    (insert-char ?\u200B))
-
-  (define-key org-mode-map (kbd "C-*") 'insert-zero-width-space)
-
-  ;; Export Org to Apple Note
-  ;; https://emacs-china.org/t/org-apple-note/10706
-  ;; https://vxlabs.com/2018/10/29/importing-orgmode-notes-into-apple-notes/
-  ;; https://www.emacswiki.org/emacs/string-utils.el
-  (defun string-utils-escape-double-quotes (str-val)
-  "Return STR-VAL with every double-quote escaped with backslash."
-  (save-match-data
-    (replace-regexp-in-string "\"" "\\\\\"" str-val)))
-
-  (defun string-utils-escape-backslash (str-val)
-    "Return STR-VAL with every backslash escaped with an additional backslash."
-    (save-match-data
-      (replace-regexp-in-string "\\\\" "\\\\\\\\" str-val)))
-
-  (setq as-tmpl "set TITLE to \"%s\"
-  set NBODY to \"%s\"
-  tell application \"Notes\"
-          tell folder \"Org-mode\"
-                  if not (note named TITLE exists) then
-                          make new note with properties {name:TITLE}
-                  end if
-                  set body of note TITLE to NBODY
-          end tell
-  end tell")
-
-  (defun oan-export ()
-    (interactive)
-    (let ((title (file-name-base (buffer-file-name))))
-      (with-current-buffer (org-export-to-buffer 'html "*orgmode-to-apple-notes*")
-        (let ((body (string-utils-escape-double-quotes
-                    (string-utils-escape-backslash (buffer-string)))))
-          ;; install title + body into template above and send to notes
-          (do-applescript (format as-tmpl title body))
-          ;; get rid of temp orgmode-to-apple-notes buffer
-          (kill-buffer)
-          (delete-window)
-          (message "export successfully"))
-        )))
-
+  (advice-add #'org-agenda-quit                        :before #'org-save-all-org-buffers)
+  (advice-add #'org-agenda-quit                        :after  #'org-agenda-finalize@after)
+  (advice-add #'org-agenda-exit                        :after  #'org-agenda-finalize@after)
+  (advice-add #'org-agenda-get-restriction-and-command :around #'org-agenda-get-restriction-and-command@around)
+  (advice-add #'org-capture-finalize                   :after  #'org-capture-finalize@after)
+  (advice-add #'org-capture-select-template            :around #'org-capture-select-template@around)
+  (advice-add #'org-refile                             :after  #'org-save-all-org-buffers)
+  (advice-add #'org-switch-to-buffer-other-window      :after  #'supress-frame-splitting)
   )

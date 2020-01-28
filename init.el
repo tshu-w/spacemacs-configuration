@@ -38,113 +38,9 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     spacemacs-completion
-     (spacemacs-layouts :variables spacemacs-layouts-restrict-spc-tab t)
-     spacemacs-editing
-     spacemacs-editing-visual
-     spacemacs-evil
-     spacemacs-language
-     spacemacs-misc
-     (spacemacs-modeline :packages
-                         spaceline spaceline-all-the-icons)
-     spacemacs-navigation
-     spacemacs-org
-     spacemacs-project
-     spacemacs-purpose
-     spacemacs-visual
-
-     ;; helm
-     (ivy :variables
-          ivy-re-builders-alist '((spacemacs/counsel-search . spacemacs/ivy--regex-plus)
-                                  (counsel-M-x . ivy--regex-fuzzy)
-                                  (t . ivy--regex-ignore-order))
-          ivy-initial-inputs-alist nil
-          ivy-enable-advanced-buffer-information t)
-     osx
-     (chinese :variables
-              chinese-enable-fcitx t)
-     dash
-     (version-control :variables
-                      version-control-diff-tool 'diff-hl)
-     (git :variables
-          magit-wip-mode t)
-     (github :variables
-             forge-topic-list-limit '(60 . 5))
-     (pandoc :variables
-             pandoc-data-dir "~/.spacemacs.d/pandoc-mode")
-     lsp
-     (c-c++ :variables
-            c-c++-default-mode-for-headers 'c++-mode
-            c++-enable-organize-includes-on-save t
-            c-c++-backend 'lsp-clangd)
-     emacs-lisp
-     (python :variables
-             python-backend 'anaconda
-             python-sort-imports-on-save t
-             python-test-runner '(pytest nose)
-             python-formatter 'black
-             python-format-on-save nil
-             blacken-fast-unsafe t
-             python-fill-column 88)
-     (conda :variables
-            conda-anaconda-home "/usr/local/anaconda3")
-     (markdown :variables
-               markdown-command "pandoc -f markdown+smart -t html5 --mathjax --highlight-style=pygments --toc --toc-depth 3 --template github.html5 --shift-heading-level-by=-1 --quiet"
-               markdown-live-preview-engine 'pandoc)
-     (org :variables
-          org-agenda-files '("~/Documents/Org")
-          org-directory '"~/Documents/Org"
-          org-projectile-file "TODOs.org"
-          org-want-todo-bindings t
-          org-enable-hugo-support nil
-          org-enable-reveal-js-support nil
-          org-enable-org-journal-support t
-          org-journal-dir "~/Documents/Org/Journals/")
-     (latex :variables
-            latex-enable-auto-fill nil
-            latex-enable-folding t
-            latex-enable-magic nil)
-     (bibtex :variables
-             org-ref-default-bibliography '("~/Dropbox/Documents/Zotero/refs.bib")
-             org-ref-pdf-directory "~/Dropbox/Documents/Zotero/"
-             org-ref-bibliography-notes "~/Dropbox/Documents/Zotero/notes.org")
-     (deft :variables
-       deft-directory "~/Documents/Org/Notes"
-       deft-recursive t
-       deft-extensions '("org" "md" "txt")
-       deft-org-mode-title-prefix t
-       deft-use-filename-as-title nil
-       deft-use-filter-string-for-filename t
-       deft-auto-save-interval 0
-       deft-file-naming-rules '((noslash . "-")
-                                (nospace . "-")
-                                (case-fn . downcase))
-       deft-strip-summary-regexp (concat "\\("
-                                         "[\n\t]" ;; blank
-                                         "\\|^#\\+[[:upper:]_]+:.*$" ;; org-mode metadata
-                                         "\\|^#\\+[[:alnum:]_]+:.*$" ;; org-mode metadata
-                                         "\\)"))
-     (auto-completion :variables
-                      auto-completion-enable-help-tooltip t
-                      auto-completion-use-company-box t
-                      auto-completion-enable-snippets-in-popup nil
-                      auto-completion-enable-sort-by-usage t)
-     (templates :variables
-                templates-private-directory "~/.spacemacs.d/templates")
-     (syntax-checking :variables
-                      syntax-checking-enable-by-default t)
-     (pdf :variables
-          pdf-view-use-scaling t)
-     (wakatime :variables
-               wakatime-cli-path "/usr/local/bin/wakatime")
-     (geolocation :variables
-                  geolocation-enable-automatic-theme-changer t
-                  geolocation-enable-location-service t)
-     imenu-list
-     evil-commentary
-     helpful
-     unicode-fonts
-     cfg
+     editor
+     lang
+     misc
      )
 
    ;; List of additional packages that will be installed without being
@@ -154,21 +50,13 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(helm-github-stars
-                                      edit-indirect
-                                      org-edit-latex cdlatex
-                                      json-mode yaml-mode web-mode
-                                      ivy-posframe
-                                      (insert-translated-name
-                                       :location (recipe :fetcher github :repo "manateelazycat/insert-translated-name"))
-                                      doom-themes
-                                      cal-china-x)
+   dotspacemacs-additional-packages '(doom-themes)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(fill-column-indicator exec-path-from-shell)
+   dotspacemacs-excluded-packages '()
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -299,7 +187,8 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(all-the-icons :separator wave)
+   ;; dotspacemacs-mode-line-theme '(spacemacs :separator slant :separator-scale 1.2)
+   dotspacemacs-mode-line-theme '(doom)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -395,11 +284,11 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar t
+   dotspacemacs-loading-progress-bar nil
 
    ;; If non-nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup t
+   dotspacemacs-fullscreen-at-startup nil
 
    ;; If non-nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
@@ -553,11 +442,6 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq custom-file "~/.emacs.d/.cache/.custom-settings")
-  (load custom-file)
-
-  (setq-default git-magit-status-fullscreen t)
-  (unless (display-graphic-p)
-    (setq dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.2)))
   )
 
 (defun dotspacemacs/user-load ()
@@ -573,106 +457,41 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  ;; Proxy
+  ;; proxy
   ;;
   (setq url-proxy-services
         '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
           ("http" . "127.0.0.1:6152")
           ("https" . "127.0.0.1:6152")))
-
-  ;; Env
+  ;; env
   ;;
   (set-language-environment "UTF-8")
   (set-default-coding-systems 'utf-8)
-  (setenv "LC_TIME" "C")
-  (setenv "LC_NUMERIC" "C")
-  (when (string= system-type "darwin")
-    (setq dired-use-ls-dired nil))
-  (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
-  (setq python-shell-interpreter "/usr/local/anaconda3/bin/python"
-        org-babel-python-command "/usr/local/anaconda3/bin/python")
-
-  ;; Appearance
+  (setq user-mail-address "volekingsg@gmail.com")
+  (when (spacemacs/system-is-mac)
+    (setq insert-directory-program "/usr/local/bin/gls"
+          dired-listing-switches "-aBhl --group-directories-first"))
+  ;; appearance
   ;;
   (when (display-graphic-p)
     (spacemacs//set-monospaced-font "Source Code Pro" "PingFang SC" 14 16))
   (custom-set-faces '(nobreak-space ((t nil))))
-  (add-hook 'pdf-view-mode-hook (lambda () (pdf-view-midnight-minor-mode)))
-
+  (setq scroll-margin 5
+        standard-indent 2)
   (setq display-time-24hr-format t
         display-time-default-load-average nil)
-  (setq org-bullets-bullet-list '("◉" "○" "✸" "✿" "▲" "▶" "■" "◆"))
-
-  (setq scroll-margin 7
-        standard-indent 2)
-  (setq writeroom-width 120
-        writeroom-fringes-outside-margins t
-        writeroom-bottom-divider-width 0
-        writeroom-mode-line t
-        writeroom-mode-line-toggle-position 'mode-line-format
-        writeroom-major-modes '(text-mode prog-mode))
-  (global-writeroom-mode 1)
-  (add-hook 'find-file-hook #'writeroom-mode)
-  ; AucTex preview
-  (custom-set-faces
-   '(preview-reference-face ((t (:foreground "black")))))
-
   ;; cfg
   ;;
   (fset 'evil-visual-update-x-selection 'ignore)
-  (load (expand-file-name "secrets.el.gpg" dotspacemacs-directory))
-  (global-git-commit-mode t)
-  ;; Changes all yes/no questions to y/n type
-  (fset 'yes-or-no-p 'y-or-n-p)
-
-  ;; packages
-  ;;
-  (use-package helm-github-stars
-    :defer t
-    :custom
-    (helm-github-stars-username "tshu-w")
-    (helm-github-stars-refetch-time 1))
-
-  (use-package cdlatex
-    :defer t
-    :hook ((org-mode . org-cdlatex-mode)
-           (LaTeX-mode . turn-on-cdlatex)
-           (latex-mode . turn-on-cdlatex))
-    ;; :config
-    ;; (defun my-after-load-cdlatex ()
-    ;;   (define-key cdlatex-mode-map "_" nil)
-    ;;   (define-key cdlatex-mode-map "^" nil)
-    ;;   t)
-    ;; (eval-after-load "cdlatex" '(my-after-load-cdlatex))
-    )
-
-  (use-package ivy-posframe
-    :defer t
-    :after ivy
-    :init
-    (ivy-posframe-mode 1)
-    :config
-    (setq ivy-posframe-parameters
-          '((left-fringe . 8)
-            (right-fringe . 8))
-          ivy-posframe-width 100
-          ivy-posframe-display-functions-alist '((swiper . nil)
-                                                 (complete-symbol . ivy-posframe-display-at-point)
-                                                 (t . ivy-posframe-display-at-frame-center))))
-
-  (use-package insert-translated-name
-    :defer t
-    :bind ("H-t" . insert-translated-name-insert))
-
-  ;; fix hungry-delete & smartparents conflict
-  ;;
-  (defadvice hungry-delete-backward
-      (before sp-delete-pair-advice activate) (save-match-data (sp-delete-pair (ad-get-arg 0))))
-
-  ;; fix tramp file slow
-  ;;
-  (defadvice projectile-project-root (around ignore-remote first activate)
-    (unless (file-remote-p default-directory) ad-do-it))
-
+  (setq revert-without-query '(".*")) ;; disable revert query
+  (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+  (electric-pair-mode t)
+  (global-visual-line-mode t)
   (fcitx-prefix-keys-turn-off)
+  (redo-spacemacs-bindings)
+
+  ;; fix doom-theme face
+  (custom-set-faces '(diff-hl-change ((t (:background nil))))
+                    '(diff-hl-delete ((t (:background nil))))
+                    '(diff-hl-insert ((t (:background nil)))))
   )

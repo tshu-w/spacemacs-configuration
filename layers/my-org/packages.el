@@ -1,21 +1,22 @@
-;;; packages.el --- Org Layer packages File for Spacemacs
-;;
-;; Copyright (c) 2017-2020 Tianshu Wang
-;;
-;; Author: Tianshu Wang <volekingsg@gmail.com>
-;; URL: https://github.com/tshu-w/spacemacs-configuration
-;;
-;; This file is not part of GNU Emacs.
-;;
-;;; License: GPLv3
-
-(setq my-org-packages '(zotxt))
+(setq my-org-packages '(zotxt org-projectile org-journal))
 
 (defun my-org/init-zotxt ()
-  (spacemacs|diminish org-zotxt-mode " Ⓩ" " z")
-  (spacemacs/declare-prefix-for-mode 'org-mode "mz"  "zotero")
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode
-    "zi"    'org-zotxt-insert-reference-link
-    "iz"    'org-zotxt-insert-reference-link
-    "zo"    'org-zotxt-open-attachment)
-  (add-hook 'org-mode-hook 'org-zotxt-mode))
+  (use-package zotxt
+    :defer t
+    :hook (org-mode . org-zotxt-mode)
+    :config
+    (progn
+      (spacemacs/declare-prefix-for-mode 'org-mode "mz" "zotero")
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode
+        "zi"    'org-zotxt-insert-reference-link
+        "iz"    'org-zotxt-insert-reference-link
+        "zo"    'org-zotxt-open-attachment))))
+
+(defun my-org/post-init-org-projectile()
+  (with-eval-after-load 'org
+    (require 'org-projectile)
+    (mapcar 'append-org-agenda-files (org-projectile-todo-files))))
+
+(defun my-org/post-init-org-journal ()
+  (setq org-journal-file-type    'weekly
+        org-journal-date-format #'org-journal-date-format-func))
