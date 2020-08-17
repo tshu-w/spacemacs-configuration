@@ -37,9 +37,10 @@
   (org-clock-in '(4)))
 
 ;; Org-journal
-(defun org-journal-find-location ()
-  (org-journal-new-entry t)
-  (goto-char (point-max)))
+(defun org-journal-find-location (&optional days)
+  (let ((date (time-add (current-time) (days-to-time days))))
+    (org-journal-new-entry t date)
+    (goto-char (point-max))))
 
 (defun org-journal-date-format-func (time)
   "Custom function to insert journal date header,

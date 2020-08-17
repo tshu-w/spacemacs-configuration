@@ -21,10 +21,10 @@
    spacemacs-language
    spacemacs-misc
    (spacemacs-modeline :packages (spaceline doom-modeline))
-   (spacemacs-navigation :packages (not ace-window open-junk-file symbol-overlay winum))
+   (spacemacs-navigation :packages (not ace-window open-junk-file symbol-overlay))
    spacemacs-org
    spacemacs-project
    ;; spacemacs-purpose
-   (spacemacs-visual :packages (not fill-column-indicator popwin zoom-frm))
+   (spacemacs-visual :packages (not popwin zoom-frm))
    )
  )

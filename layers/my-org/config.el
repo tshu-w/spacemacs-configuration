@@ -47,6 +47,8 @@
           ("r" "Record" entry (file org-gtd-file)
            "* %?\n  %i\n" :clock-in t :clock-keep t)
           ("R" "Review")
+          ("Ry" "Yesterday" plain (function (lambda () (org-journal-find-location -1)))
+           "** Daily Review\n%?\n%i")
           ("Rd" "Daily Review" plain (function org-journal-find-location)
            "** Daily Review\n%?\n%i")
           ("Rw" "Weekly Review" plain (function org-journal-find-location)

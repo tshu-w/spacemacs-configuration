@@ -79,7 +79,7 @@ It should only modify the values of Spacemacs settings."
    ;; to compile Emacs 27 from source following the instructions in file
    ;; EXPERIMENTAL.org at to root of the git repository.
    ;; (default nil)
-   dotspacemacs-enable-emacs-pdumper nil
+   dotspacemacs-enable-emacs-pdumper t
 
    ;; Name of executable file pointing to emacs 27+. This executable must be
    ;; in your PATH.
@@ -228,7 +228,7 @@ It should only modify the values of Spacemacs settings."
    ;; and TAB or `C-m' and `RET'.
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
-   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-distinguish-gui-tab t
 
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
@@ -486,7 +486,6 @@ before packages are loaded."
   (setq revert-without-query '(".*")) ;; disable revert query
   (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
   (electric-pair-mode t)
-  (global-visual-line-mode t)
   (fcitx-prefix-keys-turn-off)
   (redo-spacemacs-bindings)
 

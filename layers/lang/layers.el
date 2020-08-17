@@ -21,7 +21,7 @@
           c-c++-adopt-subprojects t)
    (python :packages (not yapfify live-py-mode)
            :variables
-           python-backend 'anaconda
+           python-backend 'lsp
            python-sort-imports-on-save t
            python-test-runner '(pytest nose)
            python-formatter 'black

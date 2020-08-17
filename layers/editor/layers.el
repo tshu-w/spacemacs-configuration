@@ -28,7 +28,7 @@
    (version-control :packages (not browse-at-remote)
                     :variables
                     version-control-diff-tool 'diff-hl)
-   (git :packages (not fill-column-indicator smeargle)
+   (git :packages (not smeargle)
         :variables
         magit-wip-mode t
         git-magit-status-fullscreen t)
